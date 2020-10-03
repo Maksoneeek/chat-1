@@ -1,3 +1,3 @@
 <template>
-  <div class="">Hello Chat</div>
+  <div class="">{{ $store.state.chats.message }}</div>
 </template>
