@@ -77,7 +77,8 @@ body, html {
 }
 
 .chat {
-  padding: 117px 0 0 163px;
+  display: flex;
+  padding: 40px;
 }
 
 .chat__container {
@@ -98,6 +99,7 @@ body, html {
 
 .letters-chat {
   width: 19px;
+  padding: 50px 20px;
 }
 
 .letters-chat__body {
