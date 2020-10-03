@@ -1,6 +1,8 @@
 <template>
   <div class="list-chat__header header-list-chat">
-    <div class="header-list-chat__title">Ваши диалоги <span>(19)</span></div>
+    <div class="header-list-chat__title">
+      Ваши диалоги <span>({{ getChatsLength }})</span>
+    </div>
     <div class="header-list-chat__icons">
       <div class="header-list-chat__icon">
         <svg
@@ -89,3 +91,13 @@
     </div>
   </div>
 </template>
+
+<script>
+import { mapGetters } from "vuex";
+
+export default {
+  computed: {
+    ...mapGetters(["getChatsLength"]),
+  },
+};
+</script>

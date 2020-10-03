@@ -1,12 +1,7 @@
 <template>
   <div class="chat__list list-chat">
     <ChatListHeader />
-    <ChatListItem />
-    <ChatListItem />
-    <ChatListItem />
-    <ChatListItem />
-    <ChatListItem />
-    <ChatListItem />
+    <ChatListItem v-for="chat in chats" :key="chat.id" :item="chat" />
   </div>
 </template>
 
@@ -18,6 +13,11 @@ export default {
   components: {
     ChatListHeader,
     ChatListItem,
+  },
+  computed: {
+    chats() {
+      return this.$store.state.chats.chats;
+    },
   },
 };
 </script>
