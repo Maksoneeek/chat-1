@@ -478,6 +478,10 @@ body, html {
   width: 100%;
 }
 
+.chat-item {
+  position: relative;
+}
+
 .footer-chat-item {
   height: 68px;
   -webkit-box-shadow: 0 0 24px rgba(4, 26, 55, 0.08);

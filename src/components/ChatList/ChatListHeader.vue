@@ -89,29 +89,19 @@
         </svg>
       </div>
     </div>
-    <NewChatPopup :visible="newChatPopupVisible" />
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import NewChatPopup from "./NewChatPopup";
 
 export default {
-  data() {
-    return {
-      newChatPopupVisible: false,
-    };
-  },
-  components: {
-    NewChatPopup,
-  },
   computed: {
     ...mapGetters(["getChatsLength"]),
   },
   methods: {
     toggleNewChatPopup() {
-      this.newChatPopupVisible = !this.newChatPopupVisible;
+      this.$store.commit("toggleNewChatPopup");
     },
   },
 };

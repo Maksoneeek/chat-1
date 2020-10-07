@@ -1,5 +1,9 @@
 <template>
-  <div id="popup-new" class="popup-new" :class="{ open: visible }">
+  <div
+    id="popup-new"
+    class="popup-new"
+    :class="{ open: $store.state.meta.newChatPopup }"
+  >
     <div class="popup-new__body">
       <div class="popup-new__content">
         <div class="popup-new__header">
@@ -109,7 +113,6 @@ export default {
       message: "",
     };
   },
-  props: ["visible"],
   methods: {
     addChat() {
       this.$store.dispatch("createChat", {

@@ -3,6 +3,7 @@
     <MessagesHeader />
     <MessagesList />
     <MessagesFooter />
+    <NewChatPopup />
   </div>
 </template>
 
@@ -10,12 +11,14 @@
 import MessagesHeader from "./MessagesHeader";
 import MessagesList from "./MessagesList";
 import MessagesFooter from "./MessagesFooter";
+import NewChatPopup from "../ChatList/NewChatPopup";
 
 export default {
   components: {
     MessagesHeader,
     MessagesList,
     MessagesFooter,
+    NewChatPopup,
   },
 };
 </script>
