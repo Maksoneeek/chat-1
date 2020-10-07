@@ -730,3 +730,119 @@ body, html {
   margin: 0 0 0 6px;
 }
 /*# sourceMappingURL=style.css.map */
+
+.popup-new {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  display: none;
+}
+
+.popup-new.open {
+  display: block;
+}
+
+.popup-new__content {
+  width: 600px;
+  height: 212px;
+  -webkit-box-shadow: 0 0 24px rgba(4, 26, 55, 0.08);
+          box-shadow: 0 0 24px rgba(4, 26, 55, 0.08);
+  border: 1px solid #e5e5e5;
+  background-color: #ffffff;
+}
+
+.popup-new__header {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 55px;
+  padding: 0 0 0 31px;
+  -webkit-box-shadow: 0 0 24px rgba(4, 26, 55, 0.08);
+          box-shadow: 0 0 24px rgba(4, 26, 55, 0.08);
+}
+
+.popup-new__icon {
+  margin: 0 15px 0 0;
+}
+
+.popup-new__templates {
+  border-radius: 8px;
+  border: 1px solid #909090;
+  background-color: #f6f6f6;
+  width: 122px;
+  height: 35px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.popup-new__title {
+  color: #222222;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.06px;
+}
+
+.popup-new__form {
+  padding: 25px 0 0 31px;
+}
+
+.popup-new__row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  margin-bottom: 35px;
+}
+
+.popup-new__row:last-child {
+  margin: 0;
+}
+
+.popup-new__input {
+  height: 24px;
+  border-bottom: 1px solid #000000;
+}
+
+.popup-new__input input {
+  color: #c3c3c3;
+  font-size: 13px;
+  font-weight: 500;
+  height: 12px;
+}
+
+.popup-new__input_s {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 386px;
+          flex: 0 1 386px;
+  margin: 0 30px 0 0;
+}
+
+.popup-new__input_b {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 508px;
+          flex: 0 1 508px;
+  margin: 0 10px 0 0;
+}
+
+.popup-new__input_bi {
+  width: 508px;
+}
+
+.popup-new__input_si {
+  width: 386px;
+}

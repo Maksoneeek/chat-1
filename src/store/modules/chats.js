@@ -10,10 +10,24 @@ export default {
     ]
   },
   mutations: {
-
+    addChat(state, newChat) {
+      state.chats.push(newChat)
+    }
   },
   actions: {
+    createChat({ commit }, payload) {
+      const newChat = {
+        id: Date.now(),
+        isRead: false,
+        ownerName: 'Default',
+        ownerPhone: payload.ownerPhone,
+        programm: 'Telegram',
+        lastMessage: payload.message,
+        timestamp: Date.now()
+      }
 
+      commit('addChat', newChat)
+    }
   },
   getters: {
     getChatsLength(state) {

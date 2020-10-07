@@ -35,7 +35,7 @@
           />
         </svg>
       </div>
-      <div class="header-list-chat__icon">
+      <div @click="toggleNewChatPopup" class="header-list-chat__icon">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -89,15 +89,30 @@
         </svg>
       </div>
     </div>
+    <NewChatPopup :visible="newChatPopupVisible" />
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import NewChatPopup from "./NewChatPopup";
 
 export default {
+  data() {
+    return {
+      newChatPopupVisible: false,
+    };
+  },
+  components: {
+    NewChatPopup,
+  },
   computed: {
     ...mapGetters(["getChatsLength"]),
+  },
+  methods: {
+    toggleNewChatPopup() {
+      this.newChatPopupVisible = !this.newChatPopupVisible;
+    },
   },
 };
 </script>
