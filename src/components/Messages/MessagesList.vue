@@ -1,9 +1,10 @@
 <template>
   <div class="chat-item__content content-chat-content">
-    <MessagesItem :type="'recipient'" />
-    <MessagesItem :type="'sender'" />
-    <MessagesItem :type="'sender'" />
-    <MessagesItem :type="'recipient'" />
+    <MessagesItem
+      v-for="message in messages"
+      :key="message.id"
+      :item="message"
+    />
   </div>
 </template>
 
@@ -13,6 +14,11 @@ import MessagesItem from "./MessagesItem";
 export default {
   components: {
     MessagesItem,
+  },
+  computed: {
+    messages() {
+      return this.$store.state.messages.messages;
+    },
   },
 };
 </script>

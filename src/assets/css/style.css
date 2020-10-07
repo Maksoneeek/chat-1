@@ -600,6 +600,7 @@ body, html {
 }
 
 .content-chat-content {
+  overflow: scroll;
   padding: 0 25px;
   background: url(../img/pattern.png);
   background-color: #f0f1f2;

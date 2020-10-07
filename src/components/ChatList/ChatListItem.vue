@@ -33,13 +33,13 @@
 </template>
 
 <script>
+import { convertDate } from "../../services/date";
+
 export default {
   props: ["item"],
   computed: {
     getDate() {
-      const date = new Date(this.item.timestamp).toDateString().slice(4, 10);
-      const time = new Date(this.item.timestamp).toTimeString().slice(0, 5);
-      return `${date}, ${time}`;
+      return convertDate(this.item.timestamp);
     },
   },
 };

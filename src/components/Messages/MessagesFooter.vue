@@ -3,10 +3,13 @@
     <div class="footer-chat-item__body">
       <form action="">
         <div class="footer-chat-item__input">
-          <textarea name="" id=""></textarea>
+          <textarea v-model="text" name="" id=""></textarea>
         </div>
         <div class="footer-chat-item__icons">
-          <button class="footer-chat-item__button active">
+          <button
+            @click="createMessage"
+            class="footer-chat-item__button active"
+          >
             <svg width="22px" height="19px" viewBox="0 0 512 512">
               <linearGradient
                 id="SVGID_1_"
@@ -138,3 +141,22 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      text: "",
+    };
+  },
+  methods: {
+    createMessage(e) {
+      e.preventDefault();
+      if (this.text) {
+        this.$store.dispatch("createMessage", this.text);
+        this.text = "";
+      }
+    },
+  },
+};
+</script>
