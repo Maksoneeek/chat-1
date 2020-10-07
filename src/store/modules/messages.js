@@ -6,7 +6,12 @@ export default {
       { id: 13, type: 'text', owner: 'me', body: 'Привет я аниматор', status: 'failed', timestamp: Date.now() },
       { id: 14, type: 'text', owner: 'me', body: 'Привет я аниматор', status: 'sent', timestamp: Date.now() },
       { id: 15, type: 'text', owner: 'me', body: 'Привет я аниматор', status: 'sent', timestamp: Date.now() },
-      { id: 16, type: 'text', owner: 'me', body: 'Привет я аниматор', status: 'sent', timestamp: Date.now() }
+      { id: 16, type: 'text', owner: 'me', body: 'Привет я аниматор', status: 'sent', timestamp: Date.now() },
+      { id: 16, type: 'text', owner: 'me', body: 'Привет я аниматор', status: 'sent', timestamp: Date.now() },
+      { id: 16, type: 'text', owner: 'me', body: 'Привет я аниматор', status: 'sent', timestamp: Date.now() },
+      { id: 16, type: 'text', owner: 'me', body: 'Привет я аниматор', status: 'sent', timestamp: Date.now() },
+      { id: 16, type: 'text', owner: 'me', body: 'Привет я аниматор', status: 'sent', timestamp: Date.now() },
+      { id: 16, type: 'text', owner: 'me', body: 'Привет я аниматор', status: 'sent', timestamp: Date.now() },
     ]
   },
   mutations: {

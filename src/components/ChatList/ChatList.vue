@@ -1,7 +1,9 @@
 <template>
   <div class="chat__list list-chat">
     <ChatListHeader />
-    <ChatListItem v-for="chat in chats" :key="chat.id" :item="chat" />
+    <div class="list-chat__scroll">
+      <ChatListItem v-for="chat in chats" :key="chat.id" :item="chat" />
+    </div>
   </div>
 </template>
 

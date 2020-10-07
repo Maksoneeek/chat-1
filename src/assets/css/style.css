@@ -76,6 +76,33 @@ body, html {
   font-family: "Montserrat";
 }
 
+body ::-webkit-scrollbar, html ::-webkit-scrollbar {
+  width: 3px;
+  /* ширина для вертикального скролла */
+  height: 140px;
+  /* высота для горизонтального скролла */
+  background: transparent;
+  position: relative;
+}
+
+body ::-webkit-scrollbar-thumb, html ::-webkit-scrollbar-thumb {
+  width: 3px;
+  height: 140px;
+  border-radius: 1px;
+  background-color: #dbe0e4;
+  position: absolute;
+  right: 4px;
+}
+
+body .scrollar-viewport, html .scrollar-viewport {
+  overflow: scroll;
+}
+
+body .scrollar-viewport, html .scrollar-viewport {
+  clip: rect(0, auto, auto, 0);
+  clip: rect(0 100% 100% 0);
+}
+
 .chat {
   display: flex;
   padding: 40px;
@@ -184,6 +211,13 @@ body, html {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 333px;
           flex: 0 0 333px;
+}
+
+.list-chat__scroll {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 760px;
+  position: relative;
 }
 
 .header-list-chat {
@@ -604,7 +638,8 @@ body, html {
 }
 
 .content-chat-content {
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
   padding: 0 25px;
   background: url(../img/pattern.png);
   background-color: #f0f1f2;
