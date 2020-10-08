@@ -1,5 +1,9 @@
 <template>
-  <div class="list-chat__item item-list-chat">
+  <div
+    class="list-chat__item item-list-chat"
+    :class="{ active: CurrentChatId == item.id }"
+    @click="setChatId(item.id)"
+  >
     <div class="item-list-chat__body">
       <div class="item-list-chat__icon item-list-chat__icon_new icon">
         {{ item.ownerName[0].toUpperCase() }}
@@ -40,6 +44,15 @@ export default {
   computed: {
     getDate() {
       return convertDate(this.item.timestamp);
+    },
+    CurrentChatId() {
+      return this.$store.state.messages.currentChatId;
+    },
+  },
+  methods: {
+    setChatId(id) {
+      this.$store.commit("setChatId", id);
+      this.$store.dispatch("fetchMessagesRequest");
     },
   },
 };

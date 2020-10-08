@@ -25,7 +25,6 @@ export default {
     elem.scrollTop = elem.scrollHeight;
   },
   updated() {
-    console.log("214");
     let elem = this.$el;
     elem.scrollTop = elem.scrollHeight;
   },
