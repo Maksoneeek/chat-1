@@ -20,5 +20,8 @@ export default {
     MessagesFooter,
     NewChatPopup,
   },
+  mounted() {
+    this.$store.dispatch("fetchMessagesRequest");
+  },
 };
 </script>

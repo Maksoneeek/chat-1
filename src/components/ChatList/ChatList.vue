@@ -21,5 +21,8 @@ export default {
       return this.$store.state.chats.chats;
     },
   },
+  mounted() {
+    this.$store.dispatch("fetchChatsRequest");
+  },
 };
 </script>
