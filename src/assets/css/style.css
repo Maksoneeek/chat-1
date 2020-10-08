@@ -83,6 +83,7 @@ body ::-webkit-scrollbar, html ::-webkit-scrollbar {
   /* высота для горизонтального скролла */
   background: transparent;
   position: relative;
+  background-color: transparent;
 }
 
 body ::-webkit-scrollbar-thumb, html ::-webkit-scrollbar-thumb {
@@ -116,6 +117,7 @@ body .scrollar-viewport, html .scrollar-viewport {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  max-width: 1269px;
 }
 
 .chat__item {
@@ -216,8 +218,11 @@ body .scrollar-viewport, html .scrollar-viewport {
 .list-chat__scroll {
   overflow-y: scroll;
   overflow-x: hidden;
-  height: 760px;
+  height: 748px;
   position: relative;
+  border-radius: 0px 0 0px 10px;
+  border-bottom: 2px solid #f1f2f3;
+  border-left: 2px solid #f1f2f3;
 }
 
 .header-list-chat {
@@ -232,8 +237,8 @@ body .scrollar-viewport, html .scrollar-viewport {
           align-items: center;
   height: 44px;
   padding: 0 25px;
-  -webkit-box-shadow: 0 0 24px rgba(4, 26, 55, 0.08);
-          box-shadow: 0 0 24px rgba(4, 26, 55, 0.08);
+  border: 2px solid #f1f2f3;
+  border-radius: 10px 0 0px 0px;
 }
 
 .header-list-chat__title {
@@ -241,6 +246,7 @@ body .scrollar-viewport, html .scrollar-viewport {
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.06px;
+  cursor: pointer;
 }
 
 .header-list-chat__icons {
@@ -284,6 +290,7 @@ body .scrollar-viewport, html .scrollar-viewport {
           align-items: center;
   position: relative;
   background-color: #ffffff;
+  cursor: pointer;
 }
 
 .item-list-chat::before {
@@ -462,8 +469,6 @@ body .scrollar-viewport, html .scrollar-viewport {
 
 .header-item-chat {
   height: 44px;
-  -webkit-box-shadow: 0 0 24px rgba(4, 26, 55, 0.08);
-          box-shadow: 0 0 24px rgba(4, 26, 55, 0.08);
   background-color: #ffffff;
   padding: 0 25px;
   display: -webkit-box;
@@ -475,6 +480,9 @@ body .scrollar-viewport, html .scrollar-viewport {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  border: 2px solid #f1f2f3;
+  border-left: none;
+  border-radius: 0px 10px 0px 0px;
 }
 
 .header-item-chat__body {
@@ -484,6 +492,7 @@ body .scrollar-viewport, html .scrollar-viewport {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  cursor: pointer;
 }
 
 .header-item-chat__line {
@@ -494,6 +503,7 @@ body .scrollar-viewport, html .scrollar-viewport {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  cursor: pointer;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -518,8 +528,6 @@ body .scrollar-viewport, html .scrollar-viewport {
 
 .footer-chat-item {
   height: 68px;
-  -webkit-box-shadow: 0 0 24px rgba(4, 26, 55, 0.08);
-          box-shadow: 0 0 24px rgba(4, 26, 55, 0.08);
   background-color: #ffffff;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -527,6 +535,8 @@ body .scrollar-viewport, html .scrollar-viewport {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  border: 2px solid #f1f2f3;
+  border-radius: 0px 0 10px 0px;
   padding: 0 25px 0 35px;
 }
 
@@ -616,6 +626,7 @@ body .scrollar-viewport, html .scrollar-viewport {
       -ms-flex-align: center;
           align-items: center;
   height: 100%;
+  cursor: pointer;
 }
 
 .footer-chat-item__templates_icon {
