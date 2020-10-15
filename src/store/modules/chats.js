@@ -38,6 +38,9 @@ export default {
     },
     getChats(state) {
       return state.chats.sort((x, y) => y.sos ? 1 : -1)
+    },
+    currentChat(state, getters, rootState) {
+      return state.chats.find(item => item.id === rootState.meta.currentChatId)
     }
   }
 }

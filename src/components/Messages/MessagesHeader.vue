@@ -1,18 +1,30 @@
 <template>
   <div class="chat-item__header header-item-chat">
-    <div class="header-item-chat__body">
+    <div v-if="currentChat" class="header-item-chat__body">
       <span class="header-item-chat__line line">
-        <span class="line__name"> Andrey </span>
+        <span class="line__name"> {{ currentChat.ownerName }} </span>
         <div class="line__number">
-          79007389606
-          <span class="line__messenger tg"> Telegram </span>
+          {{ currentChat.ownerPhone }}
+          <span
+            class="line__messenger"
+            :class="{
+              wp: currentChat.programm == 'Whatsapp',
+              tg: currentChat.programm == 'Telegram',
+            }"
+          >
+            {{ currentChat.programm }}
+          </span>
         </div>
       </span>
       <span class="header-item-chat__info">
         <img src="../../assets/img/info.png" alt="" />
       </span>
     </div>
-    <div class="header-item-chat__exit">
+    <div
+      v-if="currentChat"
+      @click="setNullChatId"
+      class="header-item-chat__exit"
+    >
       <span class="header-item-chat__exit_text"> Выход из диалога </span>
       <span class="header-item-chat__exit_icon">
         <svg width="22px" height="19px" viewBox="0 0 512 512">
@@ -37,3 +49,19 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  computed: {
+    currentChat() {
+      return this.$store.getters.currentChat;
+    },
+  },
+  methods: {
+    setNullChatId() {
+      this.$store.commit("setChatId", null);
+      this.$store.dispatch("fetchMessagesRequest");
+    },
+  },
+};
+</script>

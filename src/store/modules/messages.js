@@ -2,7 +2,6 @@ import Api from '../../services/api'
 
 export default {
   state: {
-    currentChatId: null,
     messages: []
   },
   mutations: {
@@ -11,14 +10,11 @@ export default {
     },
     addMessage(state, message) {
       state.messages.push(message)
-    },
-    setChatId(state, chatId) {
-      state.currentChatId = chatId
     }
   },
   actions: {
-    async fetchMessagesRequest({ commit, state }) {
-      const messages = await Api.fetchMessages(state.currentChatId)
+    async fetchMessagesRequest({ commit, rootState }) {
+      const messages = await Api.fetchMessages(rootState.meta.currentChatId)
 
       commit('addMessages', messages)
     },
