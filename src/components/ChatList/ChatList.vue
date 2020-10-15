@@ -18,7 +18,7 @@ export default {
   },
   computed: {
     chats() {
-      return this.$store.state.chats.chats;
+      return this.$store.getters.getChats;
     },
   },
   mounted() {

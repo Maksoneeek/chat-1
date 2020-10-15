@@ -5,7 +5,10 @@
     @click="setChatId(item.id)"
   >
     <div class="item-list-chat__body">
-      <div class="item-list-chat__icon item-list-chat__icon_new icon">
+      <div
+        class="item-list-chat__icon item-list-chat__icon_new icon"
+        :class="{ icon_new: item.sos }"
+      >
         {{ item.ownerName[0].toUpperCase() }}
       </div>
       <div class="item-list-chat__block">

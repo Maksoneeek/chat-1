@@ -35,6 +35,9 @@ export default {
   getters: {
     getChatsLength(state) {
       return state.chats.length
+    },
+    getChats(state) {
+      return state.chats.sort((x, y) => y.sos ? 1 : -1)
     }
   }
 }
