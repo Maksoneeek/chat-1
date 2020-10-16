@@ -16,7 +16,7 @@ export default {
     async fetchChatsRequest({ commit }) {
       const chats = await Api.fetchChats()
 
-      commit('addChats', chats)
+      commit('addChats', chats.data)
     },
     createChat({ commit }, payload) {
       const newChat = {

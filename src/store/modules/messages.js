@@ -16,7 +16,7 @@ export default {
     async fetchMessagesRequest({ commit, rootState }) {
       const messages = await Api.fetchMessages(rootState.meta.currentChatId)
 
-      commit('addMessages', messages)
+      commit('addMessages', messages.data)
     },
     createMessage({ commit }, body) {
       const newMessage = {
