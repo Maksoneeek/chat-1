@@ -10,10 +10,13 @@
         :class="{ icon_new: item.sos }"
       >
         {{ item.ownerName[0].toUpperCase() }}
+        <span v-if="!item.isRead">2</span>
       </div>
       <div class="item-list-chat__block">
         <div class="item-list-chat__line line">
-          <span class="line__name"> {{ item.ownerName }} </span>
+          <span class="line__name">
+            {{ item.ownerName }}
+          </span>
           <div class="line__number">
             {{ item.ownerPhone }}
             <span
@@ -29,7 +32,7 @@
         </div>
         <div
           class="item-list-chat__text"
-          :class="{ 'item-list-chat__text_new': item.isRead }"
+          :class="{ 'item-list-chat__text_new': !item.isRead }"
         >
           {{ item.lastMessage.slice(0, 20) + "..." }}
         </div>
@@ -49,13 +52,19 @@ export default {
       return convertDate(this.item.timestamp);
     },
     CurrentChatId() {
-      return this.$store.state.messages.currentChatId;
+      return this.$store.state.meta.currentChatId;
     },
   },
   methods: {
     setChatId(id) {
       this.$store.commit("setChatId", id);
       this.$store.dispatch("fetchMessagesRequest");
+      if (!this.item.isRead) {
+        this.$store.dispatch("updateChat", {
+          id,
+          isRead: true,
+        });
+      }
     },
   },
 };

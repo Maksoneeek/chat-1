@@ -15,6 +15,8 @@ export default {
 
   },
   getters: {
-
+    currentChatId(state) {
+      return state.currentChatId;
+    }
   }
 }

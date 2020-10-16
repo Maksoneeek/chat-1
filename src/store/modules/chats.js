@@ -30,6 +30,18 @@ export default {
       }
 
       commit('addChat', newChat)
+    },
+    updateChat({ commit, state }, payload) {
+      const updState = state.chats.map(item => {
+        if (item.id == payload.id) {
+          return {
+            ...item,
+            ...payload
+          }
+        }
+        return item
+      });
+      commit('addChats', updState)
     }
   },
   getters: {
@@ -37,7 +49,7 @@ export default {
       return state.chats.length
     },
     getChats(state) {
-      return state.chats.sort((x, y) => y.sos ? 1 : -1)
+      return [...state.chats].sort((x, y) => y.sos ? 1 : -1)
     },
     currentChat(state, getters, rootState) {
       return state.chats.find(item => item.id === rootState.meta.currentChatId)
