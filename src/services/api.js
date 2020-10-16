@@ -8,6 +8,10 @@ class Api {
     return axios.get(`${this.baseUrl}/chats`);
   }
 
+  checkUpdateChats() {
+    return axios.get(`${this.baseUrl}/chats/check`)
+  }
+
   fetchMessages(chatId) {
     return axios.get(`${this.baseUrl}/messages?id=${chatId}`);
   }

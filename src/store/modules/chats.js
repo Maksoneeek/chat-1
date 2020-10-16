@@ -18,6 +18,17 @@ export default {
 
       commit('addChats', chats.data)
     },
+    async checkUpdateChats({ dispatch }) {
+      const update = await Api.checkUpdateChats();
+
+      if (update.data) {
+        console.log(update.data)
+        update.data.unread.map((item) => {
+          dispatch('updateChat', { ...item, isRead: false })
+        })
+      }
+
+    },
     createChat({ commit }, payload) {
       const newChat = {
         id: Date.now(),
@@ -36,7 +47,7 @@ export default {
         if (item.id == payload.id) {
           return {
             ...item,
-            ...payload
+            ...payload,
           }
         }
         return item

@@ -23,6 +23,10 @@ export default {
   },
   mounted() {
     this.$store.dispatch("fetchChatsRequest");
+    this.$store.dispatch("checkUpdateChats");
+    setInterval(() => {
+      this.$store.dispatch("checkUpdateChats");
+    }, 5000);
   },
 };
 </script>
