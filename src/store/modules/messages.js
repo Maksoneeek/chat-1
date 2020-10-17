@@ -25,9 +25,8 @@ export default {
       commit('addMessages', messages.data)
       commit('setLoadingMessages', false)
     },
-    createMessage({ commit }, body) {
+    async createMessage({ commit }, body) {
       const newMessage = {
-        id: Date.now(),
         type: 'text',
         owner: 'me',
         body,
@@ -35,7 +34,11 @@ export default {
         timestamp: Date.now()
       }
 
-      commit('addMessage', newMessage)
+      const response = await Api.sendMessage(1, newMessage)
+      console.log(response)
+      if (response.data.status == "ok") {
+        commit('addMessage', newMessage)
+      }
     }
   },
   getters: {

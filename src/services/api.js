@@ -8,12 +8,20 @@ class Api {
     return axios.get(`${this.baseUrl}/chats`);
   }
 
+  createChat(body) {
+    return axios.post(`${this.baseUrl}/chats/create`, body)
+  }
+
   checkUpdateChats() {
     return axios.get(`${this.baseUrl}/chats/check`)
   }
 
   fetchMessages(chatId) {
     return axios.get(`${this.baseUrl}/messages?id=${chatId}`);
+  }
+
+  sendMessage(chatId, body) {
+    return axios.post(`${this.baseUrl}/messages/create?id=${chatId}`, body);
   }
 }
 

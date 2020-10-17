@@ -121,6 +121,7 @@ export default {
       });
 
       this.phone = this.message = "";
+      this.$store.commit("toggleNewChatPopup");
     },
   },
 };

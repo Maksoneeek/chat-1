@@ -34,10 +34,9 @@ export default {
       }
 
     },
-    createChat({ commit }, payload) {
+    async createChat({ commit }, payload) {
       const newChat = {
-        id: Date.now(),
-        isRead: false,
+        isRead: true,
         ownerName: 'Default',
         ownerPhone: payload.ownerPhone,
         programm: 'Telegram',
@@ -45,7 +44,11 @@ export default {
         timestamp: Date.now()
       }
 
-      commit('addChat', newChat)
+      const response = await Api.createChat(newChat)
+
+      if (response.data.status == "ok") {
+        commit('addChat', newChat)
+      }
     },
     updateChat({ commit, state }, payload) {
       const updState = state.chats.map(item => {

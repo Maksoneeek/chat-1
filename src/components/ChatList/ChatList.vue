@@ -33,7 +33,7 @@ export default {
     this.$store.dispatch("checkUpdateChats");
     setInterval(() => {
       this.$store.dispatch("checkUpdateChats");
-    }, 5000);
+    }, 20000);
   },
 };
 </script>
