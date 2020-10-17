@@ -2,6 +2,7 @@ import Api from '../../services/api'
 
 export default {
   state: {
+    isLoading: false,
     chats: []
   },
   mutations: {
@@ -10,19 +11,23 @@ export default {
     },
     addChat(state, newChat) {
       state.chats.push(newChat)
+    },
+    setLoadingChats(state, loadingState) {
+      state.isLoading = loadingState
     }
   },
   actions: {
     async fetchChatsRequest({ commit }) {
+      commit("setLoadingChats", true)
       const chats = await Api.fetchChats()
 
       commit('addChats', chats.data)
+      commit("setLoadingChats", false)
     },
     async checkUpdateChats({ dispatch }) {
       const update = await Api.checkUpdateChats();
 
       if (update.data) {
-        console.log(update.data)
         update.data.unread.map((item) => {
           dispatch('updateChat', { ...item, isRead: false })
         })

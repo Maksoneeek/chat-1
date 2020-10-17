@@ -2,6 +2,7 @@ import Api from '../../services/api'
 
 export default {
   state: {
+    isLoading: false,
     messages: []
   },
   mutations: {
@@ -10,13 +11,19 @@ export default {
     },
     addMessage(state, message) {
       state.messages.push(message)
+    },
+    setLoadingMessages(state, loadingState) {
+      state.isLoading = loadingState
     }
   },
   actions: {
     async fetchMessagesRequest({ commit, rootState }) {
+      commit('addMessages', [])
+      commit('setLoadingMessages', true)
       const messages = await Api.fetchMessages(rootState.meta.currentChatId)
 
       commit('addMessages', messages.data)
+      commit('setLoadingMessages', false)
     },
     createMessage({ commit }, body) {
       const newMessage = {
