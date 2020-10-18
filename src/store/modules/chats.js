@@ -2,27 +2,53 @@ import Api from '../../services/api'
 
 export default {
   state: {
-    isLoading: false,
+    isLoading: true,
+    lazyLoading: false,
+    isLoaded: false,
     chats: []
   },
   mutations: {
     addChats(state, chats) {
-      state.chats = chats
+      state.chats = state.chats.concat(chats)
     },
     addChat(state, newChat) {
       state.chats.push(newChat)
     },
     setLoadingChats(state, loadingState) {
       state.isLoading = loadingState
+    },
+    setLazyLoading(state, loading) {
+      state.lazyLoading = loading
+    },
+    setLoaded(state, loaded) {
+      state.isLoaded = loaded
     }
   },
   actions: {
-    async fetchChatsRequest({ commit }) {
-      commit("setLoadingChats", true)
-      const chats = await Api.fetchChats()
+    async fetchChatsRequest({ commit, rootState }) {
+      try {
+        console.log('reauest')
+        const { botref, time } = rootState.meta;
+        commit('setLazyLoading', true)
 
-      commit('addChats', chats.data)
-      commit("setLoadingChats", false)
+        const chats = await Api.fetchChats(botref, time);
+
+        if (chats.data.peers.length > 0) {
+          const lastMessageTime = chats.data.peers.slice(-1)[0].last_msg_time;
+
+          commit('addChats', chats.data.peers)
+          commit('setTime', lastMessageTime)
+        } else {
+          commit("setLoaded", true)
+        }
+
+
+      } catch (e) {
+        console.log(e)
+      } finally {
+        commit("setLoadingChats", false)
+        commit('setLazyLoading', false)
+      }
     },
     async checkUpdateChats({ dispatch }) {
       const update = await Api.checkUpdateChats();
@@ -68,7 +94,7 @@ export default {
       return state.chats.length
     },
     getChats(state) {
-      return [...state.chats].sort((x, y) => y.sos ? 1 : -1)
+      return [...state.chats].sort((x, y) => y.last_msg_time - x.last_msg_time)
     },
     currentChat(state, getters, rootState) {
       return state.chats.find(item => item.id === rootState.meta.currentChatId)
