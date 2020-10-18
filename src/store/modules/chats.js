@@ -13,8 +13,14 @@ export default {
     addChat(state, newChat) {
       state.chats.push(newChat)
     },
-    setLoadingChats(state, loadingState) {
-      state.isLoading = loadingState
+    lazyAddChats(state, chats) {
+      const idChats = state.chats.map(chat => chat.chat + chat.program);
+      for (let chat of chats) {
+        const chatId = chat.chat + chat.program;
+        if (!(chatId in idChats)) {
+          state.chats.push(chat)
+        }
+      }
     },
     setLazyLoading(state, loading) {
       state.lazyLoading = loading
@@ -34,7 +40,7 @@ export default {
         if (chats.data.peers.length > 0) {
           const lastMessageTime = chats.data.peers.slice(-1)[0].last_msg_time;
 
-          commit('addChats', chats.data.peers)
+          commit('lazyAddChats', chats.data.peers)
           commit('setTime', lastMessageTime)
         } else {
           commit("setLoaded", true)
@@ -76,7 +82,7 @@ export default {
         commit('addChat', newChat)
       }
     },
-    async updateUrgentChats({ commit, dispatch, rootState }) {
+    async updateUrgentChats({ dispatch, rootState }) {
       try {
         const { botref } = rootState.meta;
 
@@ -91,8 +97,6 @@ export default {
 
       } catch (e) {
         console.log(e)
-      } finally {
-        commit("setLoadingChats", false)
       }
     },
     updateChat({ commit, state }, updChat) {
