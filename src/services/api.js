@@ -8,12 +8,12 @@ class Api {
     return axios.get(`https://marketbot.biz/chat_v2/peers_list?botref=${botref}&limit=32&time=${time}`);
   }
 
-  createChat(body) {
-    return axios.post(`${this.baseUrl}/chats/create`, body)
+  fecthUrgentChats(botref) {
+    return axios.get(`https://marketbot.biz/chat_v2/urgent_peers?botref=${botref}`)
   }
 
-  checkUpdateChats() {
-    return axios.get(`${this.baseUrl}/chats/check`)
+  createChat(body) {
+    return axios.post(`${this.baseUrl}/chats/create`, body)
   }
 
   fetchMessages(chatId) {

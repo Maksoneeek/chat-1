@@ -2,7 +2,6 @@ import Api from '../../services/api'
 
 export default {
   state: {
-    isLoading: true,
     lazyLoading: false,
     isLoaded: false,
     chats: []
@@ -27,7 +26,6 @@ export default {
   actions: {
     async fetchChatsRequest({ commit, rootState }) {
       try {
-        console.log('reauest')
         const { botref, time } = rootState.meta;
         commit('setLazyLoading', true)
 
@@ -42,23 +40,25 @@ export default {
           commit("setLoaded", true)
         }
 
-
       } catch (e) {
         console.log(e)
       } finally {
-        commit("setLoadingChats", false)
         commit('setLazyLoading', false)
       }
     },
-    async checkUpdateChats({ dispatch }) {
-      const update = await Api.checkUpdateChats();
+    async fetchUrgentChats({ commit, rootState }) {
+      try {
+        const { botref } = rootState.meta;
 
-      if (update.data) {
-        update.data.unread.map((item) => {
-          dispatch('updateChat', { ...item, isRead: false })
-        })
+        const chats = await Api.fecthUrgentChats(botref);
+
+        if (chats.data.sos || chats.data.unread) {
+          commit('addChats', [...chats.data.sos, ...chats.data.unread])
+        }
+
+      } catch (e) {
+        console.log(e)
       }
-
     },
     async createChat({ commit }, payload) {
       const newChat = {
@@ -76,17 +76,33 @@ export default {
         commit('addChat', newChat)
       }
     },
-    updateChat({ commit, state }, payload) {
-      const updState = state.chats.map(item => {
-        if (item.id == payload.id) {
-          return {
-            ...item,
-            ...payload,
+    async updateUrgentChats({ commit, dispatch, rootState }) {
+      try {
+        const { botref } = rootState.meta;
+
+        const chats = await Api.fecthUrgentChats(botref);
+
+        if (chats.data.sos || chats.data.unread) {
+          const updChats = [...chats.data.sos, ...chats.data.unread];
+          for (let chat of updChats) {
+            dispatch('updateChat', chat)
           }
         }
-        return item
+
+      } catch (e) {
+        console.log(e)
+      } finally {
+        commit("setLoadingChats", false)
+      }
+    },
+    updateChat({ commit, state }, updChat) {
+      const updChats = state.chats.map(chat => {
+        if ((chat.chat == updChat.chat) && (chat.program == updChat.program)) {
+          return updChat
+        }
+        return chat
       });
-      commit('addChats', updState)
+      commit('addChats', updChats)
     }
   },
   getters: {

@@ -21,7 +21,7 @@ export default {
     NewChatPopup,
   },
   mounted() {
-    this.$store.dispatch("fetchMessagesRequest");
+    //this.$store.dispatch("fetchMessagesRequest");
   },
 };
 </script>

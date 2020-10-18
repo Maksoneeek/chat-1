@@ -2,7 +2,7 @@
   <div class="chat__list list-chat">
     <ChatListHeader />
     <div @scroll="onScroll" class="list-chat__scroll">
-      <div v-if="$store.state.chats.isLoading">
+      <div v-if="$store.state.chats.chats.length == 0">
         <ChatLoader></ChatLoader>
         <ChatLoader></ChatLoader>
         <ChatLoader></ChatLoader>
@@ -49,10 +49,10 @@ export default {
   },
   mounted() {
     this.$store.dispatch("fetchChatsRequest");
-    // this.$store.dispatch("checkUpdateChats");
-    // setInterval(() => {
-    //   this.$store.dispatch("checkUpdateChats");
-    // }, 20000);
+    this.$store.dispatch("fetchUrgentChats");
+    setInterval(() => {
+      this.$store.dispatch("updateUrgentChats");
+    }, 5000);
   },
 };
 </script>
