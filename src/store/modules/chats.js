@@ -17,7 +17,7 @@ export default {
       const idChats = state.chats.map(chat => chat.chat + chat.program);
       for (let chat of chats) {
         const chatId = chat.chat + chat.program;
-        if (!(chatId in idChats)) {
+        if (!(idChats.includes(chatId))) {
           state.chats.push(chat)
         }
       }
