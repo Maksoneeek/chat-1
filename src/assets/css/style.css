@@ -368,6 +368,10 @@ body .scrollar-viewport, html .scrollar-viewport {
   color: #22a8e6;
 }
 
+.vb {
+  color: #968fc4;
+}
+
 .line {
   display: -webkit-box;
   display: -ms-flexbox;

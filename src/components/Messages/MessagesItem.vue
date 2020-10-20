@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { convertDate } from "../../services/date";
+import { convertDate } from "../../services/utils";
 
 export default {
   props: ["item"],

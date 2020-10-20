@@ -22,11 +22,12 @@
             <span
               class="line__messenger"
               :class="{
-                tg: item.program == 'TL',
-                wp: item.program == 'GS',
+                tg: ['TL', 'VK'].includes(item.program),
+                wp: ['GS', 'WA'].includes(item.program),
+                vb: ['VB'].includes(item.program),
               }"
             >
-              {{ item.program }}
+              {{ program }}
             </span>
           </div>
         </div>
@@ -43,13 +44,16 @@
 </template>
 
 <script>
-import { convertDate } from "../../services/date";
+import { convertDate, getProgram } from "../../services/utils";
 
 export default {
   props: ["item"],
   computed: {
     getDate() {
       return convertDate(this.item.last_msg_time);
+    },
+    program() {
+      return getProgram(this.item.program);
     },
     CurrentChatId() {
       return this.$store.state.meta.currentChatId;
