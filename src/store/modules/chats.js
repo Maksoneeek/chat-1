@@ -114,7 +114,17 @@ export default {
       return state.chats.length
     },
     getChats(state) {
-      return [...state.chats].sort((x, y) => y.last_msg_time - x.last_msg_time)
+      return [...state.chats].sort((mess1, mess2) => {
+        if (mess1.sos === mess2.sos) {
+          if (mess1.unread_msg_count === mess2.unread_msg_count) {
+            return mess2.last_msg_time - mess1.last_msg_time
+          } else {
+            return mess2.unread_msg_count - mess1.unread_msg_count
+          }
+        } else {
+          return mess1.sos ? -1 : 1
+        }
+      })
     },
     currentChat(state, getters, rootState) {
       return state.chats.find(item => item.id === rootState.meta.currentChatId)
