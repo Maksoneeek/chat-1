@@ -8,7 +8,7 @@ export default {
   },
   mutations: {
     addChats(state, chats) {
-      state.chats = state.chats.concat(chats)
+      state.chats = chats
     },
     addChat(state, newChat) {
       state.chats.push(newChat)
