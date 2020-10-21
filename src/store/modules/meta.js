@@ -3,7 +3,8 @@ export default {
     botref: '62b769d71658',
     currentChatId: null,
     time: 0,
-    newChatPopup: false
+    newChatPopup: false,
+    foldersIsOpen: false
   },
   mutations: {
     toggleNewChatPopup(state) {
@@ -14,6 +15,9 @@ export default {
     },
     setTime(state, time) {
       state.time = time
+    },
+    toggleOpenFolders(state) {
+      state.foldersIsOpen = !state.foldersIsOpen
     }
   },
   actions: {

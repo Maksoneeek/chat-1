@@ -4,7 +4,7 @@
       Ваши диалоги <span>({{ getChatsLength }})</span>
     </div>
     <div class="header-list-chat__icons">
-      <div class="header-list-chat__icon">
+      <div @click="toggleFolderOpen" class="header-list-chat__icon">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -102,6 +102,9 @@ export default {
   methods: {
     toggleNewChatPopup() {
       this.$store.commit("toggleNewChatPopup");
+    },
+    toggleFolderOpen() {
+      this.$store.commit("toggleOpenFolders");
     },
   },
 };
