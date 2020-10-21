@@ -58,8 +58,15 @@ export default {
 
         const chats = await Api.fecthUrgentChats(botref);
 
-        if (chats.data.sos || chats.data.unread) {
-          commit('addChats', [...chats.data.sos, ...chats.data.unread])
+        const sosChats = chats.data.sos.map(chat => {
+          return {
+            ...chat,
+            sos: true
+          }
+        })
+
+        if (sosChats || chats.data.unread) {
+          commit('addChats', [...sosChats, ...chats.data.unread])
         }
 
       } catch (e) {
@@ -88,8 +95,15 @@ export default {
 
         const chats = await Api.fecthUrgentChats(botref);
 
-        if (chats.data.sos || chats.data.unread) {
-          const updChats = [...chats.data.sos, ...chats.data.unread];
+        const sosChats = chats.data.sos.map(chat => {
+          return {
+            ...chat,
+            sos: true
+          }
+        })
+
+        if (sosChats || chats.data.unread) {
+          const updChats = [...sosChats, ...chats.data.unread];
           for (let chat of updChats) {
             dispatch('updateChat', chat)
           }

@@ -7,15 +7,17 @@
     <div class="item-list-chat__body">
       <div
         class="item-list-chat__icon item-list-chat__icon_new icon"
-        :class="{ icon_new: false }"
+        :class="{ icon_new: item.sos }"
       >
-        {{ item.profile.nickname[0].toUpperCase() }}
-        <span v-if="item.unread_msg_count != 0">2</span>
+        {{ firstCharNickname }}
+        <span v-if="item.unread_msg_count != 0">{{
+          item.unread_msg_count
+        }}</span>
       </div>
       <div class="item-list-chat__block">
         <div class="item-list-chat__line line">
           <span class="line__name">
-            {{ item.profile.nickname }}
+            {{ item.profile.nickname || item.profile.login }}
           </span>
           <div class="line__number">
             {{ item.profile.login }}
@@ -57,6 +59,12 @@ export default {
     },
     CurrentChatId() {
       return this.$store.state.meta.currentChatId;
+    },
+    firstCharNickname() {
+      const nickname =
+        this.item.profile.nickname || this.item.profile.login || "e";
+
+      return nickname[0];
     },
   },
   methods: {

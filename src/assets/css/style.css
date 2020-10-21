@@ -138,6 +138,7 @@ body .scrollar-viewport, html .scrollar-viewport {
   position: absolute;
   left: 20px;
   top: 60px;
+  cursor: pointer;
 }
 
 .letters-chat__body {
