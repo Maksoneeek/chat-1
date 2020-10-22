@@ -8,7 +8,7 @@
         <ChatLoader></ChatLoader>
       </div>
       <ChatListItem
-        v-else
+        v-else-if="chats"
         v-for="chat in chats"
         :key="chat.chat + chat.program"
         :item="chat"
@@ -30,7 +30,7 @@ export default {
   },
   computed: {
     chats() {
-      return this.$store.getters.getChats;
+      return this.$store.getters.chats;
     },
   },
   methods: {

@@ -124,10 +124,24 @@ export default {
     }
   },
   getters: {
+    chats(state, getters, rootState) {
+      const currentFolder = rootState.meta.currentFolder;
+      if (!currentFolder) {
+        return getters.getSortChats
+      } else {
+        if (currentFolder.type) {
+          return getters.getChatsByType(currentFolder.type)
+        } else if (currentFolder.program) {
+          return getters.getChatsByProgram(currentFolder.program)
+        } else {
+          return getters.getChatsByGroupId(currentFolder.id)
+        }
+      }
+    },
     getChatsLength(state) {
       return state.chats.length
     },
-    getChats(state) {
+    getSortChats(state) {
       return [...state.chats].sort((mess1, mess2) => {
         if (mess1.sos === mess2.sos) {
           if (mess1.unread_msg_count === mess2.unread_msg_count) {
@@ -142,6 +156,22 @@ export default {
     },
     currentChat(state, getters, rootState) {
       return state.chats.find(item => item.id === rootState.meta.currentChatId)
+    },
+    getChatsByGroupId: (state, getters) => id => {
+      return getters.getSortChats.filter(chat => chat.folder_id === id);
+    },
+    getChatsByProgram: (state, getters) => program => {
+      return getters.getSortChats.filter(chat => chat.program === program);
+    },
+    getChatsByType: (state, getters) => type => {
+      if (type === 'read') {
+        return getters.getSortChats.filter(chat => chat.unread_msg_count === 0);
+      } else if (type === "unread") {
+        return getters.getSortChats.filter(chat => chat.unread_msg_count !== 0);
+      } else {
+        return getters.getSortChats
+      }
+
     }
   }
 }

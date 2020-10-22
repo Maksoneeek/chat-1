@@ -2,6 +2,7 @@ export default {
   state: {
     botref: '62b769d71658',
     currentChatId: null,
+    currentFolder: null,
     time: 0,
     newChatPopup: false,
     foldersIsOpen: false
@@ -18,6 +19,9 @@ export default {
     },
     toggleOpenFolders(state) {
       state.foldersIsOpen = !state.foldersIsOpen
+    },
+    setFolder(state, folder) {
+      state.currentFolder = folder
     }
   },
   actions: {
