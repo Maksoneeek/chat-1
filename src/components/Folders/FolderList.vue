@@ -47,5 +47,8 @@ export default {
       return this.$store.state.folders.folders;
     },
   },
+  mounted() {
+    this.$store.dispatch("fetchFoldersRequest");
+  },
 };
 </script>

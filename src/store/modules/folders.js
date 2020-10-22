@@ -1,3 +1,5 @@
+import Api from '../../services/api';
+
 export default {
   state: {
 
@@ -13,10 +15,45 @@ export default {
     folders: []
   },
   mutations: {
-
+    setFolders(state, folders) {
+      state.folders = folders
+    },
+    addFolder(state, folder) {
+      state.folders.push(folder)
+    }
   },
   actions: {
+    async fetchFoldersRequest({ commit, rootState }) {
+      try {
+        const { botref } = rootState.meta;
 
+        const response = await Api.fetchFolders(botref);
+
+        if (response.data.folders) {
+          commit('setFolders', response.data.folders);
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    async createFolderRequest({ commit, rootState }, folderName) {
+      try {
+        const { botref } = rootState.meta;
+
+        const response = await Api.createFolder(botref, folderName);
+
+        const { success, id, name } = response.data;
+
+        if (success) {
+          commit('addFolder', {
+            id,
+            name
+          });
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    }
   },
   getters: {
 

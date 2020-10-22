@@ -12,6 +12,14 @@ class Api {
     return axios.get(`https://marketbot.biz/chat_v2/urgent_peers?botref=${botref}`)
   }
 
+  fetchFolders(botref) {
+    return axios.get(`https://marketbot.biz/chat_v2/folders?botref=${botref}`)
+  }
+
+  createFolder(botref, name) {
+    return axios.get(`https://marketbot.biz/chat_v2/createfolder?botref=${botref}&name=${name}`)
+  }
+
   createChat(body) {
     return axios.post(`${this.baseUrl}/chats/create`, body)
   }
