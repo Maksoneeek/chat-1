@@ -7,6 +7,9 @@ export default {
   mutations: {
     setOptions(state, options) {
       state.options = options
+    },
+    removeTemplate(state, id) {
+      state.options.templates = state.options.templates.filter(template => template.id !== id)
     }
   },
   actions: {
@@ -16,11 +19,28 @@ export default {
       const response = await Api.fetchOptions(botref);
 
       commit('setOptions', response.data)
+    },
+    async deleteTemplateRequest({ commit, rootState }, id) {
+      const { botref } = rootState.meta;
+
+      const response = await Api.deleteTemplate(botref, id);
+
+      if (response.data.success) {
+        commit('removeTemplate', id)
+      }
     }
   },
   getters: {
     templates(state) {
       return state.templates
+    },
+    moderatedTemplates(state) {
+      const templates = state.options.templates || []
+      return templates.filter(template => template.moderated)
+    },
+    notModeratedTemplates(state) {
+      const templates = state.options.templates || []
+      return templates.filter(template => !template.moderated)
     }
   }
 }

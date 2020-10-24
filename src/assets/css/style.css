@@ -1425,6 +1425,7 @@ body .scrollar-viewport, html .scrollar-viewport {
   position: absolute;
   right: 0;
   top: 50%;
+  cursor: pointer;
   -webkit-transform: translate(0, -50%);
           transform: translate(0, -50%);
 }

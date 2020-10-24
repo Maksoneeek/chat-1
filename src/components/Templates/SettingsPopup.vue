@@ -39,13 +39,7 @@
           @click="toggleNewFormOpen"
           class="settings__header-bot_new-templates new-templates-open"
         >
-          <svg
-            x="0px"
-            y="0px"
-            width="18px"
-            height='18px"'
-            viewBox="0 0 512 512"
-          >
+          <svg x="0px" y="0px" width="18px" height="18px" viewBox="0 0 512 512">
             <linearGradient
               id="SVGID_1_"
               gradientUnits="userSpaceOnUse"
@@ -67,79 +61,37 @@
       </div>
       <form v-if="!newFormOpen" action="" class="templates__search">
         <div>
-          <input type="text" placeholder="Поиск по названию..." />
-          <button class="templates__search_btn">
-            <img src="@/assets/img/search.png" alt="" />
-          </button>
+          <input
+            v-model="searchString"
+            type="text"
+            placeholder="Поиск по названию..."
+          />
+          <img src="@/assets/img/search.png" alt="" />
         </div>
       </form>
     </div>
     <div v-if="!newFormOpen" class="settings__item">
       <div class="settings__block">
         <div class="settings__item-title settings__item-title_green">
-          Одобрено модератором (4)
+          Одобрено модератором ({{ moderatedTemplates.length }})
         </div>
-        <div class="templates__line settings-templates-delete">
-          <div class="templates__name">Шаблон 1</div>
-          <div class="templates__item">
-            Спасибо за обращение, мы обрабатываем ваш запрос
-          </div>
-          <div class="settings-templates-delete_item">
-            <img src="@/assets/img/delete.png" alt="" />
-          </div>
-        </div>
-        <div class="templates__line settings-templates-delete">
-          <div class="templates__name">Шаблон 1</div>
-          <div class="templates__item">
-            Спасибо за обращение, мы обрабатываем ваш запрос
-          </div>
-          <div class="settings-templates-delete_item">
-            <img src="@/assets/img/delete.png" alt="" />
-          </div>
-        </div>
-        <div class="templates__line settings-templates-delete">
-          <div class="templates__name">Шаблон 1</div>
-          <div class="templates__item">
-            <img src="@/assets/img/Слой_652_копия.png" alt="" />
-            Спасибо за обращение, мы обрабатываем ваш запрос
-          </div>
-          <div class="settings-templates-delete_item">
-            <img src="@/assets/img/delete.png" alt="" />
-          </div>
-        </div>
+        <TemplateItem
+          v-for="template of moderatedTemplates"
+          :template="template"
+          :deletable="true"
+          :key="template.id"
+        />
       </div>
       <div class="settings__block">
         <div class="settings__item-title settings__item-title_purple">
-          Отправлено на модерацию (6)
+          Отправлено на модерацию ({{ notModeratedTemplates.length }})
         </div>
-        <div class="templates__line settings-templates-delete">
-          <div class="templates__name">Шаблон 1</div>
-          <div class="templates__item">
-            Спасибо за обращение, мы обрабатываем ваш запрос
-          </div>
-          <div class="settings-templates-delete_item">
-            <img src="@/assets/img/delete.png" alt="" />
-          </div>
-        </div>
-        <div class="templates__line settings-templates-delete">
-          <div class="templates__name">Шаблон 1</div>
-          <div class="templates__item">
-            Спасибо за обращение, мы обрабатываем ваш запрос
-          </div>
-          <div class="settings-templates-delete_item">
-            <img src="@/assets/img/delete.png" alt="" />
-          </div>
-        </div>
-        <div class="templates__line settings-templates-delete">
-          <div class="templates__name">Шаблон 1</div>
-          <div class="templates__item">
-            <img src="@/assets/img/Слой_652_копия.png" alt="" />
-            Спасибо за обращение, мы обрабатываем ваш запрос
-          </div>
-          <div class="settings-templates-delete_item">
-            <img src="@/assets/img/delete.png" alt="" />
-          </div>
-        </div>
+        <TemplateItem
+          v-for="template of notModeratedTemplates"
+          :template="template"
+          :deletable="true"
+          :key="template.id"
+        />
       </div>
     </div>
     <div v-else class="new-templates__body">
@@ -271,20 +223,37 @@
 </template>
 
 <script>
+import TemplateItem from "./TemplateItem";
+
 export default {
   data() {
     return {
       newFormOpen: false,
+      searchString: "",
     };
+  },
+  components: {
+    TemplateItem,
   },
   computed: {
     isOpen() {
       return this.$store.state.meta.settingsPopup;
     },
+    moderatedTemplates() {
+      return this.searchTemplates(this.$store.getters.moderatedTemplates);
+    },
+    notModeratedTemplates() {
+      return this.searchTemplates(this.$store.getters.notModeratedTemplates);
+    },
   },
   methods: {
     toggleNewFormOpen() {
       this.newFormOpen = !this.newFormOpen;
+    },
+    searchTemplates(templates) {
+      return templates.filter((template) =>
+        template.name.toLowerCase().includes(this.searchString.toLowerCase())
+      );
     },
   },
 };

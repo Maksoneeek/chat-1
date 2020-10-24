@@ -41,6 +41,15 @@ class Api {
     })
   }
 
+  deleteTemplate(botref, id) {
+    return axios.get(`https://marketbot.biz/chat_v2/del_template`, {
+      params: {
+        botref,
+        tpl_id: id
+      }
+    })
+  }
+
   createChat(body) {
     return axios.post(`${this.baseUrl}/chats/create`, body)
   }
