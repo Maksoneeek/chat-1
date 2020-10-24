@@ -54,6 +54,9 @@ export default {
     setInterval(() => {
       this.$store.dispatch("updateUrgentChats");
     }, 5000);
+    setInterval(() => {
+      this.$store.dispatch("updateChats");
+    }, 5000);
   },
 };
 </script>

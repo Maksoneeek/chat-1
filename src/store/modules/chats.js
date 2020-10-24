@@ -129,6 +129,25 @@ export default {
         commit('addChat', newChat)
       }
     },
+    async updateChats({ dispatch, rootState }) {
+      try {
+
+        const { botref, currentFolder } = rootState.meta;
+        let { id, type, program } = currentFolder;
+
+        if (type || program) {
+          id = undefined
+        }
+
+        const chats = await Api.fetchChats(botref, 0, program, id);
+
+        for (let chat in chats.data.peers) {
+          dispatch('updateChat', chat)
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    },
     async updateUrgentChats({ dispatch, rootState }) {
       try {
         const { botref } = rootState.meta;
