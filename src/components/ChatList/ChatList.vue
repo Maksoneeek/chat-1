@@ -2,13 +2,14 @@
   <div class="chat__list list-chat">
     <ChatListHeader />
     <div @scroll="onScroll" class="list-chat__scroll">
-      <div v-if="$store.state.chats.chats.length == 0">
+      <div v-if="$store.state.chats.loading">
         <ChatLoader></ChatLoader>
         <ChatLoader></ChatLoader>
         <ChatLoader></ChatLoader>
       </div>
+      <div v-else-if="chats.length === 0">No Chats!</div>
       <ChatListItem
-        v-else-if="chats"
+        v-else
         v-for="chat in chats"
         :key="chat.chat + chat.program"
         :item="chat"
@@ -43,7 +44,7 @@ export default {
         !this.$store.state.chats.isLoaded;
 
       if (needFetchChats) {
-        this.$store.dispatch("fetchChatsRequest");
+        this.$store.dispatch("lazyChatsRequest");
       }
     },
   },

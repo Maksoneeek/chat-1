@@ -2,7 +2,7 @@ export default {
   state: {
     botref: '62b769d71658',
     currentChatId: null,
-    currentFolder: null,
+    currentFolder: { id: 100, name: 'Все диалоги', type: "all", img: './static/img/all folders-grey.svg', imgHover: './static/img/all folders.svg' },
     time: 0,
     newChatPopup: false,
     foldersIsOpen: false

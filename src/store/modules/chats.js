@@ -2,6 +2,7 @@ import Api from '../../services/api'
 
 export default {
   state: {
+    loading: false,
     lazyLoading: false,
     isLoaded: false,
     chats: []
@@ -12,6 +13,9 @@ export default {
     },
     addChat(state, newChat) {
       state.chats.push(newChat)
+    },
+    setLoading(state, loading) {
+      state.loading = loading
     },
     lazyAddChats(state, chats) {
       const idChats = state.chats.map(chat => chat.chat + chat.program);
@@ -32,10 +36,46 @@ export default {
   actions: {
     async fetchChatsRequest({ commit, rootState }) {
       try {
-        const { botref, time } = rootState.meta;
-        commit('setLazyLoading', true)
+        commit('setLoading', true)
+        commit("setLoaded", false)
+        commit("addChats", [])
 
-        const chats = await Api.fetchChats(botref, time);
+        const { botref, currentFolder } = rootState.meta;
+        let { id, type, program } = currentFolder;
+
+        if (type || program) {
+          id = undefined
+        }
+
+        const chats = await Api.fetchChats(botref, 0, program, id);
+
+        if (chats.data.peers.length > 0) {
+          const lastMessageTime = chats.data.peers.slice(-1)[0].last_msg_time;
+
+          commit('addChats', chats.data.peers)
+          commit('setTime', lastMessageTime)
+        } else {
+          commit("setLoaded", true)
+        }
+
+      } catch (e) {
+        console.log(e)
+      } finally {
+        commit('setLoading', false)
+      }
+    },
+    async lazyChatsRequest({ commit, rootState }) {
+      try {
+        commit('setLazyLoading', true);
+
+        const { botref, time, currentFolder } = rootState.meta;
+        let { id, type, program } = currentFolder;
+
+        if (type || program) {
+          id = undefined
+        }
+
+        const chats = await Api.fetchChats(botref, time, program, id);
 
         if (chats.data.peers.length > 0) {
           const lastMessageTime = chats.data.peers.slice(-1)[0].last_msg_time;

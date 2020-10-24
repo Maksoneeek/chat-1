@@ -18,6 +18,7 @@ export default {
   methods: {
     setFolder() {
       this.$store.commit("setFolder", this.folder);
+      this.$store.dispatch("fetchChatsRequest");
     },
   },
 };

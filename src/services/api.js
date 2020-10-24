@@ -4,8 +4,16 @@ class Api {
 
   baseUrl = 'https://sparkling-resonance-7945.getsandbox.com:443'
 
-  fetchChats(botref, time) {
-    return axios.get(`https://marketbot.biz/chat_v2/peers_list?botref=${botref}&limit=32&time=${time}`);
+  fetchChats(botref, time, program, folder_id) {
+    return axios.get(`https://marketbot.biz/chat_v2/peers_list`, {
+      params: {
+        botref,
+        time,
+        limit: 32,
+        program,
+        folder_id
+      }
+    });
   }
 
   fecthUrgentChats(botref) {
