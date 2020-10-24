@@ -5,6 +5,7 @@ export default {
     currentFolder: { id: 100, name: 'Все диалоги', type: "all", img: './static/img/all folders-grey.svg', imgHover: './static/img/all folders.svg' },
     time: 0,
     newChatPopup: false,
+    templateListPopup: false,
     foldersIsOpen: false
   },
   mutations: {
@@ -22,6 +23,9 @@ export default {
     },
     setFolder(state, folder) {
       state.currentFolder = folder
+    },
+    toggleTemplateListPopup(state) {
+      state.templateListPopup = !state.templateListPopup
     }
   },
   actions: {

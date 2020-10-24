@@ -115,7 +115,7 @@
           </button>
         </div>
       </form>
-      <div class="footer-chat-item__templates">
+      <div @click="toggleTemplateListPopup" class="footer-chat-item__templates">
         <div class="footer-chat-item__templates_icon">
           <svg width="23.5px" height="23.5px" viewBox="0 0 612 792">
             <linearGradient
@@ -156,6 +156,9 @@ export default {
         this.$store.dispatch("createMessage", this.text);
         this.text = "";
       }
+    },
+    toggleTemplateListPopup() {
+      this.$store.commit("toggleTemplateListPopup");
     },
   },
 };

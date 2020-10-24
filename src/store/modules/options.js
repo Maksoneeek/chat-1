@@ -1,10 +1,12 @@
 import Api from '../../services/api'
 
 export default {
-  state: {},
+  state: {
+    options: {}
+  },
   mutations: {
     setOptions(state, options) {
-      Object.assign(state, options)
+      state.options = options
     }
   },
   actions: {
@@ -16,5 +18,9 @@ export default {
       commit('setOptions', response.data)
     }
   },
-  getters: {}
+  getters: {
+    templates(state) {
+      return state.templates
+    }
+  }
 }
