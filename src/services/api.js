@@ -25,7 +25,12 @@ class Api {
   }
 
   createFolder(botref, name) {
-    return axios.get(`https://marketbot.biz/chat_v2/createfolder?botref=${botref}&name=${name}`)
+    return axios.post(`https://marketbot.biz/chat_v2/createfolder`,
+      {
+        botref,
+        name
+      }
+    )
   }
 
   createChat(body) {
