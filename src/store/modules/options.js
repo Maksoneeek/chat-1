@@ -28,6 +28,16 @@ export default {
       if (response.data.success) {
         commit('removeTemplate', id)
       }
+    },
+    async createTemplateRequest({ dispatch, rootState }, template) {
+      const { botref } = rootState.meta;
+
+      const response = await Api.createTemplate(botref, template);
+      console.log(response)
+
+      if (response.data.success) {
+        dispatch('fetchOptionsRequest')
+      }
     }
   },
   getters: {

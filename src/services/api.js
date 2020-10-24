@@ -41,6 +41,15 @@ class Api {
     })
   }
 
+  createTemplate(botref, body) {
+    return axios.get(`https://marketbot.biz/chat_v2/submit_new_template`, {
+      params: {
+        botref,
+        ...body
+      }
+    })
+  }
+
   deleteTemplate(botref, id) {
     return axios.get(`https://marketbot.biz/chat_v2/del_template`, {
       params: {
