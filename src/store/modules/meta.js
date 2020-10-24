@@ -6,6 +6,7 @@ export default {
     time: 0,
     newChatPopup: false,
     templateListPopup: false,
+    settingsPopup: false,
     foldersIsOpen: false
   },
   mutations: {
@@ -26,6 +27,9 @@ export default {
     },
     toggleTemplateListPopup(state) {
       state.templateListPopup = !state.templateListPopup
+    },
+    toggleSettingsPopup(state) {
+      state.settingsPopup = !state.settingsPopup
     }
   },
   actions: {

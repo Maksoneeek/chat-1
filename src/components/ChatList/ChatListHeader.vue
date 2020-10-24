@@ -66,7 +66,7 @@
           />
         </svg>
       </div>
-      <div class="header-list-chat__icon">
+      <div @click="toggleSettingsOpen" class="header-list-chat__icon">
         <svg width="23px" height="23px" viewBox="0 0 612 792">
           <linearGradient
             id="SVGID_1_"
@@ -105,6 +105,9 @@ export default {
     },
     toggleFolderOpen() {
       this.$store.commit("toggleOpenFolders");
+    },
+    toggleSettingsOpen() {
+      this.$store.commit("toggleSettingsPopup");
     },
   },
 };
