@@ -28,5 +28,8 @@ export default {
       return this.$store.state.meta.foldersIsOpen;
     },
   },
+  mounted() {
+    this.$store.dispatch("fetchOptionsRequest");
+  },
 };
 </script>

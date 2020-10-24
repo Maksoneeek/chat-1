@@ -33,6 +33,14 @@ class Api {
     )
   }
 
+  fetchOptions(botref) {
+    return axios.get(`https://marketbot.biz/chat_v2/opdata`, {
+      params: {
+        botref
+      }
+    })
+  }
+
   createChat(body) {
     return axios.post(`${this.baseUrl}/chats/create`, body)
   }
