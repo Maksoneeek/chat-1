@@ -24,6 +24,10 @@ class Api {
     return axios.get(`https://marketbot.biz/chat_v2/folders?botref=${botref}`)
   }
 
+  fetchQtyFolders(botref) {
+    return axios(`https://marketbot.biz/chat_v2/get_chat_counts?botref=${botref}`)
+  }
+
   createFolder(botref, name) {
 
     const bodyFormData = new FormData();

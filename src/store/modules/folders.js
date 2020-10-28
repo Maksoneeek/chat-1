@@ -2,17 +2,20 @@ import Api from '../../services/api';
 
 export default {
   state: {
-
     mailFolders: [
-      { id: 100, name: 'Все диалоги', type: "all", img: './static/img/all folders-grey.svg', imgHover: './static/img/all folders.svg' },
+      { id: 100, name: 'Все диалоги', type: "total", img: './static/img/all folders-grey.svg', imgHover: './static/img/all folders.svg' },
       { id: 101, name: 'Непрочитанные', type: "unread", img: './static/img/close mail-grey.svg', imgHover: './static/img/close mail.svg' },
       { id: 102, name: 'Прочитанные', type: "read", img: './static/img/open mail-grey.svg', imgHover: './static/img/open mail.svg' },
     ],
     programFolders: [
       { id: 200, name: 'Telegram', program: "TL", img: './static/img/telega.png' },
+      { id: 203, name: 'Vkontakte', program: "VK", img: './static/img/telega.png' },
       { id: 201, name: 'WhatsApp', program: "WA", img: './static/img/whatsapp.png' },
+      { id: 202, name: 'WA Business', program: "GS", img: './static/img/whatsapp.png' },
+      { id: 204, name: 'Viber', program: "VB", img: './static/img/group_1.png' },
     ],
-    folders: []
+    folders: [],
+    qtyFolders: {}
   },
   mutations: {
     setFolders(state, folders) {
@@ -20,6 +23,9 @@ export default {
     },
     addFolder(state, folder) {
       state.folders.push(folder)
+    },
+    setQtyFolders(state, qtyFolders) {
+      state.qtyFolders = qtyFolders
     }
   },
   actions: {
@@ -53,9 +59,34 @@ export default {
       } catch (e) {
         console.log(e)
       }
+    },
+    async fetchQtyFoldersRequest({ commit, rootState }) {
+      try {
+        const { botref } = rootState.meta;
+
+        const response = await Api.fetchQtyFolders(botref);
+
+        if (response.data.counts) {
+          commit('setQtyFolders', response.data.counts);
+        }
+      } catch (e) {
+        console.log(e)
+      }
     }
   },
   getters: {
-
+    getQtyFolder: (state) => (folder) => {
+      if (folder.type) {
+        if (folder.type === 'total' || folder.type === 'unread') {
+          return state.qtyFolders[folder.type] || 0
+        } else {
+          return state.qtyFolders["total"] - state.qtyFolders["unread"]
+        }
+      } else if (folder.program) {
+        return state.qtyFolders.program[folder.program] || 0
+      } else {
+        return state.qtyFolders.folder[folder.id] || 0
+      }
+    }
   }
 }

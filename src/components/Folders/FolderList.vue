@@ -5,21 +5,21 @@
       :key="folder.id"
       :folder="folder"
       :visible="folderIsOpen"
-      :count="$store.getters.getChatsByType(folder.type).length"
+      :count="$store.getters.getQtyFolder(folder)"
     />
     <FolderItem
       v-for="folder of programFolders"
       :key="folder.id"
       :folder="folder"
       :visible="folderIsOpen"
-      :count="$store.getters.getChatsByProgram(folder.program).length"
+      :count="$store.getters.getQtyFolder(folder)"
     />
     <FolderItem
       v-for="folder of folders"
       :key="folder.id"
       :folder="folder"
       :visible="folderIsOpen"
-      :count="$store.getters.getChatsByGroupId(folder.id).length"
+      :count="$store.getters.getQtyFolder(folder)"
     />
   </div>
 </template>
@@ -46,9 +46,16 @@ export default {
     folders() {
       return this.$store.state.folders.folders;
     },
+    getQtyFolder(folder) {
+      if (folder.program) {
+        return this.$store.state.folders.qtyFolders.program[folder.program];
+      }
+      return 0;
+    },
   },
   mounted() {
     this.$store.dispatch("fetchFoldersRequest");
+    this.$store.dispatch("fetchQtyFoldersRequest");
   },
 };
 </script>
