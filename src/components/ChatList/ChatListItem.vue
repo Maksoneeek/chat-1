@@ -61,8 +61,7 @@ export default {
       return this.$store.state.meta.currentChatId;
     },
     firstCharNickname() {
-      const nickname =
-        this.item.profile.nickname || this.item.profile.login || "e";
+      const nickname = this.item.profile.nickname || this.item.profile.login;
 
       return nickname[0];
     },

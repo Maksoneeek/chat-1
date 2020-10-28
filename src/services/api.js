@@ -25,11 +25,14 @@ class Api {
   }
 
   createFolder(botref, name) {
-    return axios.post(`https://marketbot.biz/chat_v2/createfolder`,
-      {
-        botref,
-        name
-      }
+
+    const bodyFormData = new FormData();
+    bodyFormData.append('botref', botref);
+    bodyFormData.append('name', name);
+
+    return axios.post(`https://marketbot.biz/chat_v2/createfolder`, bodyFormData, {
+      'Content-Type': 'multipart/form-data'
+    }
     )
   }
 
@@ -42,11 +45,14 @@ class Api {
   }
 
   createTemplate(botref, body) {
-    return axios.get(`https://marketbot.biz/chat_v2/submit_new_template`, {
-      params: {
-        botref,
-        ...body
-      }
+    const bodyFormData = new FormData();
+    bodyFormData.append('botref', botref);
+    bodyFormData.append('name', body.name);
+    bodyFormData.append('text', body.text);
+    bodyFormData.append('type', body.type);
+
+    return axios.post(`https://marketbot.biz/chat_v2/submit_new_template`, bodyFormData, {
+      'Content-Type': 'multipart/form-data'
     })
   }
 
