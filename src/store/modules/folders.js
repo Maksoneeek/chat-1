@@ -15,7 +15,7 @@ export default {
       { id: 204, name: 'Viber', program: "VB", img: './static/img/group_1.png' },
     ],
     folders: [],
-    qtyFolders: {}
+    qtyFolders: null
   },
   mutations: {
     setFolders(state, folders) {
@@ -76,6 +76,8 @@ export default {
   },
   getters: {
     getQtyFolder: (state) => (folder) => {
+      if (!state.qtyFolders) return 0;
+
       if (folder.type) {
         if (folder.type === 'total' || folder.type === 'unread') {
           return state.qtyFolders[folder.type] || 0

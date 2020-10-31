@@ -129,7 +129,7 @@ export default {
         commit('addChat', newChat)
       }
     },
-    async updateChats({ dispatch, rootState }) {
+    async updateChats({ commit, state, rootState }) {
       try {
 
         const { botref, currentFolder } = rootState.meta;
@@ -141,14 +141,23 @@ export default {
 
         const chats = await Api.fetchChats(botref, 0, program, id);
 
-        for (let chat in chats.data.peers) {
-          dispatch('updateChat', chat)
+        const newChats = state.chats;
+
+        for (let updChat in chats.data.peers) {
+          newChats.map(chat => {
+            if ((chat.chat == updChat.chat) && (chat.program == updChat.program)) {
+              return updChat
+            }
+            return chat
+          })
         }
+
+        commit('addChats', newChats)
       } catch (e) {
         console.log(e)
       }
     },
-    async updateUrgentChats({ dispatch, rootState }) {
+    async updateUrgentChats({ commit, state, rootState }) {
       try {
         const { botref } = rootState.meta;
 
@@ -163,9 +172,20 @@ export default {
 
         if (sosChats || chats.data.unread) {
           const updChats = [...sosChats, ...chats.data.unread];
-          for (let chat of updChats) {
-            dispatch('updateChat', chat)
+
+          const newChats = state.chats;
+
+          for (let updChat in updChats) {
+            newChats.map(chat => {
+              if ((chat.chat == updChat.chat) && (chat.program == updChat.program)) {
+                return updChat
+              }
+              return chat
+            })
           }
+
+          commit('addChats', newChats)
+
         }
 
       } catch (e) {
