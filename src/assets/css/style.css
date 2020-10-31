@@ -806,6 +806,9 @@ body .scrollar-viewport, html .scrollar-viewport {
   background: url(../img/pattern.png);
   background-color: #f0f1f2;
   overflow-y: scroll;
+
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 .content-chat-content__message {

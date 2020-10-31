@@ -82,7 +82,7 @@ export default {
       this.$store.commit("setChatId", id);
       this.$store.commit("setProgram", program);
 
-      this.$store.dispatch("fetchMessagesRequest");
+      this.$store.dispatch("fetchFirstMessagesRequest");
       // if (!this.item.isRead) {
       //   this.$store.dispatch("updateChat", {
       //     id,
