@@ -54,6 +54,9 @@ class Api {
     bodyFormData.append('name', body.name);
     bodyFormData.append('text', body.text);
     bodyFormData.append('type', body.type);
+    if (body.image) {
+      bodyFormData.append('image', body.image)
+    }
 
     return axios.post(`https://marketbot.biz/chat_v2/submit_new_template`, bodyFormData, {
       'Content-Type': 'multipart/form-data'

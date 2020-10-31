@@ -6,9 +6,20 @@
           {{ option.title }}
         </option>
       </b-select>
-      <div v-if="chosenOption.image === 1" class="new-templates__frame">
+      <div
+        v-if="chosenOption.image === 1"
+        @click="chooseImage"
+        class="new-templates__frame"
+      >
         <img src="@/assets/img/image.png" alt="" />
         <span> Изображение</span>
+        <input
+          class="input-file"
+          type="file"
+          ref="file"
+          accept="image/*"
+          @change="changeFile"
+        />
       </div>
     </div>
     <form
@@ -33,7 +44,9 @@
         </div>
       </div>
       <div class="templates__item new-templates__item">
-        <img v-if="image" src="@/assets/img/Слой_652_копия.png" alt="" />
+        <div class="new-templates__image">
+          <img v-if="imageUrl" :src="imageUrl" alt="" />
+        </div>
         {{ templateText }}
       </div>
       <div class="new-templates__line new-templates__line_end">
@@ -82,6 +95,7 @@ export default {
       templateName: "",
       templateText: "",
       image: "",
+      imageUrl: "",
     };
   },
   props: ["toggleNewFormOpen"],
@@ -92,11 +106,25 @@ export default {
           name: this.templateName,
           text: this.templateText,
           type: this.chosenOption.image,
+          image: this.image,
         }),
           (this.templateName = this.templateText = this.image = "");
         this.toggleNewFormOpen();
       }
     },
+    changeFile() {
+      this.image = this.$refs.file.files[0];
+      this.imageUrl = URL.createObjectURL(this.image);
+    },
+    chooseImage() {
+      this.$refs.file.click();
+    },
   },
 };
 </script>
+
+<style scoped>
+.input-file {
+  display: none;
+}
+</style>

@@ -5,7 +5,9 @@
   >
     <div class="templates__name">{{ template.name }}</div>
     <div class="templates__item">
-      <img v-if="template.image" :src="template.image" alt="" />
+      <div class="new-templates__image">
+        <img v-if="template.image" :src="template.image" alt="" />
+      </div>
       {{ template.text }}
     </div>
     <div

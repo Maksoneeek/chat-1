@@ -1565,6 +1565,15 @@ body .scrollar-viewport, html .scrollar-viewport {
   margin: 0 7px 0 0;
 }
 
+.new-templates__image {
+  max-width: 80px;
+  margin: 0 9px 0 0;
+}
+
+.new-templates__image img {
+  min-width: 100%;
+}
+
 .none {
   display: none;
 }
