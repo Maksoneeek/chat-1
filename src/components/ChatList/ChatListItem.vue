@@ -63,7 +63,16 @@ export default {
     firstCharNickname() {
       const nickname = this.item.profile.nickname || this.item.profile.login;
 
-      return nickname[0];
+      let firtsChar = nickname[0];
+
+      if (
+        0xd800 <= firtsChar.charCodeAt(0) &&
+        firtsChar.charCodeAt(0) <= 0xdbff
+      ) {
+        firtsChar = firtsChar + nickname[1];
+      }
+
+      return firtsChar;
     },
   },
   methods: {
