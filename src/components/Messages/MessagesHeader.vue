@@ -2,17 +2,18 @@
   <div class="chat-item__header header-item-chat">
     <div v-if="currentChat" class="header-item-chat__body">
       <span class="header-item-chat__line line">
-        <span class="line__name"> {{ currentChat.ownerName }} </span>
+        <span class="line__name"> {{ currentChat.profile.nickname }} </span>
         <div class="line__number">
-          {{ currentChat.ownerPhone }}
+          {{ currentChat.profile.login }}
           <span
             class="line__messenger"
             :class="{
-              wp: currentChat.programm == 'Whatsapp',
-              tg: currentChat.programm == 'Telegram',
+              tg: ['TL', 'VK'].includes(currentChat.program),
+              wp: ['GS', 'WA'].includes(currentChat.program),
+              vb: ['VB'].includes(currentChat.program),
             }"
           >
-            {{ currentChat.programm }}
+            {{ program }}
           </span>
         </div>
       </span>
@@ -51,10 +52,15 @@
 </template>
 
 <script>
+import { getProgram } from "../../services/utils";
+
 export default {
   computed: {
     currentChat() {
       return this.$store.getters.currentChat;
+    },
+    program() {
+      return getProgram(this.currentChat.program);
     },
   },
   methods: {

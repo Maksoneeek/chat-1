@@ -1,8 +1,8 @@
 <template>
   <div
     class="list-chat__item item-list-chat"
-    :class="{ active: CurrentChatId == item.chat }"
-    @click="setChatId(item.chat)"
+    :class="{ active: CurrentChatId == item.chat + item.program }"
+    @click="setChatId(item.chat + item.program)"
   >
     <div class="item-list-chat__body">
       <div

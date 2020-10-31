@@ -214,7 +214,7 @@ export default {
       })
     },
     currentChat(state, getters, rootState) {
-      return state.chats.find(item => item.id === rootState.meta.currentChatId)
+      return state.chats.find(item => item.chat + item.program === rootState.meta.currentChatId)
     },
     getChatsByGroupId: (state, getters) => id => {
       return getters.getSortChats.filter(chat => chat.folder_id === id);
