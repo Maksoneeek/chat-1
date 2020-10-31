@@ -9,7 +9,9 @@
         class="item-list-chat__icon item-list-chat__icon_new icon"
         :class="{ icon_new: item.sos }"
       >
-        {{ firstCharNickname }}
+        <p class="icon_name">
+          {{ firstCharNickname }}
+        </p>
         <span v-if="item.unread_msg_count != 0">{{
           item.unread_msg_count
         }}</span>

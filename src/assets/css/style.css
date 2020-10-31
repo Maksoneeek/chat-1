@@ -530,8 +530,8 @@ body .scrollar-viewport, html .scrollar-viewport {
 }
 
 .icon {
-  width: 42px;
-  height: 42px;
+  min-width: 42px;
+  min-height: 42px;
   background-color: #28a219;
   border-radius: 50%;
   display: -webkit-box;
