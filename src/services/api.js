@@ -2,10 +2,10 @@ import axios from 'axios';
 
 class Api {
 
-  baseUrl = 'https://sparkling-resonance-7945.getsandbox.com:443'
+  baseUrl = 'https://marketbot.biz/chat_v2'
 
   fetchChats(botref, time, program, folder_id) {
-    return axios.get(`https://marketbot.biz/chat_v2/peers_list`, {
+    return axios.get(`${this.baseUrl}/peers_list`, {
       params: {
         botref,
         time,
@@ -17,15 +17,27 @@ class Api {
   }
 
   fecthUrgentChats(botref) {
-    return axios.get(`https://marketbot.biz/chat_v2/urgent_peers?botref=${botref}`)
+    return axios.get(`${this.baseUrl}/urgent_peers`, {
+      params: {
+        botref
+      }
+    })
   }
 
   fetchFolders(botref) {
-    return axios.get(`https://marketbot.biz/chat_v2/folders?botref=${botref}`)
+    return axios.get(`${this.baseUrl}/folders`, {
+      params: {
+        botref
+      }
+    })
   }
 
   fetchQtyFolders(botref) {
-    return axios(`https://marketbot.biz/chat_v2/get_chat_counts?botref=${botref}`)
+    return axios(`${this.baseUrl}/get_chat_counts`, {
+      params: {
+        botref
+      }
+    })
   }
 
   createFolder(botref, name) {
@@ -34,14 +46,14 @@ class Api {
     bodyFormData.append('botref', botref);
     bodyFormData.append('name', name);
 
-    return axios.post(`https://marketbot.biz/chat_v2/createfolder`, bodyFormData, {
+    return axios.post(`${this.baseUrl}/createfolder`, bodyFormData, {
       'Content-Type': 'multipart/form-data'
     }
     )
   }
 
   fetchOptions(botref) {
-    return axios.get(`https://marketbot.biz/chat_v2/opdata`, {
+    return axios.get(`${this.baseUrl}/opdata`, {
       params: {
         botref
       }
@@ -54,17 +66,18 @@ class Api {
     bodyFormData.append('name', body.name);
     bodyFormData.append('text', body.text);
     bodyFormData.append('type', body.type);
+
     if (body.image) {
       bodyFormData.append('image', body.image)
     }
 
-    return axios.post(`https://marketbot.biz/chat_v2/submit_new_template`, bodyFormData, {
+    return axios.post(`${this.baseUrl}/submit_new_template`, bodyFormData, {
       'Content-Type': 'multipart/form-data'
     })
   }
 
   deleteTemplate(botref, id) {
-    return axios.get(`https://marketbot.biz/chat_v2/del_template`, {
+    return axios.get(`${this.baseUrl}/del_template`, {
       params: {
         botref,
         tpl_id: id
@@ -72,12 +85,20 @@ class Api {
     })
   }
 
-  createChat(body) {
-    return axios.post(`${this.baseUrl}/chats/create`, body)
+  fetchMessagesHistory(botref, program, chat, id) {
+    return axios.get(`${this.baseUrl}/history`, {
+      params: {
+        botref,
+        program,
+        chat,
+        id,
+        limit: 32
+      }
+    });
   }
 
-  fetchMessages(chatId) {
-    return axios.get(`${this.baseUrl}/messages?id=${chatId}`);
+  createChat(body) {
+    return axios.post(`${this.baseUrl}/chats/create`, body)
   }
 
   sendMessage(chatId, body) {

@@ -2,7 +2,7 @@
   <div
     class="list-chat__item item-list-chat"
     :class="{ active: CurrentChatId == item.chat + item.program }"
-    @click="setChatId(item.chat + item.program)"
+    @click="setChat(item.chat, item.program)"
   >
     <div class="item-list-chat__body">
       <div
@@ -78,10 +78,11 @@ export default {
     },
   },
   methods: {
-    setChatId(id) {
+    setChat(id, program) {
       this.$store.commit("setChatId", id);
+      this.$store.commit("setProgram", program);
 
-      // this.$store.dispatch("fetchMessagesRequest");
+      this.$store.dispatch("fetchMessagesRequest");
       // if (!this.item.isRead) {
       //   this.$store.dispatch("updateChat", {
       //     id,

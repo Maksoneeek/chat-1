@@ -8,7 +8,7 @@
     <MessagesItem
       v-for="message in messages"
       :key="message.id"
-      :item="message"
+      :message="message"
     />
   </div>
 </template>

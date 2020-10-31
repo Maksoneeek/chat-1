@@ -6,7 +6,7 @@ export default {
     messages: []
   },
   mutations: {
-    addMessages(state, messages) {
+    setMessages(state, messages) {
       state.messages = messages
     },
     addMessage(state, message) {
@@ -18,12 +18,24 @@ export default {
   },
   actions: {
     async fetchMessagesRequest({ commit, rootState }) {
-      commit('addMessages', [])
-      commit('setLoadingMessages', true)
-      const messages = await Api.fetchMessages(rootState.meta.currentChatId)
+      try {
+        commit('setMessages', [])
+        commit('setLoadingMessages', true)
 
-      commit('addMessages', messages.data)
-      commit('setLoadingMessages', false)
+        const { botref, currentChatId, currentProgram } = rootState.meta;
+
+        const response = await Api.fetchMessagesHistory(botref, currentProgram, currentChatId, 0);
+
+        console.log(response)
+
+        if (response.data.messages) {
+          commit('setMessages', response.data.messages)
+        }
+      } catch (e) {
+        console.log(e)
+      } finally {
+        commit('setLoadingMessages', false)
+      }
     },
     async createMessage({ commit }, body) {
       const newMessage = {
