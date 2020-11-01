@@ -153,7 +153,9 @@ export default {
     createMessage(e) {
       e.preventDefault();
       if (this.text) {
-        this.$store.dispatch("createMessage", this.text);
+        this.$store.dispatch("sendMessage", {
+          text: this.text,
+        });
         this.text = "";
       }
     },

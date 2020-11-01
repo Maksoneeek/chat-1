@@ -140,8 +140,17 @@ class Api {
     })
   }
 
-  sendMessage(chatId, body) {
-    return axios.post(`${this.baseUrl}/messages/create?id=${chatId}`, body);
+  sendMessage(botref, program, chat, text) {
+    const body = new FormData();
+    body.append('botref', botref);
+    body.append('program', program);
+    body.append('chat', chat);
+    body.append('type', 'text');
+    body.append('msg_text', text);
+
+    return axios.post(`${this.baseUrl}/send_message`, body, {
+      'Content-Type': 'multipart/form-data'
+    });
   }
 }
 

@@ -132,8 +132,19 @@ export default {
         dispatch("fetchFirstMessagesRequest");
       }
     },
-    async createMessage() {
+    async sendMessage({ dispatch, rootState }, { text }) {
+      try {
+        const { botref, currentChatId, currentProgram } = rootState.meta;
 
+        const response = await Api.sendMessage(botref, currentProgram, currentChatId, text);
+
+        if (response.data.success) {
+          dispatch('updateMessages')
+        }
+
+      } catch (e) {
+        console.log(e)
+      }
     }
   },
 
