@@ -11,7 +11,8 @@ export default {
     newChatPopup: false,
     templateListPopup: false,
     settingsPopup: false,
-    foldersIsOpen: false
+    foldersIsOpen: false,
+    chatInfoOpen: false
   },
   mutations: {
     toggleNewChatPopup(state) {
@@ -40,7 +41,10 @@ export default {
     },
     setChatInfo(state, chatInfo) {
       state.chatInfo = chatInfo
-    }
+    },
+    toggleChatInfo(state) {
+      state.chatInfoOpen = !state.chatInfoOpen
+    },
   },
   actions: {
     async fetchChatInfoRequest({ state, commit }) {
@@ -79,6 +83,13 @@ export default {
   getters: {
     currentChatId(state) {
       return state.currentChatId;
+    },
+    chatIsConnected(state) {
+      if (state.chatInfo) {
+        return state.chatInfo.is_connected || false;
+      }
+
+      return false
     }
   }
 }

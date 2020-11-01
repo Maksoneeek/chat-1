@@ -27,9 +27,19 @@
     </div>
     <div class="settings__header-mid">
       <form class="settings__form" action="">
-        <input type="checkbox" />
+        <div class="checkbox settings__checkbox">
+          <input type="checkbox" checked name="checkbox-1" />
+          <div class="checkbox__item settings__checkbox_item">
+            <div class="checkbox__item_check">
+              <img src="@/assets/img/Shape_26_copy_2.png" alt="" />
+            </div>
+            <div class="checkbox__item_notcheck">
+              <img src="@/assets/img/Shape_26_copy_3.png" alt="" />
+            </div>
+          </div>
+          <span> Включить браузерные уведомления </span>
+        </div>
       </form>
-      <span> Включить браузерные уведомления </span>
     </div>
     <div class="settings__header-bot">
       <div class="settings__header-bot_line">

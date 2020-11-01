@@ -29,7 +29,7 @@
     >
       <div class="new-templates__block">
         <div class="new-templates__input">
-          <input
+          <textarea
             v-model="templateName"
             type="text"
             placeholder="Название шаблона..."

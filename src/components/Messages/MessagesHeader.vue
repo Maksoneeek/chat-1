@@ -17,12 +17,29 @@
           </span>
         </div>
       </span>
-      <span class="header-item-chat__info">
-        <img src="../../assets/img/info.png" alt="" />
+      <span @click="toggleChatInfo" class="header-item-chat__info info-open">
+        <svg width="23px" height="23px" viewBox="0 0 612 792">
+          <linearGradient
+            id="SVGID_1_"
+            gradientUnits="userSpaceOnUse"
+            x1="52.0816"
+            y1="718.4609"
+            x2="444.3309"
+            y2="389.3246"
+            gradientTransform="matrix(1.1953 0 0 1.1953 8.2423 -267.3545)"
+          >
+            <stop offset="0" style="stop-color: #5d2c91" />
+            <stop offset="1" style="stop-color: #d6496f" />
+          </linearGradient>
+          <path
+            fill="url(#SVGID_1_)"
+            d="M306,702c-81.735,0-158.579-31.83-216.375-89.625C31.83,554.578,0,477.735,0,396  s31.83-158.579,89.625-216.375C147.421,121.83,224.265,90,306,90s158.579,31.83,216.375,89.625C580.17,237.421,612,314.265,612,396  c0,60.399-17.928,119.142-51.845,169.873c-7.338,10.977-22.184,13.923-33.16,6.586c-10.977-7.338-13.925-22.185-6.587-33.16  c28.642-42.84,43.781-92.392,43.781-143.299c0-142.365-115.822-258.188-258.188-258.188S47.813,253.635,47.813,396  S163.635,654.188,306,654.188c47.222,0,93.406-12.857,133.561-37.181c11.292-6.841,25.992-3.232,32.833,8.061  c6.841,11.292,3.232,25.992-8.061,32.834C416.707,686.75,361.956,702,306,702z M306,265.711c13.203,0,23.906-10.703,23.906-23.906  S319.203,217.898,306,217.898c-13.203,0-23.906,10.703-23.906,23.906S292.797,265.711,306,265.711z M329.906,550.195V337.43  c0-13.203-10.703-23.906-23.906-23.906s-23.906,10.703-23.906,23.906v212.766c0,13.203,10.703,23.906,23.906,23.906  C319.203,574.102,329.906,563.399,329.906,550.195z"
+          />
+        </svg>
       </span>
     </div>
     <div
-      v-if="$store.state.meta.chatInfo.is_connected"
+      v-if="isConnected"
       @click="setNullChatId"
       class="header-item-chat__exit"
     >
@@ -62,10 +79,16 @@ export default {
     program() {
       return getProgram(this.currentChat.program);
     },
+    isConnected() {
+      return this.$store.getters.chatIsConnected;
+    },
   },
   methods: {
     setNullChatId() {
       this.$store.dispatch("leaveChat");
+    },
+    toggleChatInfo() {
+      this.$store.commit("toggleChatInfo");
     },
   },
 };

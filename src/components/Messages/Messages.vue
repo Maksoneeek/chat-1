@@ -5,6 +5,7 @@
     <MessagesFooter />
     <NewChatPopup />
     <TemplateListPopup />
+    <ChatInfo />
     <SettingsPopup />
   </div>
 </template>
@@ -16,6 +17,7 @@ import MessagesFooter from "./MessagesFooter";
 import NewChatPopup from "../ChatList/NewChatPopup";
 import TemplateListPopup from "../Templates/TemplateListPopup";
 import SettingsPopup from "../Templates/SettingsPopup";
+import ChatInfo from "../ChatInfo/ChatInfo";
 
 export default {
   components: {
@@ -25,6 +27,7 @@ export default {
     NewChatPopup,
     TemplateListPopup,
     SettingsPopup,
+    ChatInfo,
   },
   mounted() {
     //this.$store.dispatch("fetchMessagesRequest");
