@@ -22,7 +22,7 @@
       </span>
     </div>
     <div
-      v-if="currentChat"
+      v-if="$store.state.meta.chatInfo.is_connected"
       @click="setNullChatId"
       class="header-item-chat__exit"
     >
@@ -65,8 +65,7 @@ export default {
   },
   methods: {
     setNullChatId() {
-      this.$store.commit("setChatId", null);
-      this.$store.dispatch("fetchMessagesRequest");
+      this.$store.dispatch("leaveChat");
     },
   },
 };

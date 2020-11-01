@@ -107,6 +107,16 @@ class Api {
     });
   }
 
+  leaveChat(botref, program, chat) {
+    return axios.get(`${this.baseUrl}/leave`, {
+      params: {
+        botref,
+        program,
+        chat
+      }
+    });
+  }
+
   createChat(body) {
     return axios.post(`${this.baseUrl}/chats/create`, body)
   }

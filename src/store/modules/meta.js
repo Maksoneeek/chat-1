@@ -56,6 +56,24 @@ export default {
       } catch (e) {
         console.log(e)
       }
+    },
+    async leaveChat({ state, commit }) {
+      try {
+        const { currentChatId, botref, currentProgram, chatInfo } = state;
+
+        if (chatInfo.is_connected) {
+          const response = await Api.leaveChat(botref, currentProgram, currentChatId);
+
+          if (response.data.success) {
+            commit("setChatId", null);
+            commit("setProgram", null);
+            commit("setChatInfo", null);
+            commit("setMessages", []);
+          }
+        }
+      } catch (e) {
+        console.log(e)
+      }
     }
   },
   getters: {
