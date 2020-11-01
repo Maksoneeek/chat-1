@@ -21,16 +21,15 @@
 
 <script>
 export default {
-  data() {
-    return {
-      active: false,
-    };
+  props: ["id", "text", "toggleHandler"],
+  computed: {
+    active() {
+      return this.$store.state.meta.chatInfo.linked_folders.includes(this.id);
+    },
   },
-  props: ["text", "toggleHandler"],
   methods: {
     onToggle() {
-      this.toggleHandler();
-      this.active = !this.active;
+      this.toggleHandler(Number(this.active));
     },
   },
 };

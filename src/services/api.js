@@ -117,6 +117,19 @@ class Api {
     });
   }
 
+  linkFolder(botref, program, chat, folder_id, unlink) {
+    const bodyFormData = new FormData();
+    bodyFormData.append('botref', botref);
+    bodyFormData.append('program', program);
+    bodyFormData.append('chat', chat);
+    bodyFormData.append('folder_id', folder_id);
+    bodyFormData.append('unlink', unlink);
+
+    return axios.post(`${this.baseUrl}/linkfolder`, bodyFormData, {
+      'Content-Type': 'multipart/form-data'
+    })
+  }
+
   createChat(body) {
     return axios.post(`${this.baseUrl}/chats/create`, body)
   }

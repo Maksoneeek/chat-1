@@ -1,5 +1,9 @@
 <template>
-  <div class="info" :class="{ open: $store.state.meta.chatInfoOpen }">
+  <div
+    v-if="this.$store.state.meta.chatInfo"
+    class="info"
+    :class="{ open: $store.state.meta.chatInfoOpen }"
+  >
     <ChatDescription />
     <ChatActions />
     <Folders />

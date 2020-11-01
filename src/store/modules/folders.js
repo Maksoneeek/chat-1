@@ -72,6 +72,20 @@ export default {
       } catch (e) {
         console.log(e)
       }
+    },
+    async linkFolderRequest({ dispatch, rootState }, { folder_id, unlink }) {
+      try {
+        const { botref, currentChatId, currentProgram } = rootState.meta;
+
+        const response = await Api.linkFolder(botref, currentProgram, currentChatId, folder_id, unlink);
+
+        if (response.data.success) {
+          dispatch("fetchChatInfoRequest");
+        }
+
+      } catch (e) {
+        console.log(e)
+      }
     }
   },
   getters: {

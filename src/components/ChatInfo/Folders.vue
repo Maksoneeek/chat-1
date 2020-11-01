@@ -1,11 +1,12 @@
 <template>
-  <div class="info__block">
+  <div v-if="currentChat" class="info__block">
     <div class="info__block_title">Добавить диалог в группу:</div>
     <form class="info__form" action="">
       <Toggle
         v-for="folder of folders"
+        :id="folder.id"
         :text="folder.name"
-        :toggleHandler="() => test(folder.id)"
+        :toggleHandler="(unlink) => test(folder.id, unlink)"
         :key="folder.id"
       />
     </form>
@@ -23,10 +24,17 @@ export default {
     folders() {
       return this.$store.state.folders.folders;
     },
+    currentChat() {
+      return this.$store.getters.currentChat;
+    },
   },
   methods: {
-    test(id) {
-      console.log(id);
+    test(folder_id, unlink) {
+      this.$store.dispatch("linkFolderRequest", {
+        folder_id,
+        unlink,
+      });
+      console.log(folder_id, unlink);
     },
   },
 };
