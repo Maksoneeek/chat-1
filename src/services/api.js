@@ -97,6 +97,16 @@ class Api {
     });
   }
 
+  fetchChatInfo(botref, program, chat) {
+    return axios.get(`${this.baseUrl}/chatinfo`, {
+      params: {
+        botref,
+        program,
+        chat
+      }
+    });
+  }
+
   createChat(body) {
     return axios.post(`${this.baseUrl}/chats/create`, body)
   }
