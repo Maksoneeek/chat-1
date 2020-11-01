@@ -130,8 +130,14 @@ class Api {
     })
   }
 
-  createChat(body) {
-    return axios.post(`${this.baseUrl}/chats/create`, body)
+  writeFirst(botref, phone, msg_text) {
+    return axios.get(`${this.baseUrl}/write_first`, {
+      params: {
+        botref,
+        phone,
+        msg_text
+      }
+    })
   }
 
   sendMessage(chatId, body) {

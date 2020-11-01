@@ -114,6 +114,24 @@ export default {
         }
       }
     },
+    async writeFirstRequest({ commit, dispatch, rootState }, { phone, message }) {
+      const { botref } = rootState.meta;
+
+      const response = await Api.writeFirst(botref, phone, message);
+
+      if (response.data.peer) {
+
+        const newChat = {
+          ...response.data.peer,
+          last_msg_text: response.data.msg_text
+        };
+
+        commit("addChat", newChat);
+        commit("setChatId", response.data.peer.chat);
+        commit("setProgram", response.data.program);
+        dispatch("fetchFirstMessagesRequest");
+      }
+    },
     async createMessage() {
 
     }

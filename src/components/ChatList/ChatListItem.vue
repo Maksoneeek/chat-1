@@ -36,6 +36,7 @@
           </div>
         </div>
         <div
+          v-if="item.last_msg_text"
           class="item-list-chat__text"
           :class="{ 'item-list-chat__text_new': item.unread_msg_count != 0 }"
         >

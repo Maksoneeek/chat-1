@@ -115,8 +115,8 @@ export default {
   },
   methods: {
     addChat() {
-      this.$store.dispatch("createChat", {
-        ownerPhone: this.phone,
+      this.$store.dispatch("writeFirstRequest", {
+        phone: this.phone,
         message: this.message,
       });
 
