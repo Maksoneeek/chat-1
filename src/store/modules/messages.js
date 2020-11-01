@@ -6,6 +6,7 @@ export default {
     isLazyLoading: false,
     isLoaded: false,
     lastMessageId: 0,
+    freshMessageId: null,
     messages: []
   },
   mutations: {
@@ -15,21 +16,26 @@ export default {
     concatMessages(state, messages) {
       state.messages = messages.concat(state.messages)
     },
-    addMessage(state, message) {
-      state.messages.push(message)
+    setStartMessages(state, messages) {
+      state.messages = [...messages, ...state.messages]
     },
+
     setLoadingMessages(state, loadingState) {
       state.isLoading = loadingState
-    },
-    setLastMessageId(state, id) {
-      state.lastMessageId = id
     },
     setLazyLoading(state, loadingState) {
       state.isLazyLoading = loadingState
     },
     setLoaded(state, stateLoaded) {
       state.isLoaded = stateLoaded
-    }
+    },
+
+    setLastMessageId(state, id) {
+      state.lastMessageId = id
+    },
+    setFreshMessageId(state, id) {
+      state.freshMessageId = id
+    },
   },
   actions: {
     async fetchFirstMessagesRequest({ commit, rootState }) {
@@ -42,13 +48,12 @@ export default {
 
         const response = await Api.fetchMessagesHistory(botref, currentProgram, currentChatId, 0);
 
-
-        if (response.data.messages) {
+        if (response.data.messages.length) {
           const messages = response.data.messages;
 
-          //messages.reverse()
           commit('setMessages', messages)
           commit('setLastMessageId', messages.slice(-1)[0].id)
+          commit('setFreshMessageId', messages[0].id)
 
           if (messages.length < 32) {
             commit('setLoaded', true)
@@ -68,13 +73,13 @@ export default {
           const { botref, currentChatId, currentProgram } = rootState.meta;
           let { lastMessageId } = state;
           lastMessageId = -lastMessageId;
+          const saveChatId = currentChatId;
 
           const response = await Api.fetchMessagesHistory(botref, currentProgram, currentChatId, lastMessageId);
 
-          if (response.data.messages) {
+          if (response.data.messages.length && (saveChatId === currentChatId)) {
             const messages = response.data.messages;
 
-            //messages.reverse()
             commit('concatMessages', messages)
             commit('setLastMessageId', messages.slice(-1)[0].id)
 
@@ -90,22 +95,32 @@ export default {
         }
       }
     },
-    async createMessage({ commit }, body) {
-      const newMessage = {
-        type: 'text',
-        owner: 'me',
-        body,
-        status: 'sent',
-        timestamp: Date.now()
-      }
+    async updateMessages({ commit, state, rootState }) {
+      if (state.freshMessageId) {
+        try {
+          const { botref, currentChatId, currentProgram } = rootState.meta;
+          let { freshMessageId } = state;
+          const saveChatId = currentChatId;
 
-      const response = await Api.sendMessage(1, newMessage)
-      console.log(response)
-      if (response.data.status == "ok") {
-        commit('addMessage', newMessage)
+          const response = await Api.fetchMessagesHistory(botref, currentProgram, currentChatId, freshMessageId);
+
+          if (response.data.messages.length && (saveChatId === currentChatId)) {
+            const messages = response.data.messages;
+
+            commit('setStartMessages', messages)
+            commit('setFreshMessageId', messages[0].id)
+          }
+
+        } catch (e) {
+          console.log(e)
+        }
       }
+    },
+    async createMessage() {
+
     }
   },
+
   getters: {
   }
 }

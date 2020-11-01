@@ -21,6 +21,7 @@ export default {
   data() {
     return {
       afterFirstScroll: false,
+      updateInterval: null,
     };
   },
   components: {
@@ -45,16 +46,30 @@ export default {
       }
       this.afterFirstScroll = true;
     },
+    setIntervalUpdate() {
+      if (!this.$store.state.messages.isLoading) {
+        return setInterval(() => this.$store.dispatch("updateMessages"), 5000);
+      }
+      return null;
+    },
+    clearIntervalUpdate() {
+      if (this.updateInterval) {
+        clearInterval(this.updateInterval);
+      }
+    },
   },
   mounted() {
     let elem = this.$el;
     elem.scrollTop = elem.scrollHeight;
-    this.afterFirstScroll = true;
+  },
+  beforeUpdate() {
+    this.clearIntervalUpdate();
   },
   updated() {
     this.afterFirstScroll = false;
     let elem = this.$el;
     elem.scrollTop = elem.scrollHeight;
+    this.updateInterval = this.setIntervalUpdate();
   },
 };
 </script>
