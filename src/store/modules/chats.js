@@ -41,7 +41,7 @@ export default {
         commit("addChats", [])
 
         const { botref, currentFolder } = rootState.meta;
-        let { id, type, program } = currentFolder;
+        let { id, type, program, name } = currentFolder;
 
         if (type || program) {
           id = undefined
@@ -49,7 +49,7 @@ export default {
 
         const chats = await Api.fetchChats(botref, 0, program, id);
 
-        if (chats.data.peers.length > 0) {
+        if (chats.data.peers.length > 0 && (name === rootState.meta.currentFolder.name)) {
           const lastMessageTime = chats.data.peers.slice(-1)[0].last_msg_time;
 
           commit('addChats', chats.data.peers)
@@ -69,7 +69,7 @@ export default {
         commit('setLazyLoading', true);
 
         const { botref, time, currentFolder } = rootState.meta;
-        let { id, type, program } = currentFolder;
+        let { id, type, program, name } = currentFolder;
 
         if (type || program) {
           id = undefined
@@ -77,7 +77,7 @@ export default {
 
         const chats = await Api.fetchChats(botref, time, program, id);
 
-        if (chats.data.peers.length > 0) {
+        if (chats.data.peers.length > 0 && (name === rootState.meta.currentFolder.name)) {
           const lastMessageTime = chats.data.peers.slice(-1)[0].last_msg_time;
 
           commit('lazyAddChats', chats.data.peers)

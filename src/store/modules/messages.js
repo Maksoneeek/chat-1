@@ -14,7 +14,7 @@ export default {
       state.messages = messages
     },
     concatMessages(state, messages) {
-      state.messages = messages.concat(state.messages)
+      state.messages = state.messages.concat(messages)
     },
     setStartMessages(state, messages) {
       state.messages = [...messages, ...state.messages]
@@ -73,11 +73,10 @@ export default {
           const { botref, currentChatId, currentProgram } = rootState.meta;
           let { lastMessageId } = state;
           lastMessageId = -lastMessageId;
-          const saveChatId = currentChatId;
 
           const response = await Api.fetchMessagesHistory(botref, currentProgram, currentChatId, lastMessageId);
 
-          if (response.data.messages.length && (saveChatId === currentChatId)) {
+          if (response.data.messages.length && (currentChatId === rootState.meta.currentChatId)) {
             const messages = response.data.messages;
 
             commit('concatMessages', messages)
@@ -100,11 +99,10 @@ export default {
         try {
           const { botref, currentChatId, currentProgram } = rootState.meta;
           let { freshMessageId } = state;
-          const saveChatId = currentChatId;
 
           const response = await Api.fetchMessagesHistory(botref, currentProgram, currentChatId, freshMessageId);
 
-          if (response.data.messages.length && (saveChatId === currentChatId)) {
+          if (response.data.messages.length && (currentChatId === rootState.meta.currentChatId)) {
             const messages = response.data.messages;
 
             commit('setStartMessages', messages)
