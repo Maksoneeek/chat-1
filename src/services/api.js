@@ -140,13 +140,31 @@ class Api {
     })
   }
 
-  sendMessage(botref, program, chat, text) {
+  sendMessage(botref, program, chat, text, files, templateId) {
+    let count = 0;
     const body = new FormData();
     body.append('botref', botref);
     body.append('program', program);
     body.append('chat', chat);
-    body.append('type', 'text');
-    body.append('msg_text', text);
+
+    if (templateId) {
+      body.append('tpl_id', templateId)
+    } else {
+      if (text) {
+        body.append('type0', 'text');
+        body.append('msg_text0', text);
+        count = count + 1;
+      }
+
+      if (files) {
+        for (let i = 0; i < files.length; i++) {
+          body.append(`type${count}`, files[i].type);
+          body.append(`file${count}`, files[i].file);
+          count = count + 1;
+          console.log(files[i].type)
+        }
+      }
+    }
 
     return axios.post(`${this.baseUrl}/send_message`, body, {
       'Content-Type': 'multipart/form-data'

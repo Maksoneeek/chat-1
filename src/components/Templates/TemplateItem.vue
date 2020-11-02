@@ -1,5 +1,6 @@
 <template>
   <div
+    @click="setTemplateId"
     class="templates__line"
     :class="{ 'settings-templates-delete': deletable }"
   >
@@ -26,6 +27,11 @@ export default {
   methods: {
     deleteTemplate() {
       this.$store.dispatch("deleteTemplateRequest", this.template.id);
+    },
+    setTemplateId() {
+      if (!this.deletable) {
+        this.$store.commit("setTemplateId", this.template.id);
+      }
     },
   },
 };

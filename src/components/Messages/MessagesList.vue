@@ -2,7 +2,10 @@
   <div
     @scroll="onScroll"
     class="chat-item__content content-chat-content"
-    :class="{ 'info-pad': $store.state.meta.chatInfoOpen }"
+    :class="{
+      'info-pad': $store.state.meta.chatInfoOpen,
+      hidden: $store.state.meta.chatInfoOpen,
+    }"
   >
     <div v-if="$store.state.messages.isLoading">
       <MessageLoader></MessageLoader>

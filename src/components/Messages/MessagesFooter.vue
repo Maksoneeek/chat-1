@@ -1,7 +1,7 @@
 <template>
   <div class="chat-item__footer footer-chat-item">
     <div class="footer-chat-item__body">
-      <form action="">
+      <form @submit.prevent="" action="">
         <div class="footer-chat-item__input">
           <textarea v-model="text" name="" id=""></textarea>
         </div>
@@ -28,7 +28,7 @@
               />
             </svg>
           </button>
-          <button class="footer-chat-item__button">
+          <button @click="chooseFiles" class="footer-chat-item__button">
             <svg width="25px" height="23px" viewBox="0 0 612 792">
               <linearGradient
                 id="SVGID_1_"
@@ -47,6 +47,13 @@
                 d="M611.98,230.615c-0.552,27.731-12.409,54.677-33.383,75.872c-9.283,9.38-24.413,9.461-33.797,0.177  c-9.381-9.284-9.46-24.415-0.176-33.797c21.739-21.969,30.035-57.93-0.442-88.745c-25.711-25.996-59.141-26.513-85.232-1.342  L185.926,460.362c-4.245,4.289-12.638,15.516-0.059,28.237c4.334,4.382,8.927,6.603,13.649,6.602c4.8,0,9.755-2.34,13.956-6.591  l188.864-192.949c9.233-9.432,24.365-9.594,33.796-0.361c9.432,9.233,9.594,24.363,0.362,33.796L247.548,522.129  c-13.329,13.484-30.356,20.867-48.024,20.869h-0.008c-17.456,0-34.371-7.382-47.631-20.789  c-27.344-27.648-27.336-67.775,0.017-95.416l273.374-277.938l0.198-0.192c21.059-20.442,47.497-31.892,74.442-32.241  c0.441-0.005,0.882-0.008,1.322-0.008c28.273,0,54.846,11.771,76.927,34.097C600.548,173.145,612.557,201.592,611.98,230.615z   M503.107,350.178c-9.48-9.18-24.611-8.937-33.793,0.545L233.429,594.345c-21.354,21.563-48.371,33.44-76.089,33.444h-0.014  c-27.707,0-53.995-11.769-76.015-34.033c-51.543-52.114-37.153-113.32-0.014-150.883l235.524-235.472  c9.334-9.332,9.335-24.463,0.004-33.797c-9.331-9.334-24.462-9.335-33.797-0.004L47.457,409.117l-0.09,0.091  C17.827,439.06,1.023,476.7,0.047,515.198c-1.041,41.053,15.31,79.84,47.282,112.168c30.754,31.096,69.816,48.221,109.997,48.22  h0.022c40.621-0.006,79.743-16.954,110.156-47.723l236.148-243.892C512.833,374.488,512.589,359.359,503.107,350.178z"
               />
             </svg>
+            <input
+              class="input-file"
+              type="file"
+              ref="files"
+              multiple
+              @change="changeFiles"
+            />
           </button>
           <button class="footer-chat-item__button">
             <svg width="20px" height="24px" viewBox="0 0 612 792">
@@ -136,7 +143,9 @@
             />
           </svg>
         </div>
-        <div class="footer-chat-item__templates_text">Шаблоны</div>
+        <div class="footer-chat-item__templates_text">
+          {{ this.$store.state.messages.templateId }}Шаблоны
+        </div>
       </div>
     </div>
   </div>
@@ -147,21 +156,53 @@ export default {
   data() {
     return {
       text: "",
+      files: [],
     };
   },
   methods: {
-    createMessage(e) {
-      e.preventDefault();
-      if (this.text) {
+    createMessage() {
+      const templateId = this.$store.state.messages.templateId;
+
+      if (this.text || this.files.length || templateId) {
         this.$store.dispatch("sendMessage", {
           text: this.text,
+          files: this.files,
+          templateId: templateId,
         });
         this.text = "";
+        this.files = [];
+        this.$store.commit("setTemplateId", null);
       }
     },
     toggleTemplateListPopup() {
       this.$store.commit("toggleTemplateListPopup");
     },
+    changeFiles() {
+      this.files = [];
+      for (let i = 0; i < this.$refs.files.files.length; i++) {
+        this.files.push({
+          type: this.getFileType(this.$refs.files.files[i].type),
+          file: this.$refs.files.files[i],
+        });
+      }
+    },
+    chooseFiles() {
+      this.$refs.files.click();
+    },
+    getFileType(rawType) {
+      const type = rawType.split("/")[0];
+      const knownType = ["image", "video"];
+      if (knownType.includes(type)) {
+        return type;
+      }
+      return "file";
+    },
   },
 };
 </script>
+
+<style scoped>
+.input-file {
+  display: none;
+}
+</style>

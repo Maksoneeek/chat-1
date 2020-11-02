@@ -7,6 +7,7 @@ export default {
     isLoaded: false,
     lastMessageId: 0,
     freshMessageId: null,
+    templateId: null,
     messages: []
   },
   mutations: {
@@ -36,6 +37,9 @@ export default {
     setFreshMessageId(state, id) {
       state.freshMessageId = id
     },
+    setTemplateId(state, id) {
+      state.templateId = id;
+    }
   },
   actions: {
     async fetchFirstMessagesRequest({ commit, rootState }) {
@@ -132,11 +136,13 @@ export default {
         dispatch("fetchFirstMessagesRequest");
       }
     },
-    async sendMessage({ dispatch, rootState }, { text }) {
+    async sendMessage({ dispatch, rootState }, { text, files, templateId }) {
       try {
         const { botref, currentChatId, currentProgram } = rootState.meta;
 
-        const response = await Api.sendMessage(botref, currentProgram, currentChatId, text);
+        const response = await Api.sendMessage(botref, currentProgram, currentChatId, text, files, templateId);
+
+        console.log(response)
 
         if (response.data.success) {
           dispatch('updateMessages')
