@@ -24,7 +24,9 @@ export default {
   props: ["id", "text", "toggleHandler"],
   computed: {
     active() {
-      return this.$store.state.meta.chatInfo.linked_folders.includes(this.id);
+      return this.$store.state.meta.chatInfo.linked_folders.includes(
+        parseInt(this.id)
+      );
     },
   },
   methods: {

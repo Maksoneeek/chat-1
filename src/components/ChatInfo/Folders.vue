@@ -34,7 +34,6 @@ export default {
         folder_id,
         unlink,
       });
-      console.log(folder_id, unlink);
     },
   },
 };

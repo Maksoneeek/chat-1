@@ -79,6 +79,8 @@ export default {
 
         const response = await Api.linkFolder(botref, currentProgram, currentChatId, folder_id, unlink);
 
+        console.log(response)
+
         if (response.data.success) {
           dispatch("fetchChatInfoRequest");
         }

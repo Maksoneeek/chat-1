@@ -21,11 +21,11 @@
             'content-chat-content__item_big': message.type === 'image',
           }"
         >
-          <span v-if="message.type === 'text'">
+          <span v-if="message.text">
             {{ message.text }}
           </span>
           <div
-            v-else-if="message.type === 'image'"
+            v-if="message.type === 'image'"
             class="content-chat-content__img"
           >
             <img :src="message.url" alt="" />
