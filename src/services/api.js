@@ -170,6 +170,17 @@ class Api {
       'Content-Type': 'multipart/form-data'
     });
   }
+
+  toggleBanChat(botref, program, chat, is_banned) {
+    return axios.get(`${this.baseUrl}/ban`, {
+      params: {
+        botref,
+        program,
+        chat,
+        is_banned
+      }
+    })
+  }
 }
 
 export default new Api()

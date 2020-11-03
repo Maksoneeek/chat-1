@@ -78,6 +78,21 @@ export default {
       } catch (e) {
         console.log(e)
       }
+    },
+    async toggleBanChatRequest({ state, dispatch }) {
+      try {
+        const { currentChatId, botref, currentProgram, chatInfo } = state;
+        const { is_banned } = chatInfo;
+
+        const response = await Api.toggleBanChat(botref, currentProgram, currentChatId, is_banned);
+
+        if (response.data.success) {
+          dispatch("fetchChatInfoRequest")
+        }
+
+      } catch (e) {
+        console.log(e)
+      }
     }
   },
   getters: {

@@ -2044,6 +2044,12 @@ body .scrollar-viewport, html .scrollar-viewport {
   max-width: 141px;
 }
 
+.info__label_text-green {
+  font-size: 13px;
+  color: #33a525;
+  max-width: 141px;
+}
+
 .info__checkbox {
   margin-bottom: 20px;
 }

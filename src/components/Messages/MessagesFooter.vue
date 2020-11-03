@@ -1,5 +1,8 @@
 <template>
-  <div class="chat-item__footer footer-chat-item">
+  <div
+    class="chat-item__footer footer-chat-item"
+    :class="{ disabled: $store.state.meta.chatInfo.is_banned }"
+  >
     <div class="footer-chat-item__body">
       <form @submit.prevent="" action="">
         <div class="footer-chat-item__input">
@@ -204,5 +207,9 @@ export default {
 <style scoped>
 .input-file {
   display: none;
+}
+.disabled {
+  pointer-events: none;
+  opacity: 0.4;
 }
 </style>
