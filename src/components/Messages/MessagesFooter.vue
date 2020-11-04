@@ -1,12 +1,12 @@
 <template>
   <div
     class="chat-item__footer footer-chat-item"
-    :class="{ disabled: $store.state.meta.chatInfo.is_banned }"
+    :class="{ disabled: $store.getters.isBannedChat }"
   >
     <div class="footer-chat-item__body">
       <form @submit.prevent="" action="">
         <div class="footer-chat-item__input">
-          <textarea v-model="text" name="" id=""></textarea>
+          <textarea v-model="text" name="" id="textarea"></textarea>
         </div>
         <div class="footer-chat-item__icons">
           <button

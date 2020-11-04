@@ -22,7 +22,9 @@
           }"
         >
           <span v-if="message.text">
-            {{ message.text }}
+            <span v-for="(text, index) in textArray" :key="index"
+              >{{ text }}<br
+            /></span>
           </span>
           <div
             v-if="message.type === 'image'"
@@ -53,6 +55,9 @@ export default {
       }
 
       return this.message.sender;
+    },
+    textArray() {
+      return this.message.text.split("\n");
     },
   },
 };

@@ -740,8 +740,9 @@ body .scrollar-viewport, html .scrollar-viewport {
 }
 
 .footer-chat-item__input textarea {
+  
   width: 572px;
-  height: 13px;
+  height: 3.3rem;
   resize: none;
 }
 
@@ -753,9 +754,9 @@ body .scrollar-viewport, html .scrollar-viewport {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .footer-chat-item__button {
@@ -2091,4 +2092,9 @@ body .scrollar-viewport, html .scrollar-viewport {
 
 .hidden {
   overflow: hidden;
+}
+
+
+.micro__btn path {
+  fill: url(#SVGID_1_);
 }

@@ -105,6 +105,12 @@ export default {
       }
 
       return false
+    },
+    isBannedChat(state) {
+      if (state.chatInfo) {
+        return state.chatInfo.is_banned;
+      }
+      return true;
     }
   }
 }
