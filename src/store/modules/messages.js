@@ -150,8 +150,7 @@ export default {
         const { text, files, templateId } = state;
 
         const response = await Api.sendMessage(botref, currentProgram, currentChatId, text, files, templateId);
-
-        console.log(response)
+        commit('setTemplateListPopup', false)
 
         if (response.data.success) {
           dispatch('updateMessages')
@@ -167,5 +166,8 @@ export default {
   },
 
   getters: {
+    templateId(state) {
+      return state.templateId;
+    }
   }
 }

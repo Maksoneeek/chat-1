@@ -51,6 +51,13 @@ export default {
     notModeratedTemplates(state) {
       const templates = state.options.templates || []
       return templates.filter(template => !template.moderated)
+    },
+    currentTemplate(state, rootState) {
+      if (state.templates) {
+        const id = rootState.templateId;
+        return state.templates.find(template => template.id === id)
+      }
+      return null
     }
   }
 }

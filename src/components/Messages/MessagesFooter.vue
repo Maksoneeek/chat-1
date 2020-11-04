@@ -6,7 +6,20 @@
     <div class="footer-chat-item__body">
       <form @submit.prevent="" action="">
         <div class="footer-chat-item__input">
-          <textarea v-model="text" name="" id="textarea"></textarea>
+          <textarea
+            v-if="!template"
+            v-model="text"
+            name=""
+            id="textarea"
+          ></textarea>
+          <div v-else class="footer-chat-item__input_template">
+            <div class="footer-chat-item__input_img">
+              <img :src="template.image" alt="" />
+            </div>
+            <div class="footer-chat-item__input_text">
+              {{ template.text }}
+            </div>
+          </div>
         </div>
         <div class="footer-chat-item__icons">
           <button
@@ -76,9 +89,7 @@
             />
           </svg>
         </div>
-        <div class="footer-chat-item__templates_text">
-          {{ this.$store.state.messages.templateId }}Шаблоны
-        </div>
+        <div class="footer-chat-item__templates_text">Шаблоны</div>
       </div>
     </div>
   </div>
@@ -103,6 +114,14 @@ export default {
       set(text) {
         return this.$store.commit("updateText", text);
       },
+    },
+    template() {
+      const templates = this.$store.state.options.options.templates;
+      if (templates) {
+        const id = this.$store.getters.templateId;
+        return templates.find((template) => template.id == id);
+      }
+      return null;
     },
   },
   methods: {
