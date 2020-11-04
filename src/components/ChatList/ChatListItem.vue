@@ -1,7 +1,9 @@
 <template>
   <div
     class="list-chat__item item-list-chat"
-    :class="{ active: CurrentChatId == item.chat + item.program }"
+    :class="{
+      active: CurrentChatId + CurrentProgram == item.chat + item.program,
+    }"
     @click="setChat(item.chat, item.program)"
   >
     <div class="item-list-chat__body">
@@ -62,6 +64,9 @@ export default {
     },
     CurrentChatId() {
       return this.$store.state.meta.currentChatId;
+    },
+    CurrentProgram() {
+      return this.$store.state.meta.currentProgram;
     },
     firstCharNickname() {
       const nickname = this.item.profile.nickname || this.item.profile.login;

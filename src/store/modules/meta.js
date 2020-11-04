@@ -113,6 +113,9 @@ export default {
     currentChatId(state) {
       return state.currentChatId;
     },
+    currentProgram(state) {
+      return state.currentProgram;
+    },
     chatIsConnected(state) {
       if (state.chatInfo) {
         return state.chatInfo.is_connected || false;
