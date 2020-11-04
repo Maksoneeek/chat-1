@@ -6,6 +6,7 @@
         <div class="chat__row">
           <ChatList />
           <Messages />
+          <FilesPopup />
         </div>
       </div>
     </div>
@@ -16,12 +17,14 @@
 import LeftBar from "./components/Folders/FolderBar";
 import ChatList from "./components/ChatList/ChatList";
 import Messages from "./components/Messages/Messages";
+import FilesPopup from "./components/Messages/MessageWidgets/FilesWidget/FilesPopup";
 
 export default {
   components: {
     LeftBar,
     ChatList,
     Messages,
+    FilesPopup,
   },
   computed: {
     folderIsOpen() {

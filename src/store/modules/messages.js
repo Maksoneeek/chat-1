@@ -8,6 +8,8 @@ export default {
     lastMessageId: 0,
     freshMessageId: null,
     templateId: null,
+    text: '',
+    files: [],
     messages: []
   },
   mutations: {
@@ -39,6 +41,12 @@ export default {
     },
     setTemplateId(state, id) {
       state.templateId = id;
+    },
+    updateText(state, text) {
+      state.text = text;
+    },
+    setFiles(state, files) {
+      state.files = files
     }
   },
   actions: {
@@ -136,9 +144,10 @@ export default {
         dispatch("fetchFirstMessagesRequest");
       }
     },
-    async sendMessage({ dispatch, rootState }, { text, files, templateId }) {
+    async sendMessage({ dispatch, commit, state, rootState }) {
       try {
         const { botref, currentChatId, currentProgram } = rootState.meta;
+        const { text, files, templateId } = state;
 
         const response = await Api.sendMessage(botref, currentProgram, currentChatId, text, files, templateId);
 
@@ -146,6 +155,9 @@ export default {
 
         if (response.data.success) {
           dispatch('updateMessages')
+          commit("updateText", '')
+          commit("setFiles", [])
+          commit("setTemplateId", null)
         }
 
       } catch (e) {

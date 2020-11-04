@@ -12,7 +12,8 @@ export default {
     templateListPopup: false,
     settingsPopup: false,
     foldersIsOpen: false,
-    chatInfoOpen: false
+    chatInfoOpen: false,
+    filesPopupOpen: true
   },
   mutations: {
     toggleNewChatPopup(state) {
@@ -44,6 +45,9 @@ export default {
     },
     toggleChatInfo(state) {
       state.chatInfoOpen = !state.chatInfoOpen
+    },
+    toggleFilesPopup(state) {
+      state.filesPopupOpen = !state.filesPopupOpen
     },
   },
   actions: {
