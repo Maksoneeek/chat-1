@@ -936,6 +936,13 @@ body .scrollar-viewport, html .scrollar-viewport {
   cursor: pointer;
 }
 
+.content-chat-content__file a {
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 .content-chat-content__file_icon {
   width: 40px;
   height: 40px;
