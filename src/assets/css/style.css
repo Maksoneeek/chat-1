@@ -1013,7 +1013,7 @@ body .scrollar-viewport, html .scrollar-viewport {
   border-right: 12px solid  #ffffff;
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
-  z-index: 2;
+  z-index: 0;
   left: -11px;
 }
 
@@ -2094,7 +2094,167 @@ body .scrollar-viewport, html .scrollar-viewport {
   overflow: hidden;
 }
 
+.smile {
+  position: relative;
+  cursor: pointer;
+}
+
+.smile:hover .smile-item {
+  opacity: 1;
+  visibility: visible;
+}
+
+.smile .smile-item {
+  width: 336px;
+  height: 232px;
+  overflow-y: scroll;
+  background-color: #ffffff;
+  position: absolute;
+  top: -244px;
+  left: -135px;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+  padding: 10px;
+  color: #000;
+  overflow-wrap: break-word;
+  font-size: 18px;
+}
+
+.emoji {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3px;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.emoji:hover {
+  background-color: rgb(228, 227, 227);
+}
+
+.micro {
+  position: relative;
+}
+
+.micro:hover .micro__first-item {
+  opacity: 1;
+  visibility: visible;
+}
+
+.micro__first-item {
+  width: 182px;
+  height: 164px;
+  -webkit-box-shadow: 0 0 24px rgba(4, 26, 55, 0.08);
+          box-shadow: 0 0 24px rgba(4, 26, 55, 0.08);
+  border: 1px solid #e5e5e5;
+  background-color: #ffffff;
+  position: absolute;
+  top: -185px;
+  left: -85px;
+  padding: 21px 17px;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+
+.micro__title {
+  color: #222222;
+  font-size: 13px;
+  line-height: 19px;
+  max-width: 131px;
+  margin: 0 auto;
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.micro__icon {
+  width: 66px;
+  height: 66px;
+  border: 2px solid #dbe0e4;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0 auto;
+  border-radius: 50%;
+}
+
+.micro__two-item {
+  display: none;
+  width: 182px;
+  height: 164px;
+  -webkit-box-shadow: 0 0 24px rgba(4, 26, 55, 0.08);
+          box-shadow: 0 0 24px rgba(4, 26, 55, 0.08);
+  border: 1px solid #e5e5e5;
+  background-color: #ffffff;
+  position: absolute;
+  top: -185px;
+  left: -85px;
+  padding: 21px 17px;
+}
+
+.micro__two-item.open {
+  display: block;
+}
+
+.micro__timer {
+  text-align: center;
+  margin-bottom: 14px;
+  color: #222222;
+  font-size: 12px;
+  height: 12px;
+}
+
+.micro__line {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.micro__delete {
+  width: 35px;
+  height: 35px;
+  background-color: rgba(219, 224, 228, 0.5);
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.micro__btn {
+  width: 35px;
+  height: 35px;
+  background-color: rgba(219, 224, 228, 0.5);
+  border-radius: 50%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
 
 .micro__btn path {
   fill: url(#SVGID_1_);
 }
+
