@@ -181,6 +181,17 @@ class Api {
       }
     })
   }
+
+  unreadMessages(botref, program, chat) {
+    const body = new FormData();
+    body.append('botref', botref);
+    body.append('program', program);
+    body.append('chat', chat);
+
+    return axios.post(`${this.baseUrl}/reset_unread`, body, {
+      'Content-Type': 'multipart/form-data'
+    });
+  }
 }
 
 export default new Api()

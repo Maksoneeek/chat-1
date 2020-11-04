@@ -91,6 +91,7 @@ export default {
       //     isRead: true,
       //   });
       // }
+      this.$store.dispatch("unreadMessagesRequest");
     },
   },
 };

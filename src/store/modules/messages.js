@@ -162,6 +162,16 @@ export default {
       } catch (e) {
         console.log(e)
       }
+    },
+    async unreadMessagesRequest({ rootState }) {
+      try {
+        const { botref, currentChatId, currentProgram } = rootState.meta;
+
+        Api.unreadMessages(botref, currentProgram, currentChatId);
+
+      } catch (e) {
+        console.log(e)
+      }
     }
   },
 
