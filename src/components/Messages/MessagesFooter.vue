@@ -130,6 +130,7 @@ export default {
     },
     toggleTemplateListPopup() {
       this.$store.commit("toggleTemplateListPopup");
+      this.$store.commit("setNewChatTemplatePopup", false);
     },
     addEmoji(emoji) {
       this.text += emoji;

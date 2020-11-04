@@ -130,12 +130,13 @@ class Api {
     })
   }
 
-  writeFirst(botref, phone, msg_text) {
+  writeFirst(botref, phone, msg_text, tpl_id) {
     return axios.get(`${this.baseUrl}/write_first`, {
       params: {
         botref,
         phone,
-        msg_text
+        msg_text,
+        tpl_id
       }
     })
   }

@@ -113,22 +113,6 @@ export default {
         console.log(e)
       }
     },
-    async createChat({ commit }, payload) {
-      const newChat = {
-        isRead: true,
-        ownerName: 'Default',
-        ownerPhone: payload.ownerPhone,
-        programm: 'Telegram',
-        lastMessage: payload.message,
-        timestamp: Date.now()
-      }
-
-      const response = await Api.createChat(newChat)
-
-      if (response.data.status == "ok") {
-        commit('addChat', newChat)
-      }
-    },
     async updateChats({ commit, state, rootState }) {
       try {
 

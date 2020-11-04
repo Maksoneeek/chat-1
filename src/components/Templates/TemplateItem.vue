@@ -31,6 +31,8 @@ export default {
     setTemplateId() {
       if (!this.deletable) {
         this.$store.commit("setTemplateId", this.template.id);
+        this.$store.commit("setTemplateListPopup", false);
+        this.$store.commit("setNewChatTemplatePopup", false);
       }
     },
   },

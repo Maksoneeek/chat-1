@@ -46,7 +46,11 @@
                 placeholder="Введите номер телефона..."
               />
             </div>
-            <div class="footer-chat-item__templates popup-new__templates">
+            <div
+              @click="openTemplates"
+              class="footer-chat-item__templates popup-new__templates templates-open-2"
+              :class="{ 'active-template': $store.state.messages.templateId }"
+            >
               <div class="footer-chat-item__templates_icon">
                 <svg width="23.5px" height="23.5px" viewBox="0 0 612 792">
                   <linearGradient
@@ -122,6 +126,11 @@ export default {
 
       this.phone = this.message = "";
       this.$store.commit("toggleNewChatPopup");
+      this.$store.commit("toggleNewChatTemplatePopup");
+    },
+    openTemplates() {
+      this.$store.commit("toggleTemplateListPopup");
+      this.$store.commit("toggleNewChatTemplatePopup");
     },
   },
 };

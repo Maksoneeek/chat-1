@@ -1,5 +1,8 @@
 <template>
-  <div class="templates" :class="{ open: isOpen }">
+  <div
+    class="templates"
+    :class="{ open: isOpen, 'templates-2': isNewChatTemplate }"
+  >
     <div class="templates__header">
       <div class="templates__title">Ваши шаблоны</div>
       <form action="" class="templates__search">
@@ -44,6 +47,9 @@ export default {
       return templates.filter((template) =>
         template.name.toLowerCase().includes(this.searchString.toLowerCase())
       );
+    },
+    isNewChatTemplate() {
+      return this.$store.state.meta.newChatTemplatePopup;
     },
   },
 };

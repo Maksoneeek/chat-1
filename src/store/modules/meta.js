@@ -10,6 +10,7 @@ export default {
     time: 0,
     newChatPopup: false,
     templateListPopup: false,
+    newChatTemplatePopup: false,
     settingsPopup: false,
     foldersIsOpen: false,
     chatInfoOpen: false,
@@ -37,8 +38,14 @@ export default {
     toggleTemplateListPopup(state) {
       state.templateListPopup = !state.templateListPopup
     },
+    toggleNewChatTemplatePopup(state) {
+      state.newChatTemplatePopup = !state.newChatTemplatePopup
+    },
     setTemplateListPopup(state, bool) {
       state.templateListPopup = bool
+    },
+    setNewChatTemplatePopup(state, bool) {
+      state.newChatTemplatePopup = bool
     },
     toggleSettingsPopup(state) {
       state.settingsPopup = !state.settingsPopup

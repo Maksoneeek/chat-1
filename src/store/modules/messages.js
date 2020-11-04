@@ -40,7 +40,11 @@ export default {
       state.freshMessageId = id
     },
     setTemplateId(state, id) {
-      state.templateId = id;
+      if (state.templateId === id) {
+        state.templateId = null;
+      } else {
+        state.templateId = id;
+      }
     },
     updateText(state, text) {
       state.text = text;
@@ -126,10 +130,13 @@ export default {
         }
       }
     },
-    async writeFirstRequest({ commit, dispatch, rootState }, { phone, message }) {
+    async writeFirstRequest({ commit, dispatch, state, rootState }, { phone, message }) {
       const { botref } = rootState.meta;
+      const { templateId } = state;
 
-      const response = await Api.writeFirst(botref, phone, message);
+      const response = await Api.writeFirst(botref, phone, message, templateId);
+
+      commit("setTemplateId", null)
 
       if (response.data.peer) {
 
