@@ -1130,6 +1130,11 @@ body, html {
   cursor: pointer;
 }
 
+.content-chat-content__audio audio.stop::-webkit-media-controls-play-button{
+  background: url(../img/stop.png) center no-repeat;
+  background-color: rgba(219, 224, 228, 0.5);
+}
+
 .content-chat-content__audio audio::-webkit-media-controls-current-time-display {
   position: absolute;
   right: 36px;
@@ -1797,6 +1802,8 @@ body, html {
   font-weight: 500;
   color: #222222;
 }
+
+
 
 .settings__header-bot_new-templates {
   font-size: 13px;

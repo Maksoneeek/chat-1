@@ -57,7 +57,14 @@
             v-else-if="message.type === 'audio'"
             class="content-chat-content__audio"
           >
-            <audio :src="message.url" preload="auto" controls></audio>
+            <audio
+              @playing="onPlay"
+              @pause="onPause"
+              :class="{ stop: audioPlay }"
+              :src="message.url"
+              preload="auto"
+              controls
+            ></audio>
           </div>
         </div>
       </div>
@@ -69,6 +76,11 @@
 import { convertDate } from "../../services/utils";
 
 export default {
+  data() {
+    return {
+      audioPlay: false,
+    };
+  },
   props: ["message"],
   computed: {
     getDate() {
@@ -97,6 +109,14 @@ export default {
         console.log("Не удалось определить размер файла");
       }
       return "";
+    },
+  },
+  methods: {
+    onPlay() {
+      this.audioPlay = true;
+    },
+    onPause() {
+      this.audioPlay = false;
     },
   },
 };
