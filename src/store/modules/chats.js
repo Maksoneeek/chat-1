@@ -49,8 +49,6 @@ export default {
 
         const chats = await Api.fetchChats(botref, 0, program, id);
 
-        console.log(chats)
-
         if (chats.data.peers.length > 0 && (name === rootState.meta.currentFolder.name)) {
           const lastMessageTime = chats.data.peers.slice(-1)[0].last_msg_time;
 
@@ -127,18 +125,17 @@ export default {
 
         const chats = await Api.fetchChats(botref, 0, program, id);
 
-        const newChats = state.chats;
+        let newChats = state.chats;
 
-        for (let updChat in chats.data.peers) {
-          newChats.map(chat => {
+        for (let updChat of chats.data.peers) {
+          newChats = newChats.map(chat => {
             if ((chat.chat == updChat.chat) && (chat.program == updChat.program)) {
               return updChat
             }
             return chat
           })
         }
-
-        commit('addChats', newChats)
+        commit('addChats', newChats);
       } catch (e) {
         console.log(e)
       }
@@ -159,10 +156,10 @@ export default {
         if (sosChats || chats.data.unread) {
           const updChats = [...sosChats, ...chats.data.unread];
 
-          const newChats = state.chats;
+          let newChats = state.chats;
 
           for (let updChat in updChats) {
-            newChats.map(chat => {
+            newChats = newChats.map(chat => {
               if ((chat.chat == updChat.chat) && (chat.program == updChat.program)) {
                 return updChat
               }
