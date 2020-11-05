@@ -57,11 +57,6 @@
             v-else-if="message.type === 'audio'"
             class="content-chat-content__audio"
           >
-            <!-- <div class="content-chat-content__audio_icon">
-              <img src="@/assets/img/play.png" alt="" />
-            </div>
-            <div class="content-chat-content__audio_line"></div>
-            <div class="content-chat-content__item_time">00:20</div> -->
             <audio :src="message.url" preload="auto" controls></audio>
           </div>
         </div>

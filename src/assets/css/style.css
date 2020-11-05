@@ -1087,6 +1087,89 @@ body, html {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  position: relative;
+}
+
+.content-chat-content__audio::before {
+  content: '';
+  width: 75px;
+  height: 62px;
+  background-color: transparent;
+  position: absolute;
+  right: 0;
+  z-index: 2;
+}
+
+.content-chat-content__audio audio {
+  width: 310px;
+  height: 30px;
+  background-color: #ffffff;
+  border-radius: 0;
+  color: transparent;
+  position: relative;
+}
+
+.content-chat-content__audio audio::-webkit-media-controls-panel {
+  background-color: #ffffff;
+}
+
+.content-chat-content__audio audio::-webkit-media-controls-play-button {
+  display: block;
+  width: 32px;
+  height: 32px;
+  background: url(../img/play.png) center no-repeat;
+  background-color: rgba(219, 224, 228, 0.5);
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+          justify-content: center;
+  border-radius: 50%;
+  margin: 0 10px 0 0;
+  cursor: pointer;
+}
+
+.content-chat-content__audio audio::-webkit-media-controls-current-time-display {
+  position: absolute;
+  right: 36px;
+  background-color: white;
+  z-index: 2;
+  font-size: 12px;
+}
+
+.content-chat-content__audio audio::-webkit-media-controls-time-remaining-display {
+  position: absolute;
+  right: 0px;
+  background-color: white;
+  z-index: 2;
+  font-size: 12px;
+}
+
+.content-chat-content__audio audio::-webkit-media-controls-mute-button {
+  display: none;
+}
+
+.content-chat-content__audio audio::-webkit-media-controls-timeline {
+  width: 224px;
+  padding: 0;
+}
+
+.content-chat-content__audio audio::-webkit-media-controls-seek-back-button {
+  display: none;
+}
+
+.content-chat-content__audio audio::-webkit-media-controls-toggle-closed-captions-button {
+  display: none;
+}
+
+.content-chat-content__audio audio::-webkit-media-controls-rewind-button {
+  display: none;
+}
+
+.content-chat-content__audio audio::-webkit-media-controls-volume-container {
+  display: none;
+  width: 0px;
 }
 
 .content-chat-content__audio_icon {
@@ -1105,6 +1188,7 @@ body, html {
   border-radius: 50%;
   margin: 0 10px 0 0;
   cursor: pointer;
+  display: none;
 }
 
 .content-chat-content__audio_line {
@@ -1115,9 +1199,10 @@ body, html {
   position: relative;
   margin: 0 10px 0 0;
   cursor: pointer;
+  display: none;
 }
 
-.content-chat-content__audio_line::before {
+.content-chat-content__audio_line-control::before {
   content: '';
   display: block;
   width: 4px;
@@ -1132,6 +1217,13 @@ body, html {
 .content-chat-content__audio_line_time {
   font-size: 12px;
   color: #222222;
+  display: none;
+}
+
+.content-chat-content__audio_time {
+  font-size: 12px;
+  color: #222222;
+  display: none;
 }
 
 .content-chat-content__item {
