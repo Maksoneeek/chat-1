@@ -42,7 +42,7 @@
           class="item-list-chat__text"
           :class="{ 'item-list-chat__text_new': item.unread_msg_count != 0 }"
         >
-          {{ item.last_msg_text.slice(0, 20) + "..." }}
+          {{ textMessage }}
         </div>
         <div class="item-list-chat__date">{{ getDate }}</div>
       </div>
@@ -81,6 +81,13 @@ export default {
       }
 
       return firtsChar;
+    },
+    textMessage() {
+      if (this.item.last_msg_text.length < 20) {
+        return this.item.last_msg_text;
+      } else {
+        return this.item.last_msg_text.slice(0, 20) + "...";
+      }
     },
   },
   methods: {

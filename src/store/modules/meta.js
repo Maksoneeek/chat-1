@@ -59,6 +59,9 @@ export default {
     toggleFilesPopup(state) {
       state.filesPopupOpen = !state.filesPopupOpen
     },
+    setFilesPopup(state, bool) {
+      state.filesPopupOpen = bool;
+    },
   },
   actions: {
     async fetchChatInfoRequest({ state, commit }) {
