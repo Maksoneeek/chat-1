@@ -1,5 +1,8 @@
 <template>
   <div class="settings" :class="{ open: isOpen }">
+    <div @click="close" class="close-new close">
+      <img src="@/assets/img/close.png" alt="" />
+    </div>
     <div class="settings__header-top">
       <span class="settings__icon">
         <svg width="23px" height="23px" viewBox="0 0 612 792">
@@ -142,6 +145,9 @@ export default {
       return templates.filter((template) =>
         template.name.toLowerCase().includes(this.searchString.toLowerCase())
       );
+    },
+    close() {
+      this.$store.commit("toggleSettingsPopup");
     },
   },
 };

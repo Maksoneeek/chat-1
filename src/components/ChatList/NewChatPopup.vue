@@ -4,6 +4,9 @@
     class="popup-new"
     :class="{ open: $store.state.meta.newChatPopup }"
   >
+    <div @click="close" class="close-new close">
+      <img src="@/assets/img/close.png" alt="" />
+    </div>
     <div class="popup-new__body">
       <div class="popup-new__content">
         <div class="popup-new__header">
@@ -131,6 +134,9 @@ export default {
     openTemplates() {
       this.$store.commit("toggleTemplateListPopup");
       this.$store.commit("toggleNewChatTemplatePopup");
+    },
+    close() {
+      this.$store.commit("toggleNewChatPopup");
     },
   },
 };

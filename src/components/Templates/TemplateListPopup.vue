@@ -3,6 +3,9 @@
     class="templates"
     :class="{ open: isOpen, 'templates-2': isNewChatTemplate }"
   >
+    <div @click="close" class="close-new close">
+      <img src="@/assets/img/close.png" alt="" />
+    </div>
     <div class="templates__header">
       <div class="templates__title">Ваши шаблоны</div>
       <form action="" class="templates__search">
@@ -50,6 +53,12 @@ export default {
     },
     isNewChatTemplate() {
       return this.$store.state.meta.newChatTemplatePopup;
+    },
+  },
+  methods: {
+    close() {
+      this.$store.commit("toggleTemplateListPopup");
+      this.$store.commit("setNewChatTemplatePopup", false);
     },
   },
 };
