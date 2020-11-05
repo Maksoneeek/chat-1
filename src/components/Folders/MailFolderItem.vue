@@ -18,7 +18,16 @@ export default {
   methods: {
     setFolder() {
       this.$store.commit("setFolder", this.folder);
-      this.$store.dispatch("fetchChatsRequest");
+      if (this.folder.type === "read") {
+        this.$store.dispatch("fetchChatsRequest");
+      } else if (this.folder.type === "unread") {
+        this.$store.commit("addChats", []);
+        this.$store.commit("setLoaded", true);
+        this.$store.dispatch("fetchUrgentChats");
+      } else {
+        this.$store.dispatch("fetchChatsRequest");
+        this.$store.dispatch("fetchUrgentChats");
+      }
     },
   },
 };

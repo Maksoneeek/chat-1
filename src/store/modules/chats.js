@@ -49,6 +49,8 @@ export default {
 
         const chats = await Api.fetchChats(botref, 0, program, id);
 
+        console.log(chats)
+
         if (chats.data.peers.length > 0 && (name === rootState.meta.currentFolder.name)) {
           const lastMessageTime = chats.data.peers.slice(-1)[0].last_msg_time;
 
@@ -187,21 +189,7 @@ export default {
     }
   },
   getters: {
-    chats(state, getters, rootState) {
-      const currentFolder = rootState.meta.currentFolder;
-      if (!currentFolder) {
-        return getters.getSortChats
-      } else {
-        if (currentFolder.type) {
-          return getters.getChatsByType(currentFolder.type)
-        } else if (currentFolder.program) {
-          return getters.getChatsByProgram(currentFolder.program)
-        } else {
-          return getters.getChatsByGroupId(currentFolder.id)
-        }
-      }
-    },
-    getChatsLength(state) {
+    chatsLength(state) {
       return state.chats.length
     },
     getSortChats(state) {

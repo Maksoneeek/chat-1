@@ -1,7 +1,7 @@
 <template>
   <div class="list-chat__header header-list-chat">
     <div class="header-list-chat__title">
-      Ваши диалоги <span>({{ chats.length }})</span>
+      Ваши диалоги <span>({{ chatsLength }})</span>
     </div>
     <div class="header-list-chat__icons">
       <div @click="toggleFolderOpen" class="header-list-chat__icon">
@@ -97,7 +97,7 @@ import { mapGetters } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters(["chats"]),
+    ...mapGetters(["chatsLength"]),
   },
   methods: {
     toggleNewChatPopup() {

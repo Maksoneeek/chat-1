@@ -31,7 +31,7 @@ export default {
   },
   computed: {
     chats() {
-      return this.$store.getters.chats;
+      return this.$store.state.chats.chats;
     },
   },
   methods: {
@@ -49,7 +49,7 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch("lazyChatsRequest");
+    this.$store.dispatch("fetchChatsRequest");
     this.$store.dispatch("fetchUrgentChats");
     // setInterval(() => {
     //   this.$store.dispatch("updateUrgentChats");
