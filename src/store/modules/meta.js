@@ -17,6 +17,9 @@ export default {
     filesPopupOpen: false
   },
   mutations: {
+    setBotref(state, botref) {
+      state.botref = botref;
+    },
     toggleNewChatPopup(state) {
       state.newChatPopup = !state.newChatPopup
     },
