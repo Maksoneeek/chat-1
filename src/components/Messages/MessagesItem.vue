@@ -96,7 +96,7 @@ export default {
       return this.message.sender;
     },
     textArray() {
-      return this.message.text.split("\n");
+      return this.message.text.trim().split("\n");
     },
     size() {
       try {

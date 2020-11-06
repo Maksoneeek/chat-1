@@ -29,6 +29,7 @@ export default {
     return {
       afterFirstScroll: false,
       updateInterval: null,
+      lazyLoading: false
     };
   },
   components: {
@@ -49,6 +50,7 @@ export default {
 
         if (scrollForTop < 200) {
           this.$store.dispatch("lazyLoadMessages");
+          this.lazyLoading = true;
         }
       }
       this.afterFirstScroll = true;
@@ -74,8 +76,11 @@ export default {
   },
   updated() {
     this.afterFirstScroll = false;
-    let elem = this.$el;
-    elem.scrollTop = elem.scrollHeight;
+    if (!this.lazyLoading) {
+      let elem = this.$el;
+      elem.scrollTop = elem.scrollHeight;
+    }
+    this.lazyLoading = false;
     this.updateInterval = this.setIntervalUpdate();
   },
 };

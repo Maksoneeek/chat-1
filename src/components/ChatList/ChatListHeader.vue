@@ -1,7 +1,7 @@
 <template>
   <div class="list-chat__header header-list-chat">
     <div class="header-list-chat__title">
-      Ваши диалоги <span>({{ chatsLength }})</span>
+      Ваши диалоги <span>({{ chatsLength() }})</span>
     </div>
     <div class="header-list-chat__icons">
       <div @click="toggleFolderOpen" class="header-list-chat__icon">
@@ -93,12 +93,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-
 export default {
-  computed: {
-    ...mapGetters(["chatsLength"]),
-  },
   methods: {
     toggleNewChatPopup() {
       this.$store.commit("toggleNewChatPopup");
@@ -109,6 +104,10 @@ export default {
     toggleSettingsOpen() {
       this.$store.commit("toggleSettingsPopup");
     },
+    chatsLength() {
+      const folder = this.$store.state.meta.currentFolder;
+      return this.$store.getters.getQtyFolder(folder) || '0';
+    }
   },
 };
 </script>
