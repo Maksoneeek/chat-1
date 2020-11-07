@@ -5,6 +5,10 @@
     <MessagesFooter />
     <NewChatPopup />
     <TemplateListPopup />
+    <TemplateListPopup
+      :writeFirst="true"
+      v-if="$store.state.meta.newChatTemplatePopup"
+    />
     <ChatInfo />
     <SettingsPopup />
   </div>

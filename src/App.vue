@@ -35,8 +35,8 @@ export default {
     },
   },
   beforeMount() {
-    this.$store.dispatch("fetchOptionsRequest");
     this.$store.commit("setBotref", this.$route.query.botref);
+    this.$store.dispatch("fetchOptionsRequest");
   },
 };
 </script>

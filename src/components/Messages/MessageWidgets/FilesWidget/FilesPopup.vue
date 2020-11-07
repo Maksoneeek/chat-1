@@ -1,7 +1,7 @@
 <template>
   <div
     class="chat__preview preview-chat"
-    :class="{ open: $store.state.meta.filesPopupOpen }"
+    :class="{ open: $store.getters.getStatusPopup('files') }"
   >
     <div class="preview-chat__content">
       <div class="preview-chat__slider-big">
@@ -100,7 +100,7 @@ export default {
   },
   methods: {
     close() {
-      this.$store.commit("toggleFilesPopup");
+      this.$store.commit("closePopups");
     },
     goToSlide(id) {
       this.$refs.carousel.goTo(id);
@@ -141,6 +141,7 @@ export default {
       this.files = this.files.filter((item) => item.id !== id);
     },
     createMessage() {
+      this.$store.commit("closePopups");
       this.$store.dispatch("sendMessage");
     },
   },

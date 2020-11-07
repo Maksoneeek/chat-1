@@ -96,18 +96,18 @@
 export default {
   methods: {
     toggleNewChatPopup() {
-      this.$store.commit("toggleNewChatPopup");
+      this.$store.commit("openPopup", "write first");
     },
     toggleFolderOpen() {
       this.$store.commit("toggleOpenFolders");
     },
     toggleSettingsOpen() {
-      this.$store.commit("toggleSettingsPopup");
+      this.$store.commit("openPopup", "settings");
     },
     chatsLength() {
       const folder = this.$store.state.meta.currentFolder;
-      return this.$store.getters.getQtyFolder(folder) || '0';
-    }
+      return this.$store.getters.getQtyFolder(folder) || "0";
+    },
   },
 };
 </script>

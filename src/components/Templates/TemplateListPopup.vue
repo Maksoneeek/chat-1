@@ -1,7 +1,12 @@
 <template>
   <div
     class="templates"
-    :class="{ open: isOpen, 'templates-2': isNewChatTemplate }"
+    :class="{
+      open:
+        $store.getters.getStatusPopup('templates') ||
+        ($store.state.meta.newChatTemplatePopup && writeFirst),
+      'templates-2': writeFirst,
+    }"
   >
     <div @click="close" class="close-new close">
       <img src="@/assets/img/close.png" alt="" />
@@ -33,6 +38,7 @@
 import TemplateItem from "./TemplateItem";
 
 export default {
+  props: ["writeFirst"],
   data() {
     return {
       searchString: "",
@@ -42,23 +48,20 @@ export default {
     TemplateItem,
   },
   computed: {
-    isOpen() {
-      return this.$store.state.meta.templateListPopup;
-    },
     templates() {
       const templates = this.$store.state.options.options.templates || [];
       return templates.filter((template) =>
         template.name.toLowerCase().includes(this.searchString.toLowerCase())
       );
     },
-    isNewChatTemplate() {
-      return this.$store.state.meta.newChatTemplatePopup;
-    },
   },
   methods: {
     close() {
-      this.$store.commit("toggleTemplateListPopup");
-      this.$store.commit("setNewChatTemplatePopup", false);
+      if (this.writeFirst) {
+        this.$store.commit("toggleNewChatTemplatePopup");
+      } else {
+        this.$store.commit("closePopups");
+      }
     },
   },
 };

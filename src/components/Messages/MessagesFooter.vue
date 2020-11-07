@@ -129,7 +129,7 @@ export default {
       this.$store.dispatch("sendMessage");
     },
     toggleTemplateListPopup() {
-      this.$store.commit("toggleTemplateListPopup");
+      this.$store.commit("openPopup", "templates");
       this.$store.commit("setNewChatTemplatePopup", false);
     },
     addEmoji(emoji) {

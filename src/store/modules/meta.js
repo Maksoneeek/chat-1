@@ -8,6 +8,12 @@ export default {
     currentProgram: null,
     currentFolder: { id: 100, name: 'Все диалоги', type: "all", img: './static/img/all folders-grey.svg', imgHover: './static/img/all folders.svg' },
     time: 0,
+    popups: [
+      { title: "write first", open: false },
+      { title: "templates", open: false },
+      { title: "settings", open: false },
+      { title: "files", open: false },
+    ],
     newChatPopup: false,
     templateListPopup: false,
     newChatTemplatePopup: false,
@@ -38,33 +44,34 @@ export default {
     setFolder(state, folder) {
       state.currentFolder = folder
     },
-    toggleTemplateListPopup(state) {
-      state.templateListPopup = !state.templateListPopup
-    },
-    toggleNewChatTemplatePopup(state) {
-      state.newChatTemplatePopup = !state.newChatTemplatePopup
-    },
-    setTemplateListPopup(state, bool) {
-      state.templateListPopup = bool
-    },
-    setNewChatTemplatePopup(state, bool) {
-      state.newChatTemplatePopup = bool
-    },
-    toggleSettingsPopup(state) {
-      state.settingsPopup = !state.settingsPopup
-    },
     setChatInfo(state, chatInfo) {
       state.chatInfo = chatInfo
     },
     toggleChatInfo(state) {
       state.chatInfoOpen = !state.chatInfoOpen
     },
-    toggleFilesPopup(state) {
-      state.filesPopupOpen = !state.filesPopupOpen
+    toggleNewChatTemplatePopup(state) {
+      state.newChatTemplatePopup = !state.newChatTemplatePopup
     },
-    setFilesPopup(state, bool) {
-      state.filesPopupOpen = bool;
+    setNewChatTemplatePopup(state, bool) {
+      state.newChatTemplatePopup = bool
     },
+    openPopup(state, title) {
+      state.popups = state.popups.map(popup => {
+        if (popup.title === title) {
+          popup.open = true;
+        } else {
+          popup.open = false
+        }
+        return popup;
+      })
+    },
+    closePopups(state) {
+      state.popups = state.popups.map(popup => {
+        popup.open = false;
+        return popup;
+      })
+    }
   },
   actions: {
     async fetchChatInfoRequest({ state, commit }) {
@@ -116,6 +123,10 @@ export default {
     }
   },
   getters: {
+    getStatusPopup: (state) => (title) => {
+      const popup = state.popups.find(popup => popup.title === title);
+      return popup.open || false;
+    },
     currentChatId(state) {
       return state.currentChatId;
     },

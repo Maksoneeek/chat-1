@@ -2,7 +2,7 @@
   <div
     id="popup-new"
     class="popup-new"
-    :class="{ open: $store.state.meta.newChatPopup }"
+    :class="{ open: $store.getters.getStatusPopup('write first') }"
   >
     <div @click="close" class="close-new close">
       <img src="@/assets/img/close.png" alt="" />
@@ -128,15 +128,13 @@ export default {
       });
 
       this.phone = this.message = "";
-      this.$store.commit("toggleNewChatPopup");
-      this.$store.commit("toggleNewChatTemplatePopup");
+      this.$store.commit("closePopups");
     },
     openTemplates() {
-      this.$store.commit("toggleTemplateListPopup");
       this.$store.commit("toggleNewChatTemplatePopup");
     },
     close() {
-      this.$store.commit("toggleNewChatPopup");
+      this.$store.commit("closePopups");
     },
   },
 };

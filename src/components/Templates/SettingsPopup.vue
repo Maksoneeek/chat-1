@@ -1,5 +1,8 @@
 <template>
-  <div class="settings" :class="{ open: isOpen }">
+  <div
+    class="settings"
+    :class="{ open: $store.getters.getStatusPopup('settings') }"
+  >
     <div @click="close" class="close-new close">
       <img src="@/assets/img/close.png" alt="" />
     </div>
@@ -127,9 +130,6 @@ export default {
     NewTemplateForm,
   },
   computed: {
-    isOpen() {
-      return this.$store.state.meta.settingsPopup;
-    },
     moderatedTemplates() {
       return this.searchTemplates(this.$store.getters.moderatedTemplates);
     },
@@ -147,7 +147,7 @@ export default {
       );
     },
     close() {
-      this.$store.commit("toggleSettingsPopup");
+      this.$store.commit("closePopups");
     },
   },
 };

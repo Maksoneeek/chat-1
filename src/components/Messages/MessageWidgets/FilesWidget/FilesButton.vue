@@ -25,7 +25,7 @@
 export default {
   methods: {
     onClick() {
-      this.$store.commit("toggleFilesPopup");
+      this.$store.commit("openPopup", "files");
     },
   },
 };
