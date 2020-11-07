@@ -2,7 +2,7 @@ import Api from '../../services/api';
 
 export default {
   state: {
-    botref: '62b769d71658',
+    botref: '', // 62b769d71658
     currentChatId: null,
     chatInfo: null,
     currentProgram: null,
