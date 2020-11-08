@@ -7,6 +7,19 @@
       hidden: $store.state.meta.chatInfoOpen,
     }"
   >
+    <div class="content-chat-content__arrows">
+      <div
+        class="content-chat-content__arrows_item content-chat-content__arrows_item-up"
+      >
+        <img src="@/assets/img/arrow-up.png" alt="" />
+        <div class="content-chat-content__arrows_number">3</div>
+      </div>
+      <div
+        class="content-chat-content__arrows_item content-chat-content__arrows_item-down"
+      >
+        <img src="@/assets/img/arrow-down.png" alt="" />
+      </div>
+    </div>
     <div v-if="$store.state.messages.isLoading">
       <MessageLoader></MessageLoader>
       <MessageLoader :reversed="true"></MessageLoader>
@@ -29,7 +42,7 @@ export default {
     return {
       afterFirstScroll: false,
       updateInterval: null,
-      lazyLoading: false
+      lazyLoading: false,
     };
   },
   components: {
