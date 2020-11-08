@@ -157,8 +157,7 @@ export default {
         const { text, files, templateId } = state;
 
         const response = await Api.sendMessage(botref, currentProgram, currentChatId, text, files, templateId);
-        commit('setTemplateListPopup', false);
-        commit('setFilesPopup', false);
+        commit('closePopups');
 
         if (response.data.success) {
           dispatch('updateMessages')

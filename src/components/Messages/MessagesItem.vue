@@ -10,7 +10,12 @@
           <div class="content-chat-content__name">{{ sender }}</div>
           <div
             class="content-chat-content__date"
-            :class="{ checked: message.status == 'seen' }"
+            :class="{
+              checked:
+                message.status == 'seen' ||
+                message.status == 'sent' ||
+                message.status == 'enqueued',
+            }"
           >
             {{ getDate }}
           </div>
