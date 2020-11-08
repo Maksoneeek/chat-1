@@ -37,6 +37,7 @@
           />
         </svg>
       </span>
+      <SearchPanel :onDispatch="'searchInChat'" />
     </div>
     <div
       v-if="isConnected"
@@ -69,9 +70,13 @@
 </template>
 
 <script>
+import SearchPanel from "../widgets/SearchPanel";
 import { getProgram } from "../../services/utils";
 
 export default {
+  components: {
+    SearchPanel,
+  },
   computed: {
     currentChat() {
       return this.$store.getters.currentChat;

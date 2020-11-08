@@ -1,10 +1,19 @@
 <template>
   <div class="list-chat__header header-list-chat">
-    <div class="header-list-chat__title">
+    <div v-if="!searchOpen" class="header-list-chat__title">
       Ваши диалоги <span>({{ chatsLength() }})</span>
     </div>
     <div class="header-list-chat__icons">
-      <div @click="toggleFolderOpen" class="header-list-chat__icon">
+      <SearchPanel
+        :toggleOuterOpen="toggleSearchOpen"
+        :allSearch="true"
+        :onDispatch="'searchAllChats'"
+      />
+      <div
+        v-if="!searchOpen"
+        @click="toggleFolderOpen"
+        class="header-list-chat__icon"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -35,7 +44,11 @@
           />
         </svg>
       </div>
-      <div @click="toggleNewChatPopup" class="header-list-chat__icon">
+      <div
+        v-if="!searchOpen"
+        @click="toggleNewChatPopup"
+        class="header-list-chat__icon"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -66,7 +79,11 @@
           />
         </svg>
       </div>
-      <div @click="toggleSettingsOpen" class="header-list-chat__icon">
+      <div
+        v-if="!searchOpen"
+        @click="toggleSettingsOpen"
+        class="header-list-chat__icon"
+      >
         <svg width="23px" height="23px" viewBox="0 0 612 792">
           <linearGradient
             id="SVGID_1_"
@@ -93,7 +110,17 @@
 </template>
 
 <script>
+import SearchPanel from "../widgets/SearchPanel";
+
 export default {
+  data() {
+    return {
+      searchOpen: false,
+    };
+  },
+  components: {
+    SearchPanel,
+  },
   methods: {
     toggleNewChatPopup() {
       this.$store.commit("openPopup", "write first");
@@ -103,6 +130,9 @@ export default {
     },
     toggleSettingsOpen() {
       this.$store.commit("openPopup", "settings");
+    },
+    toggleSearchOpen() {
+      this.searchOpen = !this.searchOpen;
     },
     chatsLength() {
       const folder = this.$store.state.meta.currentFolder;

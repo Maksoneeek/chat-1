@@ -7,17 +7,29 @@
       hidden: $store.state.meta.chatInfoOpen,
     }"
   >
-    <div class="content-chat-content__arrows">
+    <div
+      class="content-chat-content__arrows"
+      :class="{ open: visibleArrows() }"
+    >
       <div
+        @click="fetchNextMessage"
         class="content-chat-content__arrows_item content-chat-content__arrows_item-up"
+        :class="{ disabled_arrow: !countNext }"
       >
         <img src="@/assets/img/arrow-up.png" alt="" />
-        <div class="content-chat-content__arrows_number">3</div>
+        <div v-if="countNext" class="content-chat-content__arrows_number">
+          {{ countNext }}
+        </div>
       </div>
       <div
+        @click="fetchPrevMessage"
         class="content-chat-content__arrows_item content-chat-content__arrows_item-down"
+        :class="{ disabled_arrow: !countPrev }"
       >
         <img src="@/assets/img/arrow-down.png" alt="" />
+        <div v-if="countPrev" class="content-chat-content__arrows_number">
+          {{ countPrev }}
+        </div>
       </div>
     </div>
     <div v-if="$store.state.messages.isLoading">
@@ -27,6 +39,7 @@
     </div>
     <MessagesItem
       v-for="message in messages"
+      :ref="message.searched"
       :key="message.id"
       :message="message"
     />
@@ -52,6 +65,16 @@ export default {
   computed: {
     messages() {
       return this.$store.state.messages.messages;
+    },
+    countNext() {
+      return (
+        this.$store.state.meta.searchChatMessages.length -
+        1 -
+        this.$store.state.meta.indexMessage
+      );
+    },
+    countPrev() {
+      return this.$store.state.meta.indexMessage;
     },
   },
   methods: {
@@ -79,6 +102,18 @@ export default {
         clearInterval(this.updateInterval);
       }
     },
+    visibleArrows() {
+      const { search, searchChatMessages } = this.$store.state.meta;
+      return search && searchChatMessages.length > 1;
+    },
+    fetchNextMessage() {
+      const nextIndex = this.$store.state.meta.indexMessage + 1;
+      this.$store.dispatch("fetchSearchMessageChat", nextIndex);
+    },
+    fetchPrevMessage() {
+      const prevIndex = this.$store.state.meta.indexMessage - 1;
+      this.$store.dispatch("fetchSearchMessageChat", prevIndex);
+    },
   },
   mounted() {
     let elem = this.$el;
@@ -89,7 +124,18 @@ export default {
   },
   updated() {
     this.afterFirstScroll = false;
-    if (!this.lazyLoading) {
+    if (this.$store.state.meta.search && this.$refs.searched) {
+      const { offsetTop } = this.$refs.searched[0].$el;
+      const { innerHeight } = window;
+      let scroll = 0;
+
+      if (Math.abs(offsetTop) > Math.abs(innerHeight)) {
+        scroll = Math.abs(offsetTop) + 40;
+      }
+
+      let elem = this.$el;
+      elem.scrollTop = -scroll;
+    } else if (!this.lazyLoading) {
       let elem = this.$el;
       elem.scrollTop = elem.scrollHeight;
     }

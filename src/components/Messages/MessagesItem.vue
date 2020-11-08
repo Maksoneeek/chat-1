@@ -1,7 +1,11 @@
 <template>
   <div
     class="content-chat-content__message"
-    :class="{ recipient: sender == 'me', sender: sender != 'me' }"
+    :class="{
+      recipient: sender == 'me',
+      sender: sender != 'me',
+      'content-chat-content__message_search': message.searched,
+    }"
   >
     <div class="content-chat-content__message_container">
       <div class="content-chat-content__icon icon">{{ sender[0] }}</div>

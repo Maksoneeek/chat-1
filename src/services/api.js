@@ -192,6 +192,17 @@ class Api {
       'Content-Type': 'multipart/form-data'
     });
   }
+
+  searchMessages(botref, q, program, chat) {
+    return axios.get(`${this.baseUrl}/search`, {
+      params: {
+        botref,
+        program,
+        chat,
+        q
+      }
+    })
+  }
 }
 
 export default new Api()

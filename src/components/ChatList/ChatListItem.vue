@@ -95,15 +95,21 @@ export default {
       this.$store.commit("setChatId", id);
       this.$store.commit("setProgram", program);
 
-      this.$store.dispatch("fetchFirstMessagesRequest");
       this.$store.dispatch("fetchChatInfoRequest");
-      // if (!this.item.isRead) {
-      //   this.$store.dispatch("updateChat", {
-      //     id,
-      //     isRead: true,
-      //   });
-      // }
-      this.$store.dispatch("unreadMessagesRequest");
+
+      if (!this.$store.state.meta.search) {
+        this.$store.dispatch("fetchFirstMessagesRequest");
+
+        // if (!this.item.isRead) {
+        //   this.$store.dispatch("updateChat", {
+        //     id,
+        //     isRead: true,
+        //   });
+        // }
+        this.$store.dispatch("unreadMessagesRequest");
+      } else {
+        this.$store.dispatch("fetchSearchMessage");
+      }
     },
   },
 };

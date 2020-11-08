@@ -2978,6 +2978,7 @@ body, html {
 }
 
 .content-chat-content__arrows_item {
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2997,8 +2998,14 @@ body, html {
 }
 
 .content-chat-content__arrows_item-down {
+  background-color: #ffffff;
+}
+
+.disabled_arrow {
+  pointer-events: none;
   background-color: #e7ebee;
 }
+
 
 .content-chat-content__arrows_number {
   position: absolute;

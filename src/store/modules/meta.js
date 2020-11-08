@@ -15,12 +15,13 @@ export default {
       { title: "files", open: false },
     ],
     newChatPopup: false,
-    templateListPopup: false,
     newChatTemplatePopup: false,
-    settingsPopup: false,
     foldersIsOpen: false,
     chatInfoOpen: false,
-    filesPopupOpen: false
+    search: false,
+    searchMessages: [],
+    searchChatMessages: [],
+    indexMessage: 0
   },
   mutations: {
     setBotref(state, botref) {
@@ -74,6 +75,18 @@ export default {
     },
     setConnected(state) {
       state.chatInfo.is_connected = true;
+    },
+    setSearch(state, bool) {
+      state.search = bool;
+    },
+    setSearchMessages(state, messages) {
+      state.searchMessages = messages
+    },
+    setSearchChatMessages(state, messages) {
+      state.searchChatMessages = messages
+    },
+    setIndexMessage(state, index) {
+      state.indexMessage = index;
     }
   },
   actions: {

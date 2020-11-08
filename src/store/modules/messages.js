@@ -10,11 +10,15 @@ export default {
     templateId: null,
     text: '',
     files: [],
-    messages: []
+    messages: [],
+    needUpdate: true,
   },
   mutations: {
     setMessages(state, messages) {
       state.messages = messages
+    },
+    setNeedUpdate(state, bool) {
+      state.needUpdate = bool
     },
     concatMessages(state, messages) {
       state.messages = state.messages.concat(messages)
@@ -111,7 +115,7 @@ export default {
       }
     },
     async updateMessages({ commit, state, rootState }) {
-      if (state.freshMessageId) {
+      if (state.freshMessageId && state.needUpdate) {
         try {
           const { botref, currentChatId, currentProgram } = rootState.meta;
           let { freshMessageId } = state;
@@ -180,9 +184,84 @@ export default {
       } catch (e) {
         console.log(e)
       }
-    }
-  },
+    },
+    async searchAllChats({ commit, rootState }, query) {
+      try {
+        const { botref } = rootState.meta;
 
+        const response = await Api.searchMessages(botref, query);
+
+        if (response.data.peers) {
+          commit("addChats", response.data.peers);
+        }
+        if (response.data.messages) {
+          commit("setSearchMessages", response.data.messages);
+        }
+
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    async fetchSearchMessage({ commit, rootState }) {
+      try {
+        const { searchMessages, botref, currentChatId, currentProgram } = rootState.meta;
+
+        let message = searchMessages.find(message => message.botref == botref & message.chat == currentChatId & message.program == currentProgram)
+        message.searched = 'searched';
+
+        const oldresponse = await Api.fetchMessagesHistory(botref, currentProgram, currentChatId, message.id);
+        const newresponse = await Api.fetchMessagesHistory(botref, currentProgram, currentChatId, -message.id);
+
+        const messages = [...oldresponse.data.messages, message, ...newresponse.data.messages];
+
+        commit("setLastMessageId", messages.slice(-1)[0].id)
+        commit("setFreshMessageId", messages[0].id)
+        commit("setMessages", messages);
+
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    async searchInChat({ commit, dispatch, rootState }, query) {
+      try {
+        commit("setIndexMessage", 0)
+        const { botref, currentProgram, currentChatId } = rootState.meta;
+
+        const response = await Api.searchMessages(botref, query, currentProgram, currentChatId);
+
+        if (response.data.messages) {
+          commit("setSearchChatMessages", response.data.messages);
+          dispatch("fetchSearchMessageChat")
+        }
+
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    async fetchSearchMessageChat({ commit, rootState }, index = 0) {
+      try {
+        const { searchChatMessages, botref, currentChatId, currentProgram } = rootState.meta;
+
+        let message = searchChatMessages[index]
+        if (message) {
+          message.searched = 'searched';
+
+          const oldresponse = await Api.fetchMessagesHistory(botref, currentProgram, currentChatId, message.id);
+          const newresponse = await Api.fetchMessagesHistory(botref, currentProgram, currentChatId, -message.id);
+
+          const messages = [...oldresponse.data.messages, message, ...newresponse.data.messages];
+
+          commit("setLastMessageId", messages.slice(-1)[0].id)
+          commit("setFreshMessageId", messages[0].id)
+          commit("setMessages", messages);
+          commit("setIndexMessage", index);
+        }
+
+      } catch (e) {
+        console.log(e)
+      }
+    },
+  },
   getters: {
     templateId(state) {
       return state.templateId;
