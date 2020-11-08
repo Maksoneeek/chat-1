@@ -2,7 +2,10 @@ import axios from 'axios';
 
 class Api {
 
-  baseUrl = 'https://marketbot.biz/chat_v2'
+  baseUrl = 'https://marketbot.biz/chat_v2';
+  settings = {
+    withCredentials: true
+  }
 
   fetchChats(botref, time, program, folder_id) {
     return axios.get(`${this.baseUrl}/peers_list`, {

@@ -3051,3 +3051,25 @@ body, html {
   right: -22px;
   top: 0px;
 }
+
+.content-chat-content__item_btns {
+  padding: 15px 16px;
+  min-width: 277px;
+}
+
+.content-chat-content__item_btns-body {
+  border-top: 1px dotted rgba(0, 0, 0, 0.3);
+  padding: 13px 0 0 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.content-chat-content__item_btn {
+  font-size: 13px;
+  color: #2a9dd2;
+  background-color: transparent;
+}

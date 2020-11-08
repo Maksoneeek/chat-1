@@ -74,6 +74,18 @@
               controls
             ></audio>
           </div>
+          <div
+            v-if="message.button_text.length"
+            class="content-chat-content__item_btns-body"
+          >
+            <button
+              v-for="button in message.button_text"
+              :key="button"
+              class="content-chat-content__item_btn"
+            >
+              {{ button }}
+            </button>
+          </div>
         </div>
       </div>
     </div>
