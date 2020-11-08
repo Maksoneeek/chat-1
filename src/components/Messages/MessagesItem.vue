@@ -15,10 +15,9 @@
           <div
             class="content-chat-content__date"
             :class="{
-              checked:
-                message.status == 'seen' ||
-                message.status == 'sent' ||
-                message.status == 'enqueued',
+              checked: message.status == 'seen',
+              notchecked:
+                message.status == 'sent' || message.status == 'enqueued',
             }"
           >
             {{ getDate }}

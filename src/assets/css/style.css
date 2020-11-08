@@ -1433,6 +1433,15 @@ body, html {
   margin: 0 0 0 6px;
 }
 
+.notchecked::after {
+  content: '';
+  width: 13px;
+  height: 8px;
+  background: url(../img/notcheck.png) 0 0 no-repeat;
+  display: inline-block;
+  margin: 0 0 0 6px;
+}
+
 .start-chat {
   -webkit-box-flex: 0;
       -ms-flex: 0 1 933px;
