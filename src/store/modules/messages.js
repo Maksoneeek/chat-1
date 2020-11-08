@@ -164,6 +164,7 @@ export default {
           commit("updateText", '')
           commit("setFiles", [])
           commit("setTemplateId", null)
+          commit("setConnected")
         }
 
       } catch (e) {

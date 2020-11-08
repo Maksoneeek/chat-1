@@ -71,6 +71,9 @@ export default {
         popup.open = false;
         return popup;
       })
+    },
+    setConnected(state) {
+      state.chatInfo.is_connected = true;
     }
   },
   actions: {
