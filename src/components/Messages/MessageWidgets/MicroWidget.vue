@@ -89,7 +89,6 @@ export default {
         type: "audio/mp3",
       });
 
-      console.log(audioBlob);
       this.$store.commit("setFiles", [
         {
           type: "rawAudio",

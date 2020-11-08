@@ -162,7 +162,6 @@ class Api {
           body.append(`type${count}`, files[i].type);
           body.append(`file${count}`, files[i].file);
           count = count + 1;
-          console.log(files[i].type)
         }
       }
     }

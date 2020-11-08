@@ -34,9 +34,9 @@ export default {
       return this.$store.state.meta.foldersIsOpen;
     },
   },
-  beforeMount() {
+  async beforeMount() {
     this.$store.commit("setBotref", this.$route.query.botref);
-    this.$store.dispatch("fetchOptionsRequest");
+    await this.$store.dispatch("fetchOptionsRequest");
   },
 };
 </script>
