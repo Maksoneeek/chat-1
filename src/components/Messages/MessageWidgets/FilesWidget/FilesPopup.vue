@@ -128,7 +128,7 @@ export default {
     },
     getFileType(rawType) {
       const type = rawType.split("/")[0];
-      const knownType = ["image", "video"];
+      const knownType = ["image", "video", "audio"];
       if (knownType.includes(type)) {
         return type;
       }

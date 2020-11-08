@@ -155,10 +155,10 @@ export default {
       try {
         const { botref, currentChatId, currentProgram } = rootState.meta;
         const { text, files, templateId } = state;
-
+        console.log("files", files)
         const response = await Api.sendMessage(botref, currentProgram, currentChatId, text, files, templateId);
         commit('closePopups');
-
+        console.log(response)
         if (response.data.success) {
           dispatch('updateMessages')
           commit("updateText", '')

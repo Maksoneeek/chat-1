@@ -2,20 +2,20 @@
   <div class="footer-chat-item__button micro">
     <div class="micro__first-item">
       <div class="micro__title">Для начала записи нажмите кнопку:</div>
-      <a class="micro__icon micro__icon-1">
+      <a @click="onStart" class="micro__icon micro__icon-1">
         <img src="@/assets/img/play.png" alt="" />
       </a>
     </div>
-    <div class="micro__two-item">
-      <div class="micro__timer"></div>
-      <div class="micro__icon">
+    <div class="micro__two-item" :class="{ open: start || this.audio.length }">
+      <div class="micro__timer">0:00</div>
+      <div @click="onStop" class="micro__icon">
         <img src="@/assets/img/stop.png" alt="" />
       </div>
       <div class="micro__line">
-        <div class="micro__delete">
+        <div @click="deleteAudio" class="micro__delete">
           <img src="@/assets/img/micro__delete.png" alt="" />
         </div>
-        <button class="micro__btn">
+        <button @click="sendMessage" class="micro__btn">
           <svg width="22px" height="19px" viewBox="0 0 512 512">
             <linearGradient
               id="SVGID_1_"
@@ -56,3 +56,57 @@
     </svg>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      audio: [],
+      mediaRecorder: null,
+      start: false,
+      stream: null,
+    };
+  },
+  methods: {
+    async setAudio(event) {
+      this.audio.push(event.value);
+    },
+    onStart() {
+      this.start = true;
+
+      navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+        this.stream = stream;
+        this.mediaRecorder = new MediaRecorder(stream);
+        this.mediaRecorder.addEventListener("dataavailable", this.setAudio);
+
+        this.mediaRecorder.start();
+      });
+    },
+    onStop() {
+      this.start = false;
+      this.mediaRecorder.stop();
+      const audioBlob = new Blob(this.audio, {
+        type: "audio/mp3",
+      });
+
+      console.log(audioBlob);
+      this.$store.commit("setFiles", [
+        {
+          type: "rawAudio",
+          file: audioBlob,
+        },
+      ]);
+      this.mediaRecorder = null;
+      this.stream.getAudioTracks()[0].stop();
+    },
+    deleteAudio() {
+      this.$store.commit("setFiles", []);
+      this.audio = [];
+    },
+    sendMessage() {
+      this.$store.dispatch("sendMessage");
+      this.audio = [];
+    },
+  },
+};
+</script>

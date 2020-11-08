@@ -1360,7 +1360,7 @@ body, html {
   font-weight: 400;
   line-height: 19px;
   position: relative;
-  z-index: 5;
+  z-index: 0;
 }
 
 .content-chat-content__item span {
@@ -2876,6 +2876,11 @@ body, html {
           align-items: center;
   margin: 0 auto;
   border-radius: 50%;
+  cursor: pointer;
+}
+
+.micro__icon:hover {
+  background-color: #f0f1f2;
 }
 
 .micro__two-item {
@@ -2927,6 +2932,7 @@ body, html {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  cursor: pointer;
 }
 
 .micro__btn {

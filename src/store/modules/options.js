@@ -17,7 +17,6 @@ export default {
       const { botref } = rootState.meta;
 
       const response = await Api.fetchOptions(botref);
-      console.log(response)
       commit('setOptions', response.data)
     },
     async deleteTemplateRequest({ commit, rootState }, id) {
