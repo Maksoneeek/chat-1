@@ -3073,3 +3073,8 @@ body, html {
   color: #2a9dd2;
   background-color: transparent;
 }
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}

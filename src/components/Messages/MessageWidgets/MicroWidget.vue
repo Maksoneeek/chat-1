@@ -2,13 +2,20 @@
   <div class="footer-chat-item__button micro">
     <div class="micro__first-item">
       <div class="micro__title">Для начала записи нажмите кнопку:</div>
-      <a @click="onStart" class="micro__icon micro__icon-1">
+      <a @click="toggleRecorder" class="micro__icon micro__icon-1">
         <img src="@/assets/img/play.png" alt="" />
       </a>
     </div>
-    <div class="micro__two-item" :class="{ open: start || this.audio.length }">
-      <div class="micro__timer">0:00</div>
-      <div @click="onStop" class="micro__icon">
+    <div
+      class="micro__two-item"
+      :class="{ open: isRecording || this.recordList.length }"
+    >
+      <div class="micro__timer">{{ getTime }}</div>
+      <div
+        @click="stopRecorder"
+        class="micro__icon"
+        :class="{ disabled: this.recordList.length }"
+      >
         <img src="@/assets/img/stop.png" alt="" />
       </div>
       <div class="micro__line">
@@ -58,53 +65,83 @@
 </template>
 
 <script>
+import Recorder from "../../../services/recorder";
+import moment from "moment";
+
 export default {
   data() {
     return {
-      audio: [],
-      mediaRecorder: null,
-      start: false,
-      stream: null,
+      recorder: this._initRecorder(),
+      recordList: [],
+      timer: null,
+      seconds: 0,
     };
   },
+  beforeDestroy() {
+    this.stopRecorder();
+  },
   methods: {
-    async setAudio(event) {
-      this.audio.push(event.value);
-    },
-    onStart() {
-      this.start = true;
+    toggleRecorder() {
+      this.setTimer();
 
-      navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
-        this.stream = stream;
-        this.mediaRecorder = new MediaRecorder(stream);
-        this.mediaRecorder.addEventListener("dataavailable", this.setAudio);
-
-        this.mediaRecorder.start();
-      });
+      if (!this.isRecording || (this.isRecording && this.isPause)) {
+        this.recorder.start();
+      } else {
+        this.recorder.pause();
+      }
     },
-    onStop() {
-      this.start = false;
-      this.mediaRecorder.stop();
-      const audioBlob = new Blob(this.audio, {
-        type: "audio/mp3",
-      });
+    stopRecorder() {
+      if (!this.isRecording) {
+        return;
+      }
+      this.clearTimer();
+      this.recorder.stop();
+      this.recordList = this.recorder.recordList();
+      console.log(this.recordList);
 
       this.$store.commit("setFiles", [
         {
-          type: "rawAudio",
-          file: audioBlob,
+          type: "audio",
+          file: this.recordList[0].blob,
         },
       ]);
-      this.mediaRecorder = null;
-      this.stream.getAudioTracks()[0].stop();
+    },
+    _initRecorder() {
+      return new Recorder();
     },
     deleteAudio() {
-      this.$store.commit("setFiles", []);
-      this.audio = [];
+      if (this.recordList.length) {
+        this.recordList = [];
+        this.$store.commit("setFiles", []);
+        this.seconds = 0;
+        this.recorder.records = [];
+      }
     },
     sendMessage() {
-      this.$store.dispatch("sendMessage");
-      this.audio = [];
+      if (this.recordList.length) {
+        this.recordList = [];
+        this.$store.dispatch("sendMessage");
+        this.seconds = 0;
+        this.recorder.records = [];
+      }
+    },
+    setTimer() {
+      this.timer = setInterval(() => this.seconds++, 1000);
+    },
+    clearTimer() {
+      clearInterval(this.timer);
+    },
+  },
+  computed: {
+    isPause() {
+      return this.recorder.isPause;
+    },
+    isRecording() {
+      return this.recorder.isRecording;
+    },
+    getTime() {
+      let time = moment(this.seconds * 1000);
+      return time.format("m:ss");
     },
   },
 };
