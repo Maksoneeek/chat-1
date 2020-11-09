@@ -53,13 +53,7 @@ export default {
   },
   computed: {
     name() {
-      if (this.$store.state.options.options) {
-        return (
-          this.$store.state.options.options.operator_profile.nickname ||
-          "Noname"
-        );
-      }
-      return "Noname";
+      return this.$store.getters["nickname"];
     },
   },
 };

@@ -2,8 +2,8 @@
   <div
     class="content-chat-content__message"
     :class="{
-      recipient: sender == 'me',
-      sender: sender != 'me',
+      recipient: sender == $store.getters['nickname'],
+      sender: sender != $store.getters['nickname'],
       'content-chat-content__message_search': message.searched,
     }"
   >
@@ -110,7 +110,7 @@ export default {
       const botref = this.$store.state.meta.botref;
 
       if (botref === this.message.sender) {
-        return "me";
+        return this.$store.getters["nickname"];
       }
 
       return this.message.sender;

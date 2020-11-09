@@ -60,6 +60,15 @@ export default {
         return state.templates.find(template => template.id === id)
       }
       return null
+    },
+    nickname(state) {
+      if (state.options.options) {
+        return (
+          state.options.options.operator_profile.nickname ||
+          "Noname"
+        );
+      }
+      return "Noname";
     }
   }
 }
