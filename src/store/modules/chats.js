@@ -129,7 +129,7 @@ export default {
 
         for (let updChat of chats.data.peers) {
           newChats = newChats.map(chat => {
-            if ((chat.chat == updChat.chat) && (chat.program == updChat.program)) {
+            if ((chat.chat == updChat.chat) && (chat.program == updChat.program) && !chat.searched) {
               return updChat
             }
             return chat
@@ -183,6 +183,20 @@ export default {
         return chat
       });
       commit('addChats', updChats)
+    },
+    async onStartChat({ rootState, commit, state }) {
+      const { botref, currentChatId, currentProgram } = rootState.meta;
+
+      const response = await Api.onStart(botref, currentProgram, currentChatId);
+
+      if (response.data.is_known) {
+        const searchedChat = response.data.selected_peer;
+        searchedChat.searched = true;
+
+        const chats = state.chats.filter(chat => chat.botref + chat.chat + chat.program != botref + currentChatId + currentProgram)
+        commit("setIsKnown")
+        commit("addChats", [...chats, searchedChat])
+      }
     }
   },
   getters: {
@@ -191,6 +205,12 @@ export default {
     },
     getSortChats(state) {
       return [...state.chats].sort((mess1, mess2) => {
+        if (mess1.searched) {
+          return -1
+        } else if (mess2.searched) {
+          return 1
+        }
+
         if (mess1.sos === mess2.sos) {
           if (mess1.unread_msg_count === mess2.unread_msg_count) {
             return mess2.last_msg_time - mess1.last_msg_time

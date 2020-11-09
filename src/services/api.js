@@ -206,6 +206,16 @@ class Api {
       }
     })
   }
+
+  onStart(botref, program, chat) {
+    return axios.get(`${this.baseUrl}/onstart`, {
+      params: {
+        botref,
+        program,
+        chat
+      }
+    })
+  }
 }
 
 export default new Api()

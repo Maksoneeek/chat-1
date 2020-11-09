@@ -21,9 +21,13 @@ export default {
     search: false,
     searchMessages: [],
     searchChatMessages: [],
-    indexMessage: 0
+    indexMessage: 0,
+    isKnown: false
   },
   mutations: {
+    setIsKnown(state) {
+      state.isKnown = true;
+    },
     setBotref(state, botref) {
       state.botref = botref;
     },

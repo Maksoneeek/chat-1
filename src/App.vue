@@ -42,8 +42,11 @@ export default {
     this.$store.commit("setProgram", program);
     await this.$store.dispatch("fetchOptionsRequest");
     if (botref && chat && program) {
-      await this.$store.dispatch("fetchChatInfoRequest");
-      await this.$store.dispatch("fetchFirstMessagesRequest");
+      await this.$store.dispatch("onStartChat");
+      if (this.$store.state.meta.isKnown) {
+        await this.$store.dispatch("fetchChatInfoRequest");
+        await this.$store.dispatch("fetchFirstMessagesRequest");
+      }
     }
   },
 };
