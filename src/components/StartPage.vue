@@ -4,7 +4,7 @@
       <div class="start-chat__img">
         <img src="@/assets/img/avatar.jpg" alt="" />
       </div>
-      <div class="start-chat__title">Добрый день, mr. Иван</div>
+      <div class="start-chat__title">Добрый день, {{ name }}</div>
       <div class="start-chat__text">
         Выберите нужный вам диалог для беседы с клиентом или
       </div>
@@ -49,6 +49,17 @@ export default {
   methods: {
     toggleNewChatPopup() {
       this.$store.commit("openPopup", "write first");
+    },
+  },
+  computed: {
+    name() {
+      if (this.$store.state.options.options) {
+        return (
+          this.$store.state.options.options.operator_profile.nickname ||
+          "Noname"
+        );
+      }
+      return "Noname";
     },
   },
 };
