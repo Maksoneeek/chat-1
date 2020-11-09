@@ -55,7 +55,7 @@
               </div>
               <div class="content-chat-content__file_block">
                 <div class="content-chat-content__file_name">
-                  {{ message.text }}
+                  {{ message.file_orig_name }}
                 </div>
                 <div class="content-chat-content__file_size">{{ size }}</div>
               </div>
@@ -119,16 +119,7 @@ export default {
       return this.message.text.trim().split("\n");
     },
     size() {
-      try {
-        let url = this.message.url;
-        let req = new XMLHttpRequest();
-        req.open("GET", url, false);
-        req.send();
-        return req.getResponseHeader("content-length") / 1024 + "кб";
-      } catch (e) {
-        console.log("Не удалось определить размер файла");
-      }
-      return "";
+      return Math.floor(this.message.file_size / 1024) + "кб";
     },
   },
   methods: {
