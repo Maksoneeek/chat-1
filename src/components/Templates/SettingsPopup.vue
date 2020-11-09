@@ -33,18 +33,12 @@
     </div>
     <div class="settings__header-mid">
       <form class="settings__form" action="">
-        <div class="checkbox settings__checkbox">
-          <input type="checkbox" checked name="checkbox-1" />
-          <div class="checkbox__item settings__checkbox_item">
-            <div class="checkbox__item_check">
-              <img src="@/assets/img/Shape_26_copy_2.png" alt="" />
-            </div>
-            <div class="checkbox__item_notcheck">
-              <img src="@/assets/img/Shape_26_copy_3.png" alt="" />
-            </div>
-          </div>
-          <span> Включить браузерные уведомления </span>
-        </div>
+        <Toggle text="Включить браузерные уведомления" :isActive="true" />
+        <Toggle
+          text="Отправлять сообщение при нажатии Enter"
+          :isActive="$store.state.options.enterSendMessage"
+          :toggleHandler="toggleEnterPress"
+        />
       </form>
     </div>
     <div class="settings__header-bot">
@@ -117,6 +111,7 @@
 <script>
 import TemplateItem from "./TemplateItem";
 import NewTemplateForm from "./NewTemplateForm";
+import Toggle from "../widgets/Toggle";
 
 export default {
   data() {
@@ -128,6 +123,7 @@ export default {
   components: {
     TemplateItem,
     NewTemplateForm,
+    Toggle,
   },
   computed: {
     moderatedTemplates() {
@@ -148,6 +144,9 @@ export default {
     },
     close() {
       this.$store.commit("closePopups");
+    },
+    toggleEnterPress() {
+      this.$store.commit("toggleEnterSendMessage");
     },
   },
 };

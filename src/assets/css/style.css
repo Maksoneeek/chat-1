@@ -1833,7 +1833,7 @@ body, html {
 .settings {
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 350px;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
   width: 576px;
@@ -1854,7 +1854,7 @@ body, html {
 }
 
 .settings__header-top {
-  height: 55px;
+  height: 50px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1879,7 +1879,7 @@ body, html {
 }
 
 .settings__header-mid {
-  height: 76px;
+  height: 90px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1887,7 +1887,7 @@ body, html {
       -ms-flex-align: center;
           align-items: center;
   background-color: rgba(219, 224, 228, 0.2);
-  padding: 0 0 0 31px;
+  padding: 20px 31px;
 }
 
 .settings__form {
@@ -1895,7 +1895,7 @@ body, html {
 }
 
 .settings__header-bot {
-  height: 57px;
+  height: 50px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

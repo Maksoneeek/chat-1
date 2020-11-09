@@ -21,12 +21,15 @@
 
 <script>
 export default {
-  props: ["id", "text", "toggleHandler"],
+  props: ["id", "text", "toggleHandler", "isActive"],
   computed: {
     active() {
-      return this.$store.state.meta.chatInfo.linked_folders.includes(
-        parseInt(this.id)
-      );
+      if (this.isActive == undefined) {
+        return this.$store.state.meta.chatInfo.linked_folders.includes(
+          parseInt(this.id)
+        );
+      }
+      return this.isActive;
     },
   },
   methods: {

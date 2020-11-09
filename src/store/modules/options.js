@@ -2,6 +2,7 @@ import Api from '../../services/api'
 
 export default {
   state: {
+    enterSendMessage: true,
     options: {}
   },
   mutations: {
@@ -10,6 +11,9 @@ export default {
     },
     removeTemplate(state, id) {
       state.options.templates = state.options.templates.filter(template => template.id !== id)
+    },
+    toggleEnterSendMessage(state) {
+      state.enterSendMessage = !state.enterSendMessage;
     }
   },
   actions: {

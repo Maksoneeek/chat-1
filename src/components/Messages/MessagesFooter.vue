@@ -4,13 +4,15 @@
     :class="{ disabled: $store.getters.isBannedChat }"
   >
     <div class="footer-chat-item__body">
-      <form @submit.prevent="" action="">
+      <form @submit.prevent="createMessage" action="">
         <div class="footer-chat-item__input">
           <textarea
+            @keydown.enter="pressEnter"
             v-if="!template"
             v-model="text"
             name=""
             id="textarea"
+            ref="text"
           ></textarea>
           <div v-else class="footer-chat-item__input_template">
             <div class="footer-chat-item__input_img">
@@ -134,6 +136,17 @@ export default {
     },
     addEmoji(emoji) {
       this.text += emoji;
+    },
+    pressEnter(event) {
+      if (this.$store.state.options.enterSendMessage) {
+        event.preventDefault();
+        if (event.key === "Enter" && event.shiftKey) {
+          this.text = this.text + "\n";
+        } else if (event.key === "Enter") {
+          this.createMessage();
+        }
+        this.$refs.text.focus();
+      }
     },
   },
 };
