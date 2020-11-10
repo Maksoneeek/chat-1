@@ -4,7 +4,6 @@
     class="chat-item__content content-chat-content"
     :class="{
       'info-pad': $store.state.meta.chatInfoOpen,
-      hidden: $store.state.meta.chatInfoOpen,
     }"
   >
     <div
