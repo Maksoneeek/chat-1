@@ -192,7 +192,16 @@ export default {
         const response = await Api.searchMessages(botref, query);
 
         if (response.data.peers) {
-          commit("addChats", response.data.peers);
+          let chats = response.data.peers;
+          const messages = response.data.messages;
+
+          chats = chats.map(chat => {
+            const message = messages.find(m => m.botref + m.chat + m.program == chat.botref + chat.chat + chat.program)
+            chat.last_msg_text = message.text
+            return chat
+          })
+
+          commit("addChats", chats);
         }
         if (response.data.messages) {
           commit("setSearchMessages", response.data.messages);
