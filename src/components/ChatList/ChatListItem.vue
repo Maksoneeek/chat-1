@@ -22,10 +22,10 @@
       <div class="item-list-chat__block">
         <div class="item-list-chat__line line">
           <span class="line__name">
-            {{ item.profile.nickname || item.profile.login }}
+            {{ nickname || login }}
           </span>
           <div class="line__number">
-            {{ item.profile.login }}
+            {{ login }}
             <span
               class="line__messenger"
               :class="{
@@ -34,7 +34,7 @@
                 vb: ['VB'].includes(item.program),
               }"
             >
-              {{ program }}
+              {{ program.split(" ")[0] }}
             </span>
           </div>
         </div>
@@ -89,6 +89,18 @@ export default {
       } else {
         return this.item.last_msg_text.slice(0, 20) + "...";
       }
+    },
+    login() {
+      if (this.item.profile.login.length < 12) {
+        return this.item.profile.login;
+      }
+      return this.item.profile.login.slice(0, 12) + "...";
+    },
+    nickname() {
+      if (this.item.profile.nickname.length < 20) {
+        return this.item.profile.nickname;
+      }
+      return this.item.profile.nickname.slice(0, 20) + "...";
     },
   },
   methods: {
