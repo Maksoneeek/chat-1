@@ -40,3 +40,29 @@ export function calculateLineHeadPosition(ev, element) {
 export function convertTimeMMSS(seconds) {
   return new Date(seconds * 1000).toISOString().substr(14, 5)
 }
+
+export function getColor(char) {
+
+  const index = char.codePointAt() % 16;
+
+  const colors = [
+    '#db4d4d',
+    '#4db8db',
+    '#4db8b8',
+    '#4d94db',
+    '#4d71db',
+    '#9471db',
+    '#b871b8',
+    '#ff944d',
+    '#ff7194',
+    '#ffacc5',
+    '#ffdb71',
+    '#ffb84d',
+    '#b8db4d',
+    '#71b84d',
+    '#6ad19f',
+    '#db94db',
+  ];
+
+  return colors[index]
+}

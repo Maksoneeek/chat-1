@@ -1,6 +1,6 @@
 <template>
   <div v-if="currentChat" class="info__block">
-    <div class="info__icon">
+    <div class="info__icon" :style="'background-color:' + color()">
       <span>{{ firstCharNickname }}</span>
     </div>
     <div class="item-list-chat__line info__line line">
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { getProgram } from "../../services/utils";
+import { getProgram, getColor } from "../../services/utils";
 
 export default {
   computed: {
@@ -51,6 +51,11 @@ export default {
       }
 
       return firtsChar;
+    },
+  },
+  methods: {
+    color() {
+      return getColor(this.firstCharNickname);
     },
   },
 };

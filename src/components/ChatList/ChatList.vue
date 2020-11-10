@@ -67,7 +67,6 @@ export default {
   updated() {
     clearInterval(this.updateChatInterval);
     clearInterval(this.updateUrgentInterval);
-    console.log(this.$store.state.meta.currentFolder.type);
     if (this.$store.state.meta.currentFolder.type == "total") {
       this.updateChatInterval = setInterval(() => {
         this.$store.dispatch("updateUrgentChats");

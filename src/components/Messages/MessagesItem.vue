@@ -8,7 +8,12 @@
     }"
   >
     <div class="content-chat-content__message_container">
-      <div class="content-chat-content__icon icon">{{ sender[0] }}</div>
+      <div
+        class="content-chat-content__icon icon"
+        :style="'background-color:' + color()"
+      >
+        {{ sender[0] }}
+      </div>
       <div class="content-chat-content__block">
         <div class="content-chat-content__line">
           <div class="content-chat-content__name">{{ sender }}</div>
@@ -93,7 +98,7 @@
 </template>
 
 <script>
-import { convertDate } from "../../services/utils";
+import { convertDate, getColor } from "../../services/utils";
 
 export default {
   data() {
@@ -128,6 +133,9 @@ export default {
     },
     onPause() {
       this.audioPlay = false;
+    },
+    color() {
+      return getColor(this.sender[0]);
     },
   },
 };

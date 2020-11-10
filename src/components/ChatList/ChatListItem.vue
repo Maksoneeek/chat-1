@@ -10,6 +10,7 @@
       <div
         class="item-list-chat__icon item-list-chat__icon_new icon"
         :class="{ icon_new: item.sos }"
+        :style="'background-color:' + color()"
       >
         <p class="icon_name">
           {{ firstCharNickname }}
@@ -51,7 +52,7 @@
 </template>
 
 <script>
-import { convertDate, getProgram } from "../../services/utils";
+import { convertDate, getProgram, getColor } from "../../services/utils";
 
 export default {
   props: ["item"],
@@ -110,6 +111,9 @@ export default {
       } else {
         this.$store.dispatch("fetchSearchMessage");
       }
+    },
+    color() {
+      return getColor(this.firstCharNickname);
     },
   },
 };
