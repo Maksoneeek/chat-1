@@ -6,7 +6,7 @@ export default {
     currentChatId: null,
     chatInfo: null,
     currentProgram: null,
-    currentFolder: { id: 100, name: 'Все диалоги', type: "all", img: './static/img/all folders-grey.svg', imgHover: './static/img/all folders.svg' },
+    currentFolder: { id: 100, name: 'Все диалоги', type: "total", img: './static/img/all folders-grey.svg', imgHover: './static/img/all folders.svg' },
     time: 0,
     popups: [
       { title: "write first", open: false },

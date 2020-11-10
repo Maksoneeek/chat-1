@@ -24,6 +24,12 @@ import ChatListItem from "./ChatListItem";
 import ChatLoader from "../loaders/ChatLoader";
 
 export default {
+  data() {
+    return {
+      updateChatInterval: null,
+      updateUrgentInterval: null,
+    };
+  },
   components: {
     ChatListHeader,
     ChatListItem,
@@ -51,12 +57,25 @@ export default {
   mounted() {
     this.$store.dispatch("fetchChatsRequest");
     this.$store.dispatch("fetchUrgentChats");
-    setInterval(() => {
+    this.updateChatInterval = setInterval(() => {
       this.$store.dispatch("updateUrgentChats");
     }, 5000);
-    setInterval(() => {
+    this.updateUrgentInterval = setInterval(() => {
       this.$store.dispatch("updateChats");
     }, 5000);
+  },
+  updated() {
+    clearInterval(this.updateChatInterval);
+    clearInterval(this.updateUrgentInterval);
+    console.log(this.$store.state.meta.currentFolder.type);
+    if (this.$store.state.meta.currentFolder.type == "total") {
+      this.updateChatInterval = setInterval(() => {
+        this.$store.dispatch("updateUrgentChats");
+      }, 5000);
+      this.updateUrgentInterval = setInterval(() => {
+        this.$store.dispatch("updateChats");
+      }, 5000);
+    }
   },
 };
 </script>
