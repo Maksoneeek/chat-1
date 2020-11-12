@@ -10,6 +10,7 @@ class Api {
   fetchChats(botref, time, program, folder_id) {
     return axios.get(`${this.baseUrl}/peers_list`, {
       params: {
+        ...this.settings,
         botref,
         time,
         limit: 32,
@@ -22,6 +23,7 @@ class Api {
   fecthUrgentChats(botref) {
     return axios.get(`${this.baseUrl}/urgent_peers`, {
       params: {
+        ...this.settings,
         botref
       }
     })
@@ -30,6 +32,7 @@ class Api {
   fetchFolders(botref) {
     return axios.get(`${this.baseUrl}/folders`, {
       params: {
+        ...this.settings,
         botref
       }
     })
@@ -38,6 +41,7 @@ class Api {
   fetchQtyFolders(botref) {
     return axios(`${this.baseUrl}/get_chat_counts`, {
       params: {
+        ...this.settings,
         botref
       }
     })
@@ -50,6 +54,7 @@ class Api {
     bodyFormData.append('name', name);
 
     return axios.post(`${this.baseUrl}/createfolder`, bodyFormData, {
+      ...this.settings,
       'Content-Type': 'multipart/form-data'
     }
     )
@@ -58,6 +63,7 @@ class Api {
   fetchOptions(botref) {
     return axios.get(`${this.baseUrl}/opdata`, {
       params: {
+        ...this.settings,
         botref
       }
     })
@@ -75,6 +81,7 @@ class Api {
     }
 
     return axios.post(`${this.baseUrl}/submit_new_template`, bodyFormData, {
+      ...this.settings,
       'Content-Type': 'multipart/form-data'
     })
   }
@@ -82,6 +89,7 @@ class Api {
   deleteTemplate(botref, id) {
     return axios.get(`${this.baseUrl}/del_template`, {
       params: {
+        ...this.settings,
         botref,
         tpl_id: id
       }
@@ -91,6 +99,7 @@ class Api {
   fetchMessagesHistory(botref, program, chat, id) {
     return axios.get(`${this.baseUrl}/history`, {
       params: {
+        ...this.settings,
         botref,
         program,
         chat,
@@ -103,6 +112,7 @@ class Api {
   fetchChatInfo(botref, program, chat) {
     return axios.get(`${this.baseUrl}/chatinfo`, {
       params: {
+        ...this.settings,
         botref,
         program,
         chat
@@ -113,6 +123,7 @@ class Api {
   leaveChat(botref, program, chat) {
     return axios.get(`${this.baseUrl}/leave`, {
       params: {
+        ...this.settings,
         botref,
         program,
         chat
@@ -124,6 +135,7 @@ class Api {
 
     return axios.get(`${this.baseUrl}/linkfolder`, {
       params: {
+        ...this.settings,
         botref,
         program,
         chat,
@@ -136,6 +148,7 @@ class Api {
   writeFirst(botref, phone, msg_text, tpl_id) {
     return axios.get(`${this.baseUrl}/write_first`, {
       params: {
+        ...this.settings,
         botref,
         phone,
         msg_text,
@@ -170,12 +183,14 @@ class Api {
     }
 
     return axios.post(`${this.baseUrl}/send_message`, body, {
+      ...this.settings,
       'Content-Type': 'multipart/form-data'
     });
   }
 
   toggleBanChat(botref, program, chat, is_banned) {
     return axios.get(`${this.baseUrl}/ban`, {
+      ...this.settings,
       params: {
         botref,
         program,
@@ -192,12 +207,14 @@ class Api {
     body.append('chat', chat);
 
     return axios.post(`${this.baseUrl}/reset_unread`, body, {
+      ...this.settings,
       'Content-Type': 'multipart/form-data'
     });
   }
 
   searchMessages(botref, q, program, chat) {
     return axios.get(`${this.baseUrl}/search`, {
+      ...this.settings,
       params: {
         botref,
         program,
@@ -209,6 +226,7 @@ class Api {
 
   onStart(botref, program, chat) {
     return axios.get(`${this.baseUrl}/onstart`, {
+      ...this.settings,
       params: {
         botref,
         program,
