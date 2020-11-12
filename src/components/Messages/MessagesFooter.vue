@@ -127,7 +127,8 @@ export default {
     },
   },
   methods: {
-    createMessage() {
+    createMessage(event) {
+      event.preventDefault();
       this.$store.dispatch("sendMessage");
     },
     toggleTemplateListPopup() {
