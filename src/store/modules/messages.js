@@ -166,7 +166,7 @@ export default {
 
         const response = await Api.sendMessage(botref, currentProgram, currentChatId, text, files, templateId);
         commit('closePopups');
-
+        console.log(response)
         if (response.data.success) {
           dispatch('updateMessages')
           commit("updateText", '')
@@ -285,7 +285,7 @@ export default {
 
         const seenMessagesId = [];
         for (let key in response.data) {
-          console.log(response.data[key])
+
           if (response.data[key] == "seen") {
             seenMessagesId.push(key)
           }

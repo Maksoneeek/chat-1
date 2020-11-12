@@ -11,6 +11,7 @@
     "axios": "^0.20.0",
     "buefy": "^0.9.3",
     "core-js": "^3.6.5",
+    "detect-browser": "^5.2.0",
     "emojis-list": "^3.0.0",
     "lamejs": "^1.2.0",
     "lodash": "^4.17.20",

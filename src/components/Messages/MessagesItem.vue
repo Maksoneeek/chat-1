@@ -47,9 +47,14 @@
           >
             <img :src="message.url" alt="" />
           </div>
-          <video v-else-if="message.type === 'video'" controls>
-            <source :src="message.url" type="video/mp4" />
-          </video>
+          <div v-else-if="message.type === 'video'">
+            <video controls v-if="!browserSupport(message.file_mime)">
+              <source :src="message.url" type="video/mp4" />
+            </video>
+            <a v-else :download="message.file_orig_name" :href="message.url">{{
+              message.file_orig_name
+            }}</a>
+          </div>
           <div
             v-else-if="message.type === 'file'"
             class="content-chat-content__file"
@@ -99,6 +104,7 @@
 
 <script>
 import { convertDate, getColor } from "../../services/utils";
+import { detect } from "detect-browser";
 
 export default {
   data() {
@@ -136,6 +142,20 @@ export default {
     },
     color() {
       return getColor(this.sender[0]);
+    },
+    browserSupport(mime) {
+      const badSupportedMimes = ["video/webm", "video/ogg"];
+      const badBrowsers = ["ie", "safari"];
+
+      const browser = detect();
+
+      if (!badSupportedMimes.includes(mime)) {
+        return true;
+      } else if (!badBrowsers.includes(browser.name)) {
+        return true;
+      } else {
+        return false;
+      }
     },
   },
 };
