@@ -122,6 +122,7 @@ export default {
     this.clearIntervalUpdate();
   },
   updated() {
+    this.$store.dispatch("resetUnreadMessages");
     this.afterFirstScroll = false;
     if (this.$store.state.meta.search && this.$refs.searched) {
       const { offsetTop } = this.$refs.searched[0].$el;

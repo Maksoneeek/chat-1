@@ -197,6 +197,18 @@ export default {
         commit("setIsKnown")
         commit("addChats", [...chats, searchedChat])
       }
+    },
+    resetUnreadMessages({ commit, rootState, state }) {
+      const { botref, currentChatId, currentProgram } = rootState.meta;
+
+      const chats = state.chats.map(chat => {
+        if (chat.botref + chat.chat + chat.program == botref + currentChatId + currentProgram) {
+          chat.unread_msg_count = 0;
+        }
+        return chat;
+      });
+
+      commit("addChats", chats);
     }
   },
   getters: {
