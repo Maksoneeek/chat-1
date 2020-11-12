@@ -6,14 +6,17 @@
     <div class="footer-chat-item__body">
       <form @submit.prevent="createMessage" action="">
         <div class="footer-chat-item__input">
-          <textarea
+          <textarea-autosize
             @keydown.enter="pressEnter"
             v-if="!template"
             v-model="text"
             name=""
             id="textarea"
             ref="text"
-          ></textarea>
+            :min-height="16"
+            :max-height="45"
+            placeholder="Введите сообщение"
+          />
           <div v-else class="footer-chat-item__input_template">
             <div class="footer-chat-item__input_img">
               <img :src="template.image" alt="" />
