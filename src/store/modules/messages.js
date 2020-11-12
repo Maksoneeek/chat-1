@@ -55,6 +55,9 @@ export default {
     },
     setFiles(state, files) {
       state.files = files
+    },
+    setReadStatus(state) {
+      state.messages[0].status = "seen"
     }
   },
   actions: {
@@ -127,6 +130,7 @@ export default {
 
             commit('setStartMessages', messages)
             commit('setFreshMessageId', messages[0].id)
+            //commit('setReadStatus')
           }
 
         } catch (e) {
@@ -270,6 +274,33 @@ export default {
         console.log(e)
       }
     },
+    async updateStatusMessage({ rootState, state, commit }) {
+      const { botref, currentChatId, currentProgram } = rootState.meta;
+      const sentMessages = state.messages.filter(mess => mess.status != "seen");
+      const sentMessagesId = sentMessages.map(mess => mess.id).join(',')
+
+      const response = await Api.updateStatusMessage(botref, currentProgram, currentChatId, sentMessagesId);
+
+      if (response) {
+
+        const seenMessagesId = [];
+        for (let key in response.data) {
+          console.log(response.data[key])
+          if (response.data[key] == "seen") {
+            seenMessagesId.push(key)
+          }
+        }
+
+        const updMessages = state.messages.map(mess => {
+          if (seenMessagesId.includes(String(mess.id))) {
+            mess.status = "seen";
+          }
+          return mess;
+        })
+
+        commit("setMessages", updMessages)
+      }
+    }
   },
   getters: {
     templateId(state) {

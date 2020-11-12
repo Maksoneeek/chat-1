@@ -117,6 +117,7 @@ export default {
   mounted() {
     let elem = this.$el;
     elem.scrollTop = elem.scrollHeight;
+    setInterval(() => this.$store.dispatch("updateStatusMessage"), 5000);
   },
   beforeUpdate() {
     this.clearIntervalUpdate();

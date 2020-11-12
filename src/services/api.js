@@ -183,7 +183,7 @@ class Api {
     }
 
     return axios.post(`${this.baseUrl}/send_message`, body, {
-      ...this.settings,
+      //...this.settings,
       'Content-Type': 'multipart/form-data'
     });
   }
@@ -231,6 +231,18 @@ class Api {
         botref,
         program,
         chat
+      }
+    })
+  }
+
+  updateStatusMessage(botref, program, chat, messages) {
+    return axios.get(`${this.baseUrl}/msg_status`, {
+      // ...this.settings,
+      params: {
+        botref,
+        program,
+        chat,
+        id: messages
       }
     })
   }
