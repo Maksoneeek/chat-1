@@ -13,7 +13,7 @@
     </div>
     <div class="templates__header">
       <div class="templates__title">Ваши шаблоны</div>
-      <form action="" class="templates__search">
+      <form action="" class="templates__search templates__search-2">
         <div>
           <input
             v-model="searchString"

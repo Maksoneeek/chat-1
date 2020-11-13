@@ -69,7 +69,11 @@
           <span> Добавить шаблон</span>
         </div>
       </div>
-      <form v-if="!newFormOpen" action="" class="templates__search">
+      <form
+        v-if="!newFormOpen"
+        action=""
+        class="templates__search templates__search-1"
+      >
         <div>
           <input
             v-model="searchString"

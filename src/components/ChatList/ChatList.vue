@@ -1,5 +1,10 @@
 <template>
-  <div class="chat__list list-chat">
+  <div
+    class="chat__list list-chat"
+    :class="{
+      'none-mobile': !!$store.state.meta.currentChatId,
+    }"
+  >
     <ChatListHeader />
     <div @scroll="onScroll" class="list-chat__scroll">
       <div v-if="$store.state.chats.loading">
@@ -7,7 +12,7 @@
         <ChatLoader></ChatLoader>
         <ChatLoader></ChatLoader>
       </div>
-      <div v-else-if="chats.length === 0">No Chats!</div>
+      <div v-else-if="chats.length === 0" class="no-chats">No Chats!</div>
       <ChatListItem
         v-else
         v-for="chat in chats"

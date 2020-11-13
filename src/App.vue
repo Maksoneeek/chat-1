@@ -1,8 +1,8 @@
 <template>
   <div class="wrapper">
-    <div class="chat" :class="{ pad: folderIsOpen }">
-      <LeftBar />
-      <div class="chat__container">
+    <div class="chat">
+      <div class="chat__container" :class="{ pad: folderIsOpen }">
+        <LeftBar />
         <div class="chat__row">
           <ChatList />
           <StartPage v-if="!$store.state.meta.currentChatId" />

@@ -1,5 +1,11 @@
 <template>
-  <div class="chat__item chat-item">
+  <div
+    class="chat__item chat-item"
+    :class="{
+      block: !!$store.state.meta.currentChatId,
+    }"
+  >
+    <ChatListHeader :mobile="true" />
     <MessagesHeader />
     <MessagesList />
     <MessagesFooter />
@@ -22,6 +28,7 @@ import NewChatPopup from "../ChatList/NewChatPopup";
 import TemplateListPopup from "../Templates/TemplateListPopup";
 import SettingsPopup from "../Templates/SettingsPopup";
 import ChatInfo from "../ChatInfo/ChatInfo";
+import ChatListHeader from "../ChatList/ChatListHeader";
 
 export default {
   components: {
@@ -32,6 +39,7 @@ export default {
     TemplateListPopup,
     SettingsPopup,
     ChatInfo,
+    ChatListHeader,
   },
   mounted() {
     //this.$store.dispatch("fetchMessagesRequest");

@@ -9,7 +9,7 @@
       <div
         v-if="chosenOption.image === 1"
         @click="chooseImage"
-        class="new-templates__frame"
+        class="new-templates__frame new-templates__frame_screen"
       >
         <img src="@/assets/img/image.png" alt="" />
         <span> Изображение</span>
@@ -35,12 +35,16 @@
             placeholder="Название шаблона..."
           />
         </div>
-        <div class="new-templates__input">
+        <div class="new-templates__input new-templates__input_2">
           <input
             v-model="templateText"
             type="text"
             placeholder="Введите текст шаблона..."
           />
+        </div>
+        <div class="new-templates__frame new-templates__frame_mobile">
+          <img src="@/assets/img/image.png" alt="" />
+          <span> Изображение</span>
         </div>
       </div>
       <div class="templates__item new-templates__item">

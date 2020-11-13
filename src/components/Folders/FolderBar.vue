@@ -1,5 +1,5 @@
 <template>
-  <div class="chat__letters letters-chat">
+  <div class="chat__letters letters-chat" :class="{ open: folderIsOpen }">
     <div class="letters-chat__body">
       <FolderList />
       <CreateFolderForm />
@@ -15,6 +15,11 @@ export default {
   components: {
     FolderList,
     CreateFolderForm,
+  },
+  computed: {
+    folderIsOpen() {
+      return this.$store.state.meta.foldersIsOpen;
+    },
   },
 };
 </script>

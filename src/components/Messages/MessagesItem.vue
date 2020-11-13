@@ -82,6 +82,7 @@
               :src="message.url"
               preload="auto"
               controls
+              controlsList="nodownload"
             ></audio>
           </div>
           <div

@@ -1,5 +1,8 @@
 <template>
-  <div class="list-chat__header header-list-chat">
+  <div
+    class="list-chat__header header-list-chat"
+    :class="{ 'header-list-chat-mobile': mobile }"
+  >
     <div v-if="!searchOpen" class="header-list-chat__title">
       Ваши диалоги <span>({{ chatsLength() }})</span>
     </div>
@@ -113,6 +116,7 @@
 import SearchPanel from "../widgets/SearchPanel";
 
 export default {
+  props: ["mobile"],
   data() {
     return {
       searchOpen: false,

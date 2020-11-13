@@ -51,7 +51,7 @@
             </div>
             <div
               @click="openTemplates"
-              class="footer-chat-item__templates popup-new__templates templates-open-2"
+              class="footer-chat-item__templates popup-new__templates popup-new__templates_screen templates-open-2"
               :class="{ 'active-template': $store.state.messages.templateId }"
             >
               <div class="footer-chat-item__templates_icon">
@@ -77,7 +77,7 @@
               <div class="footer-chat-item__templates_text">Шаблоны</div>
             </div>
           </div>
-          <div class="popup-new__row">
+          <div class="popup-new__row popup-new__row_2">
             <div class="popup-new__input popup-new__input_b">
               <input
                 v-model="message"
