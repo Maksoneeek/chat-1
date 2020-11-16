@@ -3,9 +3,9 @@ import Api from '../../services/api';
 export default {
   state: {
     mailFolders: [
-      { id: 100, name: 'Все диалоги', type: "total", img: './static/img/all folders-grey.svg', imgHover: './static/img/all folders.svg' },
       { id: 101, name: 'Непрочитанные', type: "unread", img: './static/img/close mail-grey.svg', imgHover: './static/img/close mail.svg' },
       { id: 102, name: 'Прочитанные', type: "read", img: './static/img/open mail-grey.svg', imgHover: './static/img/open mail.svg' },
+      { id: 100, name: 'Все диалоги', type: "total", img: './static/img/all folders-grey.svg', imgHover: './static/img/all folders.svg' },
     ],
     programFolders: [
       { id: 200, name: 'Telegram', program: "TL", img: './static/img/telega.png' },
@@ -79,10 +79,25 @@ export default {
 
         const response = await Api.linkFolder(botref, currentProgram, currentChatId, folder_id, unlink);
 
+        if (response.data.success) {
+          dispatch("fetchChatInfoRequest");
+          dispatch("fetchQtyFoldersRequest");
+        }
+
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    async deleteFolderRequest({ dispatch, rootState }, folder_id) {
+      try {
+        const { botref } = rootState.meta;
+
+        const response = await Api.deleteFolder(botref, folder_id);
+
         console.log(response)
 
         if (response.data.success) {
-          dispatch("fetchChatInfoRequest");
+          dispatch("fetchFoldersRequest");
         }
 
       } catch (e) {

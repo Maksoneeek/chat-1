@@ -13,7 +13,7 @@
               vb: ['VB'].includes(currentChat.program),
             }"
           >
-            {{ program }}
+            {{ program.split(" ")[0] }}
           </span>
         </div>
       </span>
@@ -37,7 +37,9 @@
           />
         </svg>
       </span>
-      <SearchPanel :onDispatch="'searchInChat'" />
+      <div class="header-item-chat__search">
+        <SearchPanel :onDispatch="'searchInChat'" />
+      </div>
     </div>
     <div
       v-if="isConnected"
